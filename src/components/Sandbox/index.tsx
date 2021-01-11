@@ -1,8 +1,18 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
+import Select from '../../ui/Select'
 import Input from '../../ui/Input'
 
+const list = [
+  'first',
+  'second',
+  'third',
+]
 
 const Sandbox: FC = () => {
+
+  /* state */
+  const [selectedListItem, setSelectedListItem] = useState<undefined | number>(undefined)
+
   return (
     <div style={{
       padding: '100px 0',
@@ -20,6 +30,12 @@ const Sandbox: FC = () => {
         <Input placeholder="Hello" label="Label" required error="Поле должно быть обязательным" />
         <Input placeholder="Hello" />
         <Input />
+        <Select
+          placeholder="Выберите список TODO"
+          selected={selectedListItem}
+          list={list}
+          selectItem={setSelectedListItem}
+        />
       </div>
     </div>
   )

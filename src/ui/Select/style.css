@@ -1,0 +1,80 @@
+.Select {
+    border: 2px solid #3F72AF;
+    border-radius: 4px;
+    height: 46px;
+    font-size: 20px;
+    line-height: 46px;
+    font-family: Roboto, serif;
+    display: grid;
+    grid-template-columns: 1fr 44px;
+    cursor: pointer;
+    position: relative;
+    outline: none;
+}
+
+.Select:hover,
+.Select:focus {
+    border-color: #257FEA;
+}
+
+.Select__title {
+    padding-left: 8px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.Select__img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Select__list {
+    position: absolute;
+    top: 50px;
+    left: -2px;
+    right: -2px;
+    border: 2px solid #257FEA;
+    border-radius: 4px;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.Select__listItem {
+    height: 46px;
+    padding: 0 8px;
+}
+
+.Select__listItem:hover {
+    background: linear-gradient(0deg, rgba(37, 127, 234, 0.3), rgba(37, 127, 234, 0.3)), #BFCBE3;
+    color: white;
+}
+
+.Select__listItem:first-child {
+    border-radius: 2px 2px 0 0;
+}
+
+.Select__listItem:last-child {
+    border-radius: 0 0 2px 2px;
+}
+
+.Select__listItem_selected {
+    background: #3F72AF !important;
+}
+
+.Select_opened .Select__img {
+    transform: rotateZ(180deg);
+}
+
+.Select svg {
+    color: #3F72AF;
+}
+
+.Select:hover svg,
+.Select:focus svg {
+    color: #257FEA;
+}
+
+.Select__title_default {
+    color: #808080;
+}

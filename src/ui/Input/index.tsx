@@ -1,5 +1,7 @@
 import { FC } from 'react'
 import './style.css'
+import cn from 'classnames'
+
 
 type PropsType = React.InputHTMLAttributes<HTMLInputElement> & {
   label?: string
@@ -12,7 +14,7 @@ const Input: FC<PropsType> = (props) => {
   const { label, required, error, type = 'text', ...all } = props
 
   return (
-    <div className={`Input ${!!error ? 'Input_error' : ''}`}>
+    <div className={cn('Input', { Input_error: !!error })}>
       <label className="Input__label">
         {label}{required ? <span className="Input__ast">*</span> : null}
       </label>
