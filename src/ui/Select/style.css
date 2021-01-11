@@ -31,6 +31,7 @@
 }
 
 .Select__list {
+    background: #DBE2EF;
     position: absolute;
     top: 50px;
     left: -2px;

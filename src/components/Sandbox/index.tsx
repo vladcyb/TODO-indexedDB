@@ -1,6 +1,7 @@
 import { FC, useState } from 'react'
 import Select from '../../ui/Select'
 import Input from '../../ui/Input'
+import Button from '../../ui/Button'
 
 const list = [
   'first',
@@ -36,6 +37,8 @@ const Sandbox: FC = () => {
           list={list}
           selectItem={setSelectedListItem}
         />
+        <Button>Click me!</Button>
+        <Button variant="secondary">Click me!</Button>
       </div>
     </div>
   )
