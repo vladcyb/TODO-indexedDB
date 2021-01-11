@@ -1,0 +1,28 @@
+import { FC } from 'react'
+import Input from '../../ui/Input'
+
+
+const Sandbox: FC = () => {
+  return (
+    <div style={{
+      padding: '100px 0',
+      backgroundColor: '#DBE2EF',
+    }}>
+      <div style={{
+        margin: '50px 100px',
+        height: '500px',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+      }}>
+        <Input placeholder="Hello" label="Label" required />
+        <Input placeholder="Hello" required />
+        <Input placeholder="Hello" label="Label" required error="Поле должно быть обязательным" />
+        <Input placeholder="Hello" />
+        <Input />
+      </div>
+    </div>
+  )
+}
+
+export default Sandbox

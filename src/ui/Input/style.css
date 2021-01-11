@@ -1,0 +1,55 @@
+.Input {
+    height: 46px;
+    position: relative;
+}
+
+.Input * {
+    font-family: Roboto, serif;
+    font-weight: 400;
+}
+
+.Input_error .Input__input {
+    border-color: #EC1D1D !important;
+}
+
+.Input_error .Input__label {
+    color: #EC1D1D !important;
+}
+
+.Input__input {
+    font-size: 20px;
+    height: 46px;
+    border: 2px solid #3F72AF;
+    border-radius: 4px;
+    width: 100%;
+    padding: 0 8px;
+    background: transparent;
+    outline: none;
+}
+
+.Input__input:hover,
+.Input__input:focus {
+    border: 2px solid #257FEA;
+}
+
+.Input__label {
+    font-size: 18px;
+    color: #3F72AF;
+    line-height: 20px;
+    position: absolute;
+    background: #DBE2EF;
+    left: 11px;
+    top: -10px;
+    padding: 0 2px;
+}
+
+.Input__ast {
+    color: #EC1D1D;
+}
+
+.Input__error {
+    color: #EC1D1D;
+    font-size: 14px;
+    line-height: 20px;
+    padding-left: 8px;
+}
