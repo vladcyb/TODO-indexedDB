@@ -1,5 +1,5 @@
-import { FC } from 'react'
-import './style.css'
+import { FC } from 'react';
+import './style.css';
 
 
 const Header: FC = () => {
@@ -22,7 +22,7 @@ const Header: FC = () => {
         Добавить задачу
       </button>
     </div>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

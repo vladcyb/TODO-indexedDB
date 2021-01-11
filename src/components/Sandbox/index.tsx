@@ -1,19 +1,19 @@
-import { FC, useState } from 'react'
-import Select from '../../ui/Select'
-import Input from '../../ui/Input'
-import Button from '../../ui/Button'
-import Header from '../../ui/Header'
+import { FC, useState } from 'react';
+import Select from '../../ui/Select';
+import Input from '../../ui/Input';
+import Button from '../../ui/Button';
+import Header from '../../ui/Header';
 
 const list = [
   'first',
   'second',
   'third',
-]
+];
 
 const Sandbox: FC = () => {
 
   /* state */
-  const [selectedListItem, setSelectedListItem] = useState<undefined | number>(undefined)
+  const [selectedListItem, setSelectedListItem] = useState<undefined | number>(undefined);
 
   return (
     <div>
@@ -48,7 +48,7 @@ const Sandbox: FC = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Sandbox
+export default Sandbox;

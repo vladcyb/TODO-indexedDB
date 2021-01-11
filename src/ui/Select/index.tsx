@@ -1,6 +1,6 @@
-import { Dispatch, FC, SetStateAction, useState } from 'react'
-import './style.css'
-import cn from 'classnames'
+import { Dispatch, FC, SetStateAction, useState } from 'react';
+import './style.css';
+import cn from 'classnames';
 
 type PropsType = {
   placeholder: string
@@ -12,10 +12,10 @@ type PropsType = {
 const Select: FC<PropsType> = (props) => {
 
   /* props */
-  const { placeholder, list, selected, selectItem } = props
+  const { placeholder, list, selected, selectItem } = props;
 
   /* state */
-  const [isOpened, setIsOpened] = useState(false)
+  const [isOpened, setIsOpened] = useState(false);
 
   return (
     <div
@@ -48,7 +48,7 @@ const Select: FC<PropsType> = (props) => {
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default Select
+export default Select;

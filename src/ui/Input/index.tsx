@@ -1,6 +1,6 @@
-import { FC } from 'react'
-import './style.css'
-import cn from 'classnames'
+import { FC } from 'react';
+import './style.css';
+import cn from 'classnames';
 
 
 type PropsType = React.InputHTMLAttributes<HTMLInputElement> & {
@@ -11,7 +11,7 @@ type PropsType = React.InputHTMLAttributes<HTMLInputElement> & {
 const Input: FC<PropsType> = (props) => {
 
   /* props */
-  const { label, required, error, type = 'text', ...all } = props
+  const { label, required, error, type = 'text', ...all } = props;
 
   return (
     <div className={cn('Input', { Input_error: !!error })}>
@@ -27,7 +27,7 @@ const Input: FC<PropsType> = (props) => {
         {error}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Input
+export default Input;

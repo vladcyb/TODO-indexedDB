@@ -1,5 +1,5 @@
-import { FC } from 'react'
-import './style.css'
+import { FC } from 'react';
+import './style.css';
 
 
 type PropsType = React.HTMLAttributes<HTMLButtonElement> & {
@@ -9,7 +9,7 @@ type PropsType = React.HTMLAttributes<HTMLButtonElement> & {
 const Button: FC<PropsType> = (props) => {
 
   /* props */
-  const { onClick, children, variant = 'primary' } = props
+  const { onClick, children, variant = 'primary' } = props;
 
   return (
     <button
@@ -18,7 +18,7 @@ const Button: FC<PropsType> = (props) => {
     >
       {children}
     </button>
-  )
-}
+  );
+};
 
-export default Button
+export default Button;
