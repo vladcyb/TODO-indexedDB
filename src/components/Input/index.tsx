@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import './style.css';
-import cn from 'classnames';
+import { createCn } from 'bem-react-classname';
 
 
 type PropsType = React.InputHTMLAttributes<HTMLInputElement> & {
@@ -11,19 +11,22 @@ type PropsType = React.InputHTMLAttributes<HTMLInputElement> & {
 export const Input: FC<PropsType> = (props) => {
 
   /* props */
-  const { label, required, error, type = 'text', ...all } = props;
+  const { label, required, error, type = 'text', className, ...all } = props;
+
+  /* classes */
+  const cn = createCn('input', className);
 
   return (
-    <div className={cn('Input', { Input_error: !!error })}>
-      <label className="Input__label">
-        {label}{required ? <span className="Input__ast">*</span> : null}
+    <div className={cn({ error: !!error })}>
+      <label className={cn('label')}>
+        {label}{required ? <span className={cn('ast')}>*</span> : null}
       </label>
       <input
-        className="Input__input"
+        className={cn('input')}
         type={type}
         {...all}
       />
-      <div className="Input__error">
+      <div className={cn('error')}>
         {error}
       </div>
     </div>

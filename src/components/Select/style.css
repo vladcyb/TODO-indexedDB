@@ -1,4 +1,4 @@
-.Select {
+.select {
     border: 2px solid #3F72AF;
     border-radius: 4px;
     height: 46px;
@@ -17,25 +17,25 @@
     user-select: none;
 }
 
-.Select:hover,
-.Select:focus {
+.select:hover,
+.select:focus {
     border-color: #257FEA;
 }
 
-.Select__title {
+.select__title {
     padding-left: 8px;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
 }
 
-.Select__img {
+.select__img {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.Select__list {
+.select__list {
     background: #DBE2EF;
     position: absolute;
     top: 50px;
@@ -46,41 +46,41 @@
     box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-.Select__listItem {
+.select__item {
     height: 46px;
     padding: 0 8px;
 }
 
-.Select__listItem:hover {
+.select__item:hover {
     background: linear-gradient(0deg, rgba(37, 127, 234, 0.3), rgba(37, 127, 234, 0.3)), #BFCBE3;
     color: white;
 }
 
-.Select__listItem:first-child {
+.select__item:first-child {
     border-radius: 2px 2px 0 0;
 }
 
-.Select__listItem:last-child {
+.select__item:last-child {
     border-radius: 0 0 2px 2px;
 }
 
-.Select__listItem_selected {
+.select__item_selected {
     background: #3F72AF !important;
 }
 
-.Select_opened .Select__img {
+.select_opened .select__img {
     transform: rotateZ(180deg);
 }
 
-.Select svg {
+.select svg {
     color: #3F72AF;
 }
 
-.Select:hover svg,
-.Select:focus svg {
+.select:hover svg,
+.select:focus svg {
     color: #257FEA;
 }
 
-.Select__title_default {
+.select__title_default {
     color: #808080;
 }

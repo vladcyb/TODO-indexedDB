@@ -1,4 +1,4 @@
-.Button {
+.button {
     border: none;
     font-size: 20px;
     font-family: Roboto, serif;
@@ -9,34 +9,34 @@
     transition: background-color 100ms ease-in-out, color 100ms ease-in-out;
 }
 
-.Button_primary {
+.button_primary {
     color: white;
     background: #3F72AF;
 }
 
-.Button_primary:hover,
-.Button_primary:focus {
+.button_primary:hover,
+.button_primary:focus {
     background: #257FEA;
 }
 
-.Button_primary:active {
+.button_primary:active {
     background: #65ABFF;
 }
 
-.Button_secondary {
+.button_secondary {
     color: #3F72AF;
     background: #DBE2EF;
     border: 2px solid #3F72AF;
 }
 
-.Button_secondary:hover,
-.Button_secondary:focus {
+.button_secondary:hover,
+.button_secondary:focus {
     background: rgba(37, 127, 234, 0.2);
     color: #257FEA;
     border-color: #257FEA;
 }
 
-.Button_secondary:active {
+.button_secondary:active {
     background: #257FEA;
     color: white;
 }

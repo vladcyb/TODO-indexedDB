@@ -33,7 +33,7 @@ export const Sandbox: FC = () => {
         }}>
           <Input placeholder="Hello" label="Label" required />
           <Input placeholder="Hello" required />
-          <Input placeholder="Hello" label="Label" required error="Поле должно быть обязательным" />
+          <Input className="Hello" placeholder="Hello" label="Label" required error="Поле должно быть обязательным" />
           <Input placeholder="Hello" />
           <Input />
           <Select
@@ -42,7 +42,7 @@ export const Sandbox: FC = () => {
             list={list}
             selectItem={setSelectedListItem}
           />
-          <Button>Click me!</Button>
+          <Button className="HelloButton">Click me!</Button>
           <Button variant="secondary">Click me!</Button>
         </div>
       </div>

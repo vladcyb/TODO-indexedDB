@@ -1,22 +1,22 @@
-.Input {
+.input {
     height: 46px;
     position: relative;
 }
 
-.Input * {
+.input * {
     font-family: Roboto, serif;
     font-weight: 400;
 }
 
-.Input_error .Input__input {
+.input_error .input__input {
     border-color: #EC1D1D !important;
 }
 
-.Input_error .Input__label {
+.input_error .input__label {
     color: #EC1D1D !important;
 }
 
-.Input__input {
+.input__input {
     font-size: 20px;
     height: 46px;
     border: 2px solid #3F72AF;
@@ -27,12 +27,12 @@
     outline: none;
 }
 
-.Input__input:hover,
-.Input__input:focus {
+.input__input:hover,
+.input__input:focus {
     border: 2px solid #257FEA;
 }
 
-.Input__label {
+.input__label {
     font-size: 18px;
     color: #3F72AF;
     line-height: 20px;
@@ -43,11 +43,11 @@
     padding: 0 2px;
 }
 
-.Input__ast {
+.input__ast {
     color: #EC1D1D;
 }
 
-.Input__error {
+.input__error {
     color: #EC1D1D;
     font-size: 14px;
     line-height: 20px;

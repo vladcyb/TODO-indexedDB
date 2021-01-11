@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import './style.css';
+import { createCn } from 'bem-react-classname';
 
 
 type PropsType = React.HTMLAttributes<HTMLButtonElement> & {
@@ -9,11 +10,14 @@ type PropsType = React.HTMLAttributes<HTMLButtonElement> & {
 export const Button: FC<PropsType> = (props) => {
 
   /* props */
-  const { onClick, children, variant = 'primary' } = props;
+  const { onClick, children, variant = 'primary', className } = props;
+
+  /* classes */
+  const cn = createCn('button', className);
 
   return (
     <button
-      className={`Button Button_${variant}`}
+      className={cn({ [variant]: true })}
       onClick={onClick}
     >
       {children}
