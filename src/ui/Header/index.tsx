@@ -6,7 +6,7 @@ const Header: FC = () => {
   return (
     <div className="Header">
       <div className="Header__left">
-        <div className="Header__title">ToDo List</div>
+        <span className="Header__title">ToDo List</span>
         <nav>
           <ul className="Header__ul">
             <li>
