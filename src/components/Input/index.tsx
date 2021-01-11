@@ -8,7 +8,7 @@ type PropsType = React.InputHTMLAttributes<HTMLInputElement> & {
   error?: string
 }
 
-const Input: FC<PropsType> = (props) => {
+export const Input: FC<PropsType> = (props) => {
 
   /* props */
   const { label, required, error, type = 'text', ...all } = props;
@@ -29,5 +29,3 @@ const Input: FC<PropsType> = (props) => {
     </div>
   );
 };
-
-export default Input;

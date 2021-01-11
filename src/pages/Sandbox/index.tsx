@@ -1,8 +1,8 @@
 import { FC, useState } from 'react';
-import Select from '../../ui/Select';
-import Input from '../../ui/Input';
-import Button from '../../ui/Button';
-import Header from '../../ui/Header';
+import { Select } from '../../components/Select';
+import { Input } from '../../components/Input';
+import { Button } from '../../components/Button';
+import { Header } from '../../components/Header';
 
 const list = [
   'first',
@@ -10,7 +10,7 @@ const list = [
   'third',
 ];
 
-const Sandbox: FC = () => {
+export const Sandbox: FC = () => {
 
   /* state */
   const [selectedListItem, setSelectedListItem] = useState<undefined | number>(undefined);
@@ -31,7 +31,6 @@ const Sandbox: FC = () => {
           flexDirection: 'column',
           justifyContent: 'space-between',
         }}>
-
           <Input placeholder="Hello" label="Label" required />
           <Input placeholder="Hello" required />
           <Input placeholder="Hello" label="Label" required error="Поле должно быть обязательным" />
@@ -50,5 +49,3 @@ const Sandbox: FC = () => {
     </div>
   );
 };
-
-export default Sandbox;

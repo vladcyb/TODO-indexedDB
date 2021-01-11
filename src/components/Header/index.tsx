@@ -2,7 +2,7 @@ import { FC } from 'react';
 import './style.css';
 
 
-const Header: FC = () => {
+export const Header: FC = () => {
   return (
     <div className="Header">
       <div className="Header__left">
@@ -24,5 +24,3 @@ const Header: FC = () => {
     </div>
   );
 };
-
-export default Header;

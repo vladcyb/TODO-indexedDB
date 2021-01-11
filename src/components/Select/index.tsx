@@ -9,7 +9,7 @@ type PropsType = {
   selectItem: Dispatch<SetStateAction<undefined | number>>
 }
 
-const Select: FC<PropsType> = (props) => {
+export const Select: FC<PropsType> = (props) => {
 
   /* props */
   const { placeholder, list, selected, selectItem } = props;
@@ -17,10 +17,15 @@ const Select: FC<PropsType> = (props) => {
   /* state */
   const [isOpened, setIsOpened] = useState(false);
 
+  /* methods */
+  const toggle = () => {
+    setIsOpened(value => !value);
+  };
+
   return (
     <div
       className={cn('Select', { Select_opened: isOpened })}
-      onClick={() => setIsOpened(value => !value)}
+      onClick={toggle}
       tabIndex={0}
       role="button"
     >
@@ -38,9 +43,9 @@ const Select: FC<PropsType> = (props) => {
         <div className="Select__list">
           {list.map((item, index) => (
             <div className={cn(
-              'Select__listItem',
-              { Select__listItem_selected: index === selected },
-            )}
+              'Select__listItem', {
+                Select__listItem_selected: index === selected,
+              })}
                  onClick={() => selectItem(index)}>
               {item}
             </div>
@@ -50,5 +55,3 @@ const Select: FC<PropsType> = (props) => {
     </div>
   );
 };
-
-export default Select;
