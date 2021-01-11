@@ -1,0 +1,40 @@
+.Header {
+    background: #3F72AF;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 30px 20px 24px;
+}
+
+.Header__left {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.Header__title {
+    font-family: Roboto, serif;
+    font-size: 36px;
+    line-height: 40px;
+    color: white;
+}
+
+.Header__navBtn {
+    font-family: Roboto, serif;
+    font-size: 24px;
+    line-height: 40px;
+    color: #DBE2EF;
+    text-decoration: underline;
+}
+
+.Header__ul {
+    list-style: none;
+}
+
+.Header__addTask {
+    font-family: Roboto, serif;
+    font-size: 20px;
+    line-height: 46px;
+    height: 46px;
+    color: white;
+}
