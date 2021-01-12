@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { Modal } from '../Modal';
 import { Input } from '../Input';
 import { createCn } from 'bem-react-classname';
@@ -13,6 +13,8 @@ type PropsType = {
   onClose: () => void
   onConfirm: () => void
   open: boolean
+  initialName: string
+  initialDescription: string
 }
 
 const verbs = {
@@ -24,6 +26,9 @@ export const ModalCategory: FC<PropsType> = ({
                                                type,
                                                className,
                                                onConfirm,
+                                               onClose,
+                                               initialDescription,
+                                               initialName,
                                                ...modalProps
                                              }) => {
   /* classes */
@@ -42,10 +47,17 @@ export const ModalCategory: FC<PropsType> = ({
     setDescription(e.target.value);
   };
 
+  const handleClose = () => {
+    setName(initialName);
+    setDescription(initialDescription);
+    onClose();
+  };
+
   return (
     <Modal
       className={cn()}
       title={`${verbs[type][0]} категории`}
+      onClose={handleClose}
       {...modalProps}
     >
       <Input
@@ -67,7 +79,7 @@ export const ModalCategory: FC<PropsType> = ({
         <Button className={cn('confirm')} onClick={onConfirm}>
           {verbs[type][1]}
         </Button>
-        <Button variant="secondary" onClick={modalProps.onClose}>
+        <Button variant="secondary" onClick={handleClose}>
           Закрыть
         </Button>
       </div>

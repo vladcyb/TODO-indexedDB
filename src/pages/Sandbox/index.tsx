@@ -149,6 +149,9 @@ export const Sandbox: FC = () => {
         onConfirm={onConfirm}
         categories={['1', '2', '3']}
         type="create"
+        initialCategory={undefined}
+        initialName=""
+        initialDescription=""
       />
       <ModalTask
         onClose={closeFourthModal}
@@ -156,6 +159,9 @@ export const Sandbox: FC = () => {
         onConfirm={onConfirm}
         categories={['1', '2', '3']}
         type="edit"
+        initialCategory={undefined}
+        initialName=""
+        initialDescription=""
       />
       <ModalCategory
         onConfirm={onConfirm}
@@ -163,6 +169,8 @@ export const Sandbox: FC = () => {
         type="create"
         onClose={closeFifthModal}
         open={showFifthModal}
+        initialName=""
+        initialDescription=""
       />
       <ModalCategory
         onConfirm={onConfirm}
@@ -170,6 +178,8 @@ export const Sandbox: FC = () => {
         type="edit"
         onClose={closeSixthModal}
         open={showSixthModal}
+        initialName=""
+        initialDescription=""
       />
     </div>
   );

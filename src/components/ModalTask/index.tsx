@@ -17,6 +17,9 @@ type PropsType = {
   className?: string
   categories: string[]
   onConfirm: () => void
+  initialName: string
+  initialDescription: string
+  initialCategory: undefined | number
 }
 
 const verbs = {
@@ -28,13 +31,17 @@ export const ModalTask: FC<PropsType> = ({
                                            type,
                                            categories,
                                            onConfirm,
+                                           initialName,
+                                           initialDescription,
+                                           initialCategory,
+                                           onClose,
                                            ...modalProps
                                          }) => {
 
   /* state */
-  const [name, setName] = useState('');
-  const [currentCategory, setCurrentCategory] = useState<number | undefined>(undefined);
-  const [description, setDescription] = useState('');
+  const [name, setName] = useState(initialName);
+  const [currentCategory, setCurrentCategory] = useState<number | undefined>(initialCategory);
+  const [description, setDescription] = useState(initialDescription);
 
   /* methods */
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,10 +52,18 @@ export const ModalTask: FC<PropsType> = ({
     setDescription(e.target.value);
   };
 
+  const handleClose = () => {
+    setName(initialName);
+    setCurrentCategory(initialCategory);
+    setDescription(initialDescription);
+    onClose();
+  };
+
   return (
     <Modal
       className={cn()}
       title={`${verbs[type][0]} задачи`}
+      onClose={handleClose}
       {...modalProps}
     >
       <div className={cn('body')}>
@@ -83,7 +98,7 @@ export const ModalTask: FC<PropsType> = ({
         <Button
           className={cn('closeControl')}
           variant="secondary"
-          onClick={modalProps.onClose}
+          onClick={handleClose}
         >
           Закрыть
         </Button>
