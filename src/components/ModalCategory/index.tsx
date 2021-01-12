@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { Modal } from '../Modal';
 import { Input } from '../Input';
 import { createCn } from 'bem-react-classname';
@@ -29,6 +29,19 @@ export const ModalCategory: FC<PropsType> = ({
   /* classes */
   const cn = createCn('modalCategory', className);
 
+  /* state */
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+
+  /* methods */
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setName(e.target.value);
+  };
+
+  const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setDescription(e.target.value);
+  };
+
   return (
     <Modal
       className={cn()}
@@ -40,11 +53,15 @@ export const ModalCategory: FC<PropsType> = ({
         required
         label="Имя"
         placeholder="Введите имя категории"
+        onChange={handleNameChange}
+        value={name}
       />
       <Textarea
         className={cn('description')}
         label="Описание"
         placeholder="Введите описание категории"
+        onChange={handleDescriptionChange}
+        value={description}
       />
       <div className={cn('controls')}>
         <Button className={cn('confirm')} onClick={onConfirm}>

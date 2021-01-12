@@ -25,9 +25,6 @@ export const Sandbox: FC = () => {
   const [showFifthModal, setShowFifthModal] = useState(false);
   const [showSixthModal, setShowSixthModal] = useState(false);
 
-  const [currentCategoryToCreate, setCurrentCategoryToCreate] = useState<undefined | number>(undefined);
-  const [currentCategoryToEdit, setCurrentCategoryToEdit] = useState<undefined | number>(undefined);
-
   /* methods */
   const onConfirmDelete = () => {
     console.log('deleted');
@@ -147,22 +144,18 @@ export const Sandbox: FC = () => {
         onConfirm={onConfirmDelete}
       />
       <ModalTask
-        categories={['home', 'work']}
-        currentCategory={currentCategoryToCreate}
-        setCategory={setCurrentCategoryToCreate}
-        type="create"
         onClose={closeThirdModal}
         open={showThirdModal}
         onConfirm={onConfirm}
+        categories={['1', '2', '3']}
+        type="create"
       />
       <ModalTask
-        categories={['1', '2', '3']}
-        currentCategory={currentCategoryToEdit}
-        setCategory={setCurrentCategoryToEdit}
-        type="edit"
         onClose={closeFourthModal}
         open={showFourthModal}
         onConfirm={onConfirm}
+        categories={['1', '2', '3']}
+        type="edit"
       />
       <ModalCategory
         onConfirm={onConfirm}

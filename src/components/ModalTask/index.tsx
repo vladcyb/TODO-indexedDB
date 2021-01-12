@@ -1,4 +1,4 @@
-import { Dispatch, FC, SetStateAction } from 'react';
+import React, { FC, useState } from 'react';
 import { Modal } from '../Modal';
 import { Input } from '../Input';
 import { createCn } from 'bem-react-classname';
@@ -15,8 +15,6 @@ type PropsType = {
   onClose: () => void
   open: boolean
   className?: string
-  currentCategory: number | undefined
-  setCategory: Dispatch<SetStateAction<undefined | number>>
   categories: string[]
   onConfirm: () => void
 }
@@ -28,46 +26,68 @@ const verbs = {
 
 export const ModalTask: FC<PropsType> = ({
                                            type,
-                                           setCategory,
                                            categories,
-                                           currentCategory,
                                            onConfirm,
                                            ...modalProps
-                                         }) => (
-  <Modal
-    className={cn()}
-    title={`${verbs[type][0]} задачи`}
-    {...modalProps}
-  >
-    <div className={cn('body')}>
-      <div className={cn('grid')}>
-        <Input
-          className={cn('name')}
-          label="Имя"
-          placeholder="Введите имя задачи"
-          required
-        />
-        <Select
-          className={cn('category')}
-          placeholder="Выберите категорию"
-          list={categories}
-          selectItem={setCategory}
-          selected={currentCategory}
-        />
-        <Textarea className={cn('description')} />
+                                         }) => {
+
+  /* state */
+  const [name, setName] = useState('');
+  const [currentCategory, setCurrentCategory] = useState<number | undefined>(undefined);
+  const [description, setDescription] = useState('');
+
+  /* methods */
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setName(e.target.value);
+  };
+
+  const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setDescription(e.target.value);
+  };
+
+  return (
+    <Modal
+      className={cn()}
+      title={`${verbs[type][0]} задачи`}
+      {...modalProps}
+    >
+      <div className={cn('body')}>
+        <div className={cn('grid')}>
+          <Input
+            className={cn('name')}
+            label="Имя"
+            placeholder="Введите имя задачи"
+            required
+            value={name}
+            onChange={handleNameChange}
+          />
+          <Select
+            className={cn('category')}
+            placeholder="Выберите категорию"
+            list={categories}
+            selectItem={setCurrentCategory}
+            selected={currentCategory}
+          />
+          <Textarea
+            className={cn('description')}
+            placeholder="Введите описание задачи"
+            value={description}
+            onChange={handleDescriptionChange}
+          />
+        </div>
       </div>
-    </div>
-    <div className={cn('controls')}>
-      <Button className={cn('createControl')} onClick={onConfirm}>
-        {verbs[type][1]}
-      </Button>
-      <Button
-        className={cn('closeControl')}
-        variant="secondary"
-        onClick={modalProps.onClose}
-      >
-        Закрыть
-      </Button>
-    </div>
-  </Modal>
-);
+      <div className={cn('controls')}>
+        <Button className={cn('createControl')} onClick={onConfirm}>
+          {verbs[type][1]}
+        </Button>
+        <Button
+          className={cn('closeControl')}
+          variant="secondary"
+          onClick={modalProps.onClose}
+        >
+          Закрыть
+        </Button>
+      </div>
+    </Modal>
+  );
+};
