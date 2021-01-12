@@ -1,7 +1,7 @@
 .modalTask__grid {
     display: grid;
     grid-template-columns: 264px 264px;
-    grid-template-rows: auto 72px;
+    grid-template-rows: auto auto;
     column-gap: 24px;
     row-gap: 34px;
     margin-bottom: 24px;
