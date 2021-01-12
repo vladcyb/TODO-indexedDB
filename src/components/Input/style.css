@@ -1,0 +1,55 @@
+.input {
+    height: 46px;
+    position: relative;
+}
+
+.input * {
+    font-family: Roboto, serif;
+    font-weight: 400;
+}
+
+.input_error .input__input {
+    border-color: #EC1D1D !important;
+}
+
+.input_error .input__label {
+    color: #EC1D1D !important;
+}
+
+.input__input {
+    font-size: 20px;
+    height: 46px;
+    border: 2px solid #3F72AF;
+    border-radius: 4px;
+    width: 100%;
+    padding: 0 8px;
+    background: transparent;
+    outline: none;
+}
+
+.input__input:hover,
+.input__input:focus {
+    border: 2px solid #257FEA;
+}
+
+.input__label {
+    font-size: 18px;
+    color: #3F72AF;
+    line-height: 20px;
+    position: absolute;
+    background: #DBE2EF;
+    left: 11px;
+    top: -10px;
+    padding: 0 2px;
+}
+
+.input__ast {
+    color: #EC1D1D;
+}
+
+.input__error {
+    color: #EC1D1D;
+    font-size: 14px;
+    line-height: 20px;
+    padding-left: 8px;
+}

@@ -1,12 +1,9 @@
-import React from 'react'
-import './App.css'
+import React, { FC } from 'react';
+import './App.css';
+import { Sandbox } from './pages/Sandbox';
 
-function App() {
-  return (
-    <div className="App">
-
-    </div>
-  )
-}
-
-export default App
+export const App: FC = () => (
+  <div className="App">
+    <Sandbox />
+  </div>
+);

@@ -1,0 +1,12 @@
+.modalDelete__body {
+    margin: 32px 0 24px 0;
+}
+
+.modalDelete__controls {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.modalDelete__yes {
+    margin-right: 24px;
+}

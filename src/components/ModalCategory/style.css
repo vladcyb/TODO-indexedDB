@@ -1,0 +1,22 @@
+.modalCategory .modal__content {
+    width: 800px;
+}
+
+.modalCategory__name {
+    margin: 42px 0 34px 0;
+}
+
+.modalCategory__description textarea {
+    resize: vertical;
+    height: 72px;
+}
+
+.modalCategory__controls {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 24px;
+}
+
+.modalCategory__confirm {
+    margin-right: 24px;
+}
