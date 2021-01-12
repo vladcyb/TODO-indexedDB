@@ -5,6 +5,7 @@ import { createCn } from 'bem-react-classname';
 import './style.css';
 import { Textarea } from '../Textarea';
 import { Button } from '../Button';
+import { createOrEdit } from '../../constants';
 
 
 type PropsType = {
@@ -16,11 +17,6 @@ type PropsType = {
   initialName: string
   initialDescription: string
 }
-
-const verbs = {
-  create: ['Создание', 'Создать'],
-  edit: ['Редактирование', 'Сохранить'],
-};
 
 export const ModalCategory: FC<PropsType> = ({
                                                type,
@@ -56,7 +52,7 @@ export const ModalCategory: FC<PropsType> = ({
   return (
     <Modal
       className={cn()}
-      title={`${verbs[type][0]} категории`}
+      title={`${createOrEdit[type][0]} категории`}
       onClose={handleClose}
       {...modalProps}
     >
@@ -77,7 +73,7 @@ export const ModalCategory: FC<PropsType> = ({
       />
       <div className={cn('controls')}>
         <Button className={cn('confirm')} onClick={onConfirm}>
-          {verbs[type][1]}
+          {createOrEdit[type][1]}
         </Button>
         <Button variant="secondary" onClick={handleClose}>
           Закрыть

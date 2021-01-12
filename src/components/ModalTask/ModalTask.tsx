@@ -6,6 +6,7 @@ import { Select } from '../Select';
 import './style.css';
 import { Textarea } from '../Textarea';
 import { Button } from '../Button';
+import { createOrEdit } from '../../constants';
 
 
 const cn = createCn('modalTask');
@@ -22,10 +23,6 @@ type PropsType = {
   initialCategory: undefined | number
 }
 
-const verbs = {
-  create: ['Создание', 'Создать'],
-  edit: ['Редактирование', 'Сохранить'],
-};
 
 export const ModalTask: FC<PropsType> = ({
                                            type,
@@ -62,7 +59,7 @@ export const ModalTask: FC<PropsType> = ({
   return (
     <Modal
       className={cn()}
-      title={`${verbs[type][0]} задачи`}
+      title={`${createOrEdit[type][0]} задачи`}
       onClose={handleClose}
       {...modalProps}
     >
@@ -93,7 +90,7 @@ export const ModalTask: FC<PropsType> = ({
       </div>
       <div className={cn('controls')}>
         <Button className={cn('createControl')} onClick={onConfirm}>
-          {verbs[type][1]}
+          {createOrEdit[type][1]}
         </Button>
         <Button
           className={cn('closeControl')}
