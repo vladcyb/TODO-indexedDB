@@ -29,6 +29,10 @@
     overflow: hidden;
 }
 
+.select__title_placeholder {
+    color: #808080;
+}
+
 .select__img {
     display: flex;
     justify-content: center;
@@ -44,6 +48,7 @@
     border: 2px solid #257FEA;
     border-radius: 4px;
     box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+    z-index: 99;
 }
 
 .select__item {

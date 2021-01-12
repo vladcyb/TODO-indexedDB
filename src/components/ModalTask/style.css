@@ -1,0 +1,35 @@
+.modalTask__grid {
+    display: grid;
+    grid-template-columns: 264px 264px;
+    grid-template-rows: auto 72px;
+    column-gap: 24px;
+    row-gap: 34px;
+    margin-bottom: 24px;
+}
+
+.modalTask__body {
+    margin: 42px 0 24px 0;
+}
+
+.modalTask__description {
+    grid-column: 1 / 3;
+}
+
+.modalTask__description textarea {
+    resize: none;
+    height: 72px;
+}
+
+.modalTask__controls {
+    margin-top: 24px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.modalTask__createControl {
+    margin-right: 12px;
+}
+
+.modalTask__closeControl {
+    margin-left: 12px;
+}

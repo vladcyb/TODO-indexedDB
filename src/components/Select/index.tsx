@@ -34,7 +34,12 @@ export const Select: FC<PropsType> = (props) => {
       role="button"
     >
       {typeof selected === 'undefined' ? (
-        <div className={cn('title', { opened: isOpened })}>{placeholder}</div>
+        <div className={cn('title', {
+          opened: isOpened,
+          placeholder: true,
+        })}>
+          {placeholder}
+        </div>
       ) : (
         <div className={cn('title')}>{list[selected]}</div>
       )}

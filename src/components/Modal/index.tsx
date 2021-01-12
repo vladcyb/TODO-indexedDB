@@ -11,7 +11,6 @@ type PropsType = {
   open: boolean
 }
 
-
 export const Modal: FC<PropsType> = (props) => {
 
   /* props */

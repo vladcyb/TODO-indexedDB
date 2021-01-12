@@ -4,6 +4,7 @@ import { Input } from '../../components/Input';
 import { Button } from '../../components/Button';
 import { Header } from '../../components/Header';
 import { ModalDelete } from '../../components/ModalDelete';
+import { ModalTask } from '../../components/ModalTask';
 
 const list = [
   'first',
@@ -15,28 +16,54 @@ export const Sandbox: FC = () => {
 
   /* state */
   const [selectedListItem, setSelectedListItem] = useState<undefined | number>(undefined);
-  const [showModal1, setShowModal1] = useState(false);
-  const [showModal2, setShowModal2] = useState(false);
+
+  const [showFirstModal, setShowFirstModal] = useState(false);
+  const [showSecondModal, setShowSecondModal] = useState(false);
+  const [showThirdModal, setShowThirdModal] = useState(false);
+  const [showFourthModal, setShowFourthModal] = useState(false);
+
+  const [currentCategoryToCreate, setCurrentCategoryToCreate] = useState<undefined | number>(undefined);
+  const [currentCategoryToEdit, setCurrentCategoryToEdit] = useState<undefined | number>(undefined);
 
   /* methods */
-  const openModal1 = () => {
-    setShowModal1(true);
-  };
-
-  const closeModal1 = () => {
-    setShowModal1(false);
-  };
-
-  const openModal2 = () => {
-    setShowModal2(true);
-  };
-
-  const closeModal2 = () => {
-    setShowModal2(false);
-  };
-
   const onConfirmDelete = () => {
     console.log('deleted');
+  };
+
+  const openFirstModal = () => {
+    setShowFirstModal(true);
+  };
+
+  const closeFirstModal = () => {
+    setShowFirstModal(false);
+  };
+
+  const openSecondModal = () => {
+    setShowSecondModal(true);
+  };
+
+  const closeSecondModal = () => {
+    setShowSecondModal(false);
+  };
+
+  const openThirdModal = () => {
+    setShowThirdModal(true);
+  };
+
+  const closeThirdModal = () => {
+    setShowThirdModal(false);
+  };
+
+  const openFourthModal = () => {
+    setShowFourthModal(true);
+  };
+
+  const closeFourthModal = () => {
+    setShowFourthModal(false);
+  };
+
+  const onConfirm = () => {
+    console.log('Confirmed');
   };
 
   return (
@@ -50,7 +77,7 @@ export const Sandbox: FC = () => {
       }}>
         <div style={{
           margin: '50px 100px',
-          height: '500px',
+          height: '1000px',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
@@ -66,27 +93,51 @@ export const Sandbox: FC = () => {
             list={list}
             selectItem={setSelectedListItem}
           />
-          <Button className="HelloButton" onClick={openModal1}>
-            Modal 1
+          <Button className="HelloButton" onClick={openFirstModal}>
+            Delete category
           </Button>
-          <Button variant="secondary" onClick={openModal2}>
-            Modal 2
+          <Button onClick={openSecondModal}>
+            Delete task
+          </Button>
+          <Button onClick={openThirdModal}>
+            Create task
+          </Button>
+          <Button onClick={openFourthModal}>
+            Edit task
           </Button>
         </div>
       </div>
       <ModalDelete
         type="category"
         target="Категория 1"
-        onClose={closeModal1}
-        open={showModal1}
+        onClose={closeFirstModal}
+        open={showFirstModal}
         onConfirm={onConfirmDelete}
       />
       <ModalDelete
         type="task"
         target="Дело 1"
-        onClose={closeModal2}
-        open={showModal2}
+        onClose={closeSecondModal}
+        open={showSecondModal}
         onConfirm={onConfirmDelete}
+      />
+      <ModalTask
+        categories={['home', 'work']}
+        currentCategory={currentCategoryToCreate}
+        setCategory={setCurrentCategoryToCreate}
+        type="create"
+        onClose={closeThirdModal}
+        open={showThirdModal}
+        onConfirm={onConfirm}
+      />
+      <ModalTask
+        categories={['1', '2', '3']}
+        currentCategory={currentCategoryToEdit}
+        setCategory={setCurrentCategoryToEdit}
+        type="edit"
+        onClose={closeFourthModal}
+        open={showFourthModal}
+        onConfirm={onConfirm}
       />
     </div>
   );
