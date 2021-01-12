@@ -16,7 +16,7 @@
 }
 
 .modalTask__description textarea {
-    resize: none;
+    resize: vertical;
     height: 72px;
 }
 

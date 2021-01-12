@@ -5,6 +5,7 @@ import { Button } from '../../components/Button';
 import { Header } from '../../components/Header';
 import { ModalDelete } from '../../components/ModalDelete';
 import { ModalTask } from '../../components/ModalTask';
+import { ModalCategory } from '../../components/ModalCategory';
 
 const list = [
   'first',
@@ -21,6 +22,8 @@ export const Sandbox: FC = () => {
   const [showSecondModal, setShowSecondModal] = useState(false);
   const [showThirdModal, setShowThirdModal] = useState(false);
   const [showFourthModal, setShowFourthModal] = useState(false);
+  const [showFifthModal, setShowFifthModal] = useState(false);
+  const [showSixthModal, setShowSixthModal] = useState(false);
 
   const [currentCategoryToCreate, setCurrentCategoryToCreate] = useState<undefined | number>(undefined);
   const [currentCategoryToEdit, setCurrentCategoryToEdit] = useState<undefined | number>(undefined);
@@ -60,6 +63,22 @@ export const Sandbox: FC = () => {
 
   const closeFourthModal = () => {
     setShowFourthModal(false);
+  };
+
+  const openFifthModal = () => {
+    setShowFifthModal(true);
+  };
+
+  const closeFifthModal = () => {
+    setShowFifthModal(false);
+  };
+
+  const openSixthModal = () => {
+    setShowSixthModal(true);
+  };
+
+  const closeSixthModal = () => {
+    setShowSixthModal(false);
   };
 
   const onConfirm = () => {
@@ -105,6 +124,12 @@ export const Sandbox: FC = () => {
           <Button onClick={openFourthModal}>
             Edit task
           </Button>
+          <Button onClick={openFifthModal}>
+            Create category
+          </Button>
+          <Button onClick={openSixthModal}>
+            Edit category
+          </Button>
         </div>
       </div>
       <ModalDelete
@@ -138,6 +163,20 @@ export const Sandbox: FC = () => {
         onClose={closeFourthModal}
         open={showFourthModal}
         onConfirm={onConfirm}
+      />
+      <ModalCategory
+        onConfirm={onConfirm}
+        className="Test"
+        type="create"
+        onClose={closeFifthModal}
+        open={showFifthModal}
+      />
+      <ModalCategory
+        onConfirm={onConfirm}
+        className="Test"
+        type="edit"
+        onClose={closeSixthModal}
+        open={showSixthModal}
       />
     </div>
   );

@@ -1,0 +1,7 @@
+.input_textarea {
+    height: auto;
+}
+
+.input_textarea textarea {
+    padding-top: 10px;
+}
