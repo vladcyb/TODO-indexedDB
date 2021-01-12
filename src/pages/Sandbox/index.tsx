@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Select } from '../../components/Select';
 import { Input } from '../../components/Input';
 import { Button } from '../../components/Button';
@@ -6,6 +6,9 @@ import { Header } from '../../components/Header';
 import { ModalDelete } from '../../components/ModalDelete';
 import { ModalTask } from '../../components/ModalTask';
 import { ModalCategory } from '../../components/ModalCategory';
+import { actions as todosActions } from '../../store/todosReducer';
+import { useAppDispatch } from '../../store';
+
 
 const list = [
   'first',
@@ -81,6 +84,20 @@ export const Sandbox: FC = () => {
   const onConfirm = () => {
     console.log('Confirmed');
   };
+
+  /* redux test */
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(todosActions.addTodo({
+      todo: {
+        id: '123',
+        name: 'test',
+        description: 'test test test test test test',
+        categoryId: '903320',
+      },
+    }));
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <div>
