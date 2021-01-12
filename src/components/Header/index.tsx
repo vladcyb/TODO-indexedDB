@@ -2,25 +2,23 @@ import { FC } from 'react';
 import './style.css';
 
 
-export const Header: FC = () => {
-  return (
-    <div className="Header">
-      <div className="Header__left">
-        <span className="Header__title">ToDo List</span>
-        <nav>
-          <ul className="Header__ul">
-            <li>
-              <button className="Header__navBtn">Задачи</button>
-            </li>
-            <li>
-              <button className="Header__navBtn">Категории</button>
-            </li>
-          </ul>
-        </nav>
-      </div>
-      <button className="Header__addTask">
-        Добавить задачу
-      </button>
+export const Header: FC = () => (
+  <div className="Header">
+    <div className="Header__left">
+      <span className="Header__title">ToDo List</span>
+      <nav>
+        <ul className="Header__ul">
+          <li>
+            <button className="Header__navBtn">Задачи</button>
+          </li>
+          <li>
+            <button className="Header__navBtn">Категории</button>
+          </li>
+        </ul>
+      </nav>
     </div>
-  );
-};
+    <button className="Header__addTask">
+      Добавить задачу
+    </button>
+  </div>
+);
