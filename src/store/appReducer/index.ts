@@ -3,8 +3,6 @@ import { SetStatePayloadType, StateType } from './types';
 
 const initialState: StateType = {
   state: 'tasks',
-  addingTask: false,
-  addingCategory: false,
 };
 
 export const appSlice = createSlice({
