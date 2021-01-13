@@ -37,11 +37,20 @@ export const ModalProvider: FC = ({ children }) => {
         setIsCreating,
       }}
     >
-      <ModalDelete
-        type="task"
-        open={!!deletingTaskId}
-        target="target"
-      />
+      {appState === 'tasks' && deletingTaskId && (
+        <ModalDelete
+          type="task"
+          open
+          target="target"
+        />
+      )}
+      {appState === 'categories' && deletingCategoryId && (
+        <ModalDelete
+          type="category"
+          open
+          target="target"
+        />
+      )}
       {appState === 'tasks' && isCreating && (
         <ModalTask
           type="create"

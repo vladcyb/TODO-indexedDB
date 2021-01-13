@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { getCategories } from '../../../store/categoriesSlice/selectors';
 import './style.css';
 import { ModalContext } from '../../HOCs/ModalProvider';
+import { getAppState } from '../../../store/appReducer/selectors';
 
 
 const cn = createCn('listItem');
@@ -25,13 +26,18 @@ export const ListItem: FC<PropsType> = ({
   /* hooks */
   const categories = useSelector(getCategories);
   const modalContext = useContext(ModalContext);
+  const state = useSelector(getAppState);
 
   /* vars */
   const category = categories.find(item => item.id === categoryId)!;
 
   /* methods */
   const handleDelete = () => {
-    modalContext.setDeletingTaskId!(id);
+    if (state === 'tasks') {
+      modalContext.setDeletingTaskId!(id);
+    } else {
+      modalContext.setDeletingCategoryId!(id);
+    }
   };
 
   return (

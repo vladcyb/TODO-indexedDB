@@ -13,9 +13,12 @@ export const todosSlice = createSlice({
       state.push(payload.todo);
     },
     deleteTodo: (state, { payload }: PayloadAction<DeleteTodoPayloadType>) => {
-      state.splice(
-        state.findIndex((item) => item.id === payload.id), 1,
-      );
+      const index = state.findIndex((item) => item.id === payload.id);
+      if (index >= 0) {
+        state.splice(
+          index, 1,
+        );
+      }
     },
   },
 });

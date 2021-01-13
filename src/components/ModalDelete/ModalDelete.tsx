@@ -2,12 +2,11 @@ import { FC, useContext } from 'react';
 import { createCn } from 'bem-react-classname';
 import { Button, Modal } from '../../components';
 import { taskOrCategoryWords } from '../../shared/constants';
-import './style.css';
 import { ModalContext } from '../HOCs/ModalProvider';
 import { useSelector } from 'react-redux';
 import { getAppState } from '../../store/appReducer/selectors';
-import { actions as tasksActions } from '../../store/todosReducer';
-import { useAppDispatch } from '../../store';
+import { actions, useAppDispatch } from '../../store';
+import './style.css';
 
 
 type TargetType = 'task' | 'category'
@@ -29,7 +28,7 @@ export const ModalDelete: FC<PropsType> = ({
   /* hooks */
   const modalContext = useContext(ModalContext);
   const state = useSelector(getAppState);
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
 
   /* methods */
   const handleClose = () => {
@@ -42,10 +41,15 @@ export const ModalDelete: FC<PropsType> = ({
 
   const handleConfirm = () => {
     if (state === 'tasks') {
-      dispatch(tasksActions.deleteTodo({
+      dispatch(actions.todos.deleteTodo({
         id: modalContext.deletingTaskId!,
       }));
+      handleClose()
     } else {
+      dispatch(actions.categories.deleteCategory({
+        id: modalContext.deletingCategoryId!,
+      }));
+      handleClose()
     }
   };
 
