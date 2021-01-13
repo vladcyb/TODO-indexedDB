@@ -1,9 +1,9 @@
 import { FC } from 'react';
-import { Modal } from '../Modal';
 import { createCn } from 'bem-react-classname';
-import { Button } from '../Button';
-import './style.css';
+import { Button, Modal } from '../../components';
 import { taskOrCategoryWords } from '../../shared/constants';
+import './style.css';
+
 
 type TargetType = 'task' | 'category'
 

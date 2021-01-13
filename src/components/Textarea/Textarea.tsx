@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { createCn } from 'bem-react-classname';
-import './style.css'
+import './style.css';
 
 
 type PropsType = React.TextareaHTMLAttributes<HTMLTextAreaElement> & {

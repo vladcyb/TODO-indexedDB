@@ -1,14 +1,10 @@
 import React, { FC, useState } from 'react';
-import { Modal } from '../Modal';
-import { Input } from '../Input';
 import { createCn } from 'bem-react-classname';
-import { Select } from '../Select';
-import './style.css';
-import { Textarea } from '../Textarea';
-import { Button } from '../Button';
 import { createOrEdit } from '../../shared/constants';
 import { useSelector } from 'react-redux';
 import { getCategories } from '../../store/categoriesSlice/selectors';
+import { Button, Input, Modal, Select, Textarea } from '../../components';
+import './style.css';
 
 
 const cn = createCn('modalTask');

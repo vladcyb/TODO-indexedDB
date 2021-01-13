@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { List } from '../../components/List';
+import { List } from '../../components';
 
 export const Sandbox: FC = () => {
 

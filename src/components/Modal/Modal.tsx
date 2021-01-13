@@ -1,6 +1,6 @@
+import ReactDOM from 'react-dom';
 import { FC, useEffect } from 'react';
 import { createCn } from 'bem-react-classname';
-import ReactDOM from 'react-dom';
 import './style.css';
 
 

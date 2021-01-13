@@ -1,10 +1,10 @@
 import { FC } from 'react';
-import './style.css';
 import { useSelector } from 'react-redux';
 import { getAppState } from '../../store/appReducer/selectors';
 import { createCn } from 'bem-react-classname';
 import { useAppDispatch } from '../../store';
 import { actions as appActions } from '../../store/appReducer';
+import './style.css';
 
 
 const cn = createCn('header');

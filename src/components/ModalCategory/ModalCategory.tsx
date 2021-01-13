@@ -1,11 +1,8 @@
 import React, { FC, useState } from 'react';
-import { Modal } from '../Modal';
-import { Input } from '../Input';
 import { createCn } from 'bem-react-classname';
-import './style.css';
-import { Textarea } from '../Textarea';
-import { Button } from '../Button';
+import { Button, Input, Modal, Textarea } from '../../components';
 import { createOrEdit } from '../../shared/constants';
+import './style.css';
 
 
 type PropsType = {

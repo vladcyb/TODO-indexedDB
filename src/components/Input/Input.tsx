@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
-import './style.css';
 import { createCn } from 'bem-react-classname';
+import './style.css';
 
 
 type PropsType = React.InputHTMLAttributes<HTMLInputElement> & {

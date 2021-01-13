@@ -1,6 +1,6 @@
-import { FC } from 'react';
-import './style.css';
+import React, { FC } from 'react';
 import { createCn } from 'bem-react-classname';
+import './style.css';
 
 
 type PropsType = React.HTMLAttributes<HTMLButtonElement> & {

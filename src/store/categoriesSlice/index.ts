@@ -15,4 +15,4 @@ export const categoriesSlice = createSlice({
   },
 });
 
-export const actions = categoriesSlice.actions
+export const actions = categoriesSlice.actions;
