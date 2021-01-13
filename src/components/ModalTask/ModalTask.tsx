@@ -1,13 +1,13 @@
 import React, { FC, useContext, useState } from 'react';
 import { createCn } from 'bem-react-classname';
 import { createOrEdit } from '../../shared/constants';
-import { useSelector } from 'react-redux';
-import { getCategories } from '../../store/categoriesSlice/selectors';
 import { Button, Input, Modal, Select, Textarea } from '../../components';
-import './style.css';
 import { useAppDispatch } from '../../store';
 import { actions as todosActions } from '../../store/todosReducer';
 import { ModalContext } from '../HOCs/ModalProvider';
+import { useSelector } from 'react-redux';
+import { getCategories } from '../../store/categoriesSlice/selectors';
+import './style.css';
 
 
 const cn = createCn('modalTask');
@@ -17,7 +17,7 @@ type PropsType = {
   className?: string
   initialName: string
   initialDescription: string
-  initialCategory: undefined | number
+  initialCategoryId: string | undefined
 }
 
 
@@ -25,18 +25,18 @@ export const ModalTask: FC<PropsType> = ({
                                            type,
                                            initialName,
                                            initialDescription,
-                                           initialCategory,
+                                           initialCategoryId,
                                            ...modalProps
                                          }) => {
 
   /* hooks */
-  const categories = useSelector(getCategories);
   const dispatch = useAppDispatch();
   const modalContext = useContext(ModalContext);
+  const categories = useSelector(getCategories);
 
   /* state */
   const [name, setName] = useState(initialName);
-  const [currentCategory, setCurrentCategory] = useState<number | undefined>(initialCategory);
+  const [selectedCategoryId, setSelectedCategoryId] = useState<string | undefined>(undefined);
   const [description, setDescription] = useState(initialDescription);
 
   /* methods */
@@ -48,23 +48,26 @@ export const ModalTask: FC<PropsType> = ({
     setDescription(e.target.value);
   };
 
+  const catId = selectedCategoryId || initialCategoryId
+  console.log('catId', catId);
+
   const handleConfirm = () => {
-    if (typeof currentCategory === 'number') {
+    if (catId) {
       dispatch(todosActions.addTodo({
         todo: {
           id: Math.random().toString(), // TODO
           name,
           description,
-          categoryId: categories[currentCategory].id, // TODO
+          categoryId: catId,
         },
       }));
+      modalContext.setIsCreating!(false);
     }
-    modalContext.setIsCreating!(false);
   };
 
   const handleClose = () => {
     setName(initialName);
-    setCurrentCategory(initialCategory);
+    setSelectedCategoryId(initialCategoryId);
     setDescription(initialDescription);
     modalContext.setIsCreating!(false);
   };
@@ -88,11 +91,11 @@ export const ModalTask: FC<PropsType> = ({
             onChange={handleNameChange}
           />
           <Select
-            className={cn('category')}
+            className={cn()}
             placeholder="Выберите категорию"
-            list={categories.map((category) => category.name)}
-            selectItem={setCurrentCategory}
-            selected={currentCategory}
+            list={categories}
+            selectedId={catId}
+            selectId={setSelectedCategoryId}
           />
           <Textarea
             className={cn('description')}

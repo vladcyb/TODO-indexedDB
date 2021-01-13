@@ -2,20 +2,24 @@ import { Dispatch, FC, SetStateAction, useState } from 'react';
 import { createCn } from 'bem-react-classname';
 import './style.css';
 
+type ListItem = {
+  id: string
+  name: string
+}
 
 type PropsType = {
   placeholder: string
-  selected: number | undefined
-  list: string[]
-  selectItem: Dispatch<SetStateAction<undefined | number>>
+  list: ListItem[]
+  selectedId: string | undefined
+  selectId: Dispatch<SetStateAction<string | undefined>>
   className?: string
 }
 
 export const Select: FC<PropsType> = ({
                                         placeholder,
                                         list,
-                                        selected,
-                                        selectItem,
+                                        selectedId,
+                                        selectId,
                                         className,
                                       }) => {
 
@@ -30,6 +34,7 @@ export const Select: FC<PropsType> = ({
   /* classes */
   const cn = createCn('select', className);
 
+
   return (
     <div
       className={cn({ opened: isOpened })}
@@ -37,7 +42,7 @@ export const Select: FC<PropsType> = ({
       tabIndex={0}
       role="button"
     >
-      {typeof selected === 'undefined' ? (
+      {typeof selectedId === 'undefined' ? (
         <div className={cn('title', {
           opened: isOpened,
           placeholder: true,
@@ -45,7 +50,9 @@ export const Select: FC<PropsType> = ({
           {placeholder}
         </div>
       ) : (
-        <div className={cn('title')}>{list[selected]}</div>
+        <div className={cn('title')}>
+          {list.find((item) => item.id === selectedId)!.name}
+        </div>
       )}
       <div className={cn('img')}>
         <svg width="16" height="8" viewBox="0 0 16 8" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -56,11 +63,11 @@ export const Select: FC<PropsType> = ({
         <div className={cn('list')}>
           {list.map((item, index) => (
             <div
-              className={cn('item', { selected: index === selected })}
-              onClick={() => selectItem(index)}
+              className={cn('item', { selected: item.id === selectedId })}
+              onClick={() => selectId(item.id)}
               key={index}
             >
-              {item}
+              {item.name}
             </div>
           ))}
         </div>

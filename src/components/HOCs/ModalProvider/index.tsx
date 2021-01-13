@@ -53,7 +53,7 @@ export const ModalProvider: FC = ({ children }) => {
           type="create"
           initialName=""
           initialDescription=""
-          initialCategory={undefined}
+          initialCategoryId={undefined}
         />
       )}
       {appState === 'categories' && isCreating && (
