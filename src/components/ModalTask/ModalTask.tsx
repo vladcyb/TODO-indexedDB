@@ -7,6 +7,8 @@ import './style.css';
 import { Textarea } from '../Textarea';
 import { Button } from '../Button';
 import { createOrEdit } from '../../shared/constants';
+import { useSelector } from 'react-redux';
+import { getCategories } from '../../store/categoriesSlice/selectors';
 
 
 const cn = createCn('modalTask');
@@ -16,7 +18,6 @@ type PropsType = {
   onClose: () => void
   open: boolean
   className?: string
-  categories: string[]
   onConfirm: () => void
   initialName: string
   initialDescription: string
@@ -26,7 +27,6 @@ type PropsType = {
 
 export const ModalTask: FC<PropsType> = ({
                                            type,
-                                           categories,
                                            onConfirm,
                                            initialName,
                                            initialDescription,
@@ -34,6 +34,9 @@ export const ModalTask: FC<PropsType> = ({
                                            onClose,
                                            ...modalProps
                                          }) => {
+
+  /* hooks */
+  const categories = useSelector(getCategories).map((item) => item.name);
 
   /* state */
   const [name, setName] = useState(initialName);

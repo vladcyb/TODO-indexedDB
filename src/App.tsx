@@ -1,9 +1,13 @@
 import React, { FC } from 'react';
+import { Header } from './components/Header';
 import './App.css';
-import { Sandbox } from './pages/Sandbox';
 
-export const App: FC = () => (
-  <div className="App">
-    <Sandbox />
-  </div>
-);
+export const App: FC = () => {
+
+
+  return (
+    <div className="App">
+      <Header />
+    </div>
+  );
+};
