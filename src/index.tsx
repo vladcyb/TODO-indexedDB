@@ -5,11 +5,14 @@ import { App } from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import store from './store';
+import { ModalProvider } from './components/HOCs/ModalProvider';
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <ModalProvider>
+        <App />
+      </ModalProvider>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root'),

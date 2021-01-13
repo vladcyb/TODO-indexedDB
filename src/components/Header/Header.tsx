@@ -1,9 +1,10 @@
-import { FC } from 'react';
+import { FC, useContext } from 'react';
 import { useSelector } from 'react-redux';
 import { getAppState } from '../../store/appReducer/selectors';
 import { createCn } from 'bem-react-classname';
 import { useAppDispatch } from '../../store';
 import { actions as appActions } from '../../store/appReducer';
+import { ModalContext } from '../HOCs/ModalProvider';
 import './style.css';
 
 
@@ -14,6 +15,7 @@ export const Header: FC = () => {
   /* hooks */
   const state = useSelector(getAppState);
   const dispatch = useAppDispatch();
+  const modalContext = useContext(ModalContext);
 
   /* methods */
   const openTasks = () => {
@@ -22,6 +24,10 @@ export const Header: FC = () => {
 
   const openCategories = () => {
     dispatch(appActions.setState({ state: 'categories' }));
+  };
+
+  const handleAddClick = () => {
+    modalContext.setIsCreating!(true);
   };
 
   return (
@@ -49,8 +55,8 @@ export const Header: FC = () => {
           </ul>
         </nav>
       </div>
-      <button className={cn('addTask')}>
-        Добавить задачу
+      <button className={cn('addTask')} onClick={handleAddClick}>
+        Добавить {`${state === 'tasks' ? 'задачу' : 'категорию'}`}
       </button>
     </div>
   );
