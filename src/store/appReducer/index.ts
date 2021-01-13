@@ -3,6 +3,8 @@ import { SetStatePayloadType, StateType } from './types';
 
 const initialState: StateType = {
   state: 'tasks',
+  addingTask: false,
+  addingCategory: false,
 };
 
 export const appSlice = createSlice({
@@ -15,4 +17,4 @@ export const appSlice = createSlice({
   },
 });
 
-export const { actions } = appSlice;
+export const actions = appSlice.actions;

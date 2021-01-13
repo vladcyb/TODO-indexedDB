@@ -3,9 +3,7 @@ import { AddTodoPayloadType } from './types';
 import { Todo } from '../../shared/types';
 
 
-type StateType = Todo[]
-
-const initialState: StateType = [];
+const initialState: Todo[] = [];
 
 export const todosSlice = createSlice({
   name: 'todos',
@@ -17,4 +15,4 @@ export const todosSlice = createSlice({
   },
 });
 
-export const { actions } = todosSlice;
+export const actions = todosSlice.actions;
