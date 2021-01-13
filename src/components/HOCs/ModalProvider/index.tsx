@@ -41,12 +41,6 @@ export const ModalProvider: FC = ({ children }) => {
         type="task"
         open={!!deletingTaskId}
         target="target"
-        onClose={() => {
-
-        }}
-        onConfirm={() => {
-
-        }}
       />
       {appState === 'tasks' && isCreating && (
         <ModalTask

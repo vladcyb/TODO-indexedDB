@@ -1,9 +1,10 @@
-import { FC } from 'react';
+import { FC, useContext } from 'react';
 import { createCn } from 'bem-react-classname';
 import { TodoOrCategory } from '../../../shared/types';
 import { useSelector } from 'react-redux';
 import { getCategories } from '../../../store/categoriesSlice/selectors';
 import './style.css';
+import { ModalContext } from '../../HOCs/ModalProvider';
 
 
 const cn = createCn('listItem');
@@ -14,6 +15,7 @@ type PropsType = {
 
 export const ListItem: FC<PropsType> = ({
                                           item: {
+                                            id,
                                             name,
                                             description,
                                             categoryId,
@@ -22,9 +24,15 @@ export const ListItem: FC<PropsType> = ({
 
   /* hooks */
   const categories = useSelector(getCategories);
+  const modalContext = useContext(ModalContext);
 
   /* vars */
   const category = categories.find(item => item.id === categoryId)!;
+
+  /* methods */
+  const handleDelete = () => {
+    modalContext.setDeletingTaskId!(id);
+  };
 
   return (
     <div className={cn()}>
@@ -48,7 +56,7 @@ export const ListItem: FC<PropsType> = ({
             alt=""
           />
         </button>
-        <button className={cn('delete')}>
+        <button className={cn('delete')} onClick={handleDelete}>
           <img
             src="data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 21.3333C4 22.8067 5.19331 24 6.66669 24H17.3334C18.8067 24 20 22.8067 20 21.3333V5.33331H4V21.3333Z' fill='%233F72AF'/%3E%3Cpath d='M16.6667 1.33331L15.3334 0H8.66675L7.33337 1.33331H2.66675V4H21.3334V1.33331H16.6667Z' fill='%233F72AF'/%3E%3C/svg%3E%0A"
             alt=""

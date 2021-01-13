@@ -39,6 +39,9 @@ export const ModalTask: FC<PropsType> = ({
   const [selectedCategoryId, setSelectedCategoryId] = useState<string | undefined>(undefined);
   const [description, setDescription] = useState(initialDescription);
 
+  /* vars */
+  const catId = selectedCategoryId || initialCategoryId
+
   /* methods */
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
@@ -47,9 +50,6 @@ export const ModalTask: FC<PropsType> = ({
   const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setDescription(e.target.value);
   };
-
-  const catId = selectedCategoryId || initialCategoryId
-  console.log('catId', catId);
 
   const handleConfirm = () => {
     if (catId) {
