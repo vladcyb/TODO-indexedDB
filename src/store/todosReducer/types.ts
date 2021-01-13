@@ -1,9 +1,4 @@
-export type Todo = {
-  id: string
-  name: string
-  description: string
-  categoryId: string
-}
+import { Todo } from '../../shared/types';
 
 export type AddTodoPayloadType = {
   todo: Todo
