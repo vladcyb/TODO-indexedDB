@@ -3,7 +3,7 @@ import { Modal } from '../Modal';
 import { createCn } from 'bem-react-classname';
 import { Button } from '../Button';
 import './style.css';
-import { taskOrCategoryWords } from '../../constants';
+import { taskOrCategoryWords } from '../../shared/constants';
 
 type TargetType = 'task' | 'category'
 

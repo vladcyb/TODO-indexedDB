@@ -6,7 +6,7 @@ import { Select } from '../Select';
 import './style.css';
 import { Textarea } from '../Textarea';
 import { Button } from '../Button';
-import { createOrEdit } from '../../constants';
+import { createOrEdit } from '../../shared/constants';
 
 
 const cn = createCn('modalTask');

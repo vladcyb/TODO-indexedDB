@@ -5,7 +5,7 @@ import { createCn } from 'bem-react-classname';
 import './style.css';
 import { Textarea } from '../Textarea';
 import { Button } from '../Button';
-import { createOrEdit } from '../../constants';
+import { createOrEdit } from '../../shared/constants';
 
 
 type PropsType = {
