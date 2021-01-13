@@ -8,6 +8,10 @@
     background: #DBE2EF;
 }
 
+.listItem:hover {
+    background: rgba(37, 127, 234, 0.2);
+}
+
 .listItem__name {
     font-family: Roboto, serif;
     font-weight: 500;

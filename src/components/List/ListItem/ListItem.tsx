@@ -1,9 +1,9 @@
 import { FC } from 'react';
 import { createCn } from 'bem-react-classname';
 import { TodoOrCategory } from '../../../shared/types';
-import './style.css';
 import { useSelector } from 'react-redux';
 import { getCategories } from '../../../store/categoriesSlice/selectors';
+import './style.css';
 
 
 const cn = createCn('listItem');
