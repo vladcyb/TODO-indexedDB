@@ -1,24 +1,36 @@
 import { FC } from 'react';
 import { createCn } from 'bem-react-classname';
 import { ListItem } from './ListItem';
-import { Todo } from '../../shared/types';
+import './style.css';
+import { useSelector } from 'react-redux';
+import { getTasks } from '../../store/todosReducer/selectors';
+import { getAppState } from '../../store/appReducer/selectors';
+import { getCategories } from '../../store/categoriesSlice/selectors';
+
 
 const cn = createCn('list');
 
 type PropsType = {}
 
-const todos: Todo[] = [
-  { id: '1', name: 'Задача1', description: 'Описание задачи, может быть длинным', categoryId: '1' },
-  { id: '2', name: 'Задача2', description: 'description for todo 2', categoryId: '1' },
-  { id: '3', name: 'Задача3', description: 'description for todo 3', categoryId: '2' },
-  { id: '4', name: 'Задача4', description: 'description for todo 4', categoryId: '3' },
-];
 
+export const List: FC<PropsType> = () => {
 
-export const List: FC<PropsType> = () => (
-  <div className={cn()}>
-    {todos.map((item) => (
-      <ListItem item={item} key={item.id} />
-    ))}
-  </div>
-);
+  /* hooks */
+  const state = useSelector(getAppState);
+  const tasks = useSelector(getTasks);
+  const categories = useSelector(getCategories);
+
+  return (
+    <div className={cn()}>
+      {state === 'tasks' ? (
+        tasks.map((item) => (
+          <ListItem item={item} key={item.id} />
+        ))
+      ) : (
+        categories.map((item) => (
+          <ListItem item={item} key={item.id} />
+        ))
+      )}
+    </div>
+  );
+};

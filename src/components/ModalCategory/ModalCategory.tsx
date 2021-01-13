@@ -1,29 +1,32 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useContext, useState } from 'react';
 import { createCn } from 'bem-react-classname';
 import { Button, Input, Modal, Textarea } from '../../components';
 import { createOrEdit } from '../../shared/constants';
 import './style.css';
+import { useAppDispatch } from '../../store';
+import { ModalContext } from '../HOCs/ModalProvider';
+import { actions as categoriesActions } from '../../store/categoriesSlice';
 
 
 type PropsType = {
   type: 'create' | 'edit'
-  className?: string
-  onClose: () => void
-  onConfirm: () => void
-  open: boolean
   initialName: string
   initialDescription: string
+  className?: string
 }
 
 export const ModalCategory: FC<PropsType> = ({
                                                type,
                                                className,
-                                               onConfirm,
-                                               onClose,
                                                initialDescription,
                                                initialName,
                                                ...modalProps
                                              }) => {
+
+  /* hooks */
+  const dispatch = useAppDispatch();
+  const modalContext = useContext(ModalContext);
+
   /* classes */
   const cn = createCn('modalCategory', className);
 
@@ -43,14 +46,27 @@ export const ModalCategory: FC<PropsType> = ({
   const handleClose = () => {
     setName(initialName);
     setDescription(initialDescription);
-    onClose();
+    modalContext.setIsCreating!(false);
   };
+
+  const handleConfirm = () => {
+    dispatch(categoriesActions.addCategory({
+      category: {
+        id: Math.random().toString(), // TODO
+        name,
+        description,
+      },
+    }));
+    modalContext.setIsCreating!(false);
+  };
+
 
   return (
     <Modal
       className={cn()}
       title={`${createOrEdit[type][0]} категории`}
       onClose={handleClose}
+      open
       {...modalProps}
     >
       <Input
@@ -69,7 +85,7 @@ export const ModalCategory: FC<PropsType> = ({
         value={description}
       />
       <div className={cn('controls')}>
-        <Button className={cn('confirm')} onClick={onConfirm}>
+        <Button className={cn('confirm')} onClick={handleConfirm}>
           {createOrEdit[type][1]}
         </Button>
         <Button variant="secondary" onClick={handleClose}>

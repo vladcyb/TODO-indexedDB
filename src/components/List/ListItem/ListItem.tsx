@@ -1,7 +1,9 @@
 import { FC } from 'react';
 import { createCn } from 'bem-react-classname';
-import { Category, TodoOrCategory } from '../../../shared/types';
+import { TodoOrCategory } from '../../../shared/types';
 import './style.css';
+import { useSelector } from 'react-redux';
+import { getCategories } from '../../../store/categoriesSlice/selectors';
 
 
 const cn = createCn('listItem');
@@ -9,13 +11,6 @@ const cn = createCn('listItem');
 type PropsType = {
   item: TodoOrCategory
 }
-
-const categories: Category[] = [
-  { id: '1', name: 'Категория 1', description: 'description for category 1' },
-  { id: '2', name: 'Категория 2', description: 'description for category 2' },
-  { id: '3', name: 'Категория 3', description: 'description for category 3' },
-];
-
 
 export const ListItem: FC<PropsType> = ({
                                           item: {
@@ -25,6 +20,10 @@ export const ListItem: FC<PropsType> = ({
                                           },
                                         }) => {
 
+  /* hooks */
+  const categories = useSelector(getCategories);
+
+  /* vars */
   const category = categories.find(item => item.id === categoryId)!;
 
   return (
@@ -34,8 +33,8 @@ export const ListItem: FC<PropsType> = ({
           <span className={cn('name')}>{name}</span>
           {categoryId && (
             <span className={cn('category')}>
-            {category.name}
-          </span>
+              {category.name}
+            </span>
           )}
         </div>
         <div className={cn('description')}>

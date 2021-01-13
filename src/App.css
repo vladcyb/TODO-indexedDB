@@ -1,3 +1,7 @@
-.App {
+.app {
     padding-bottom: 100px;
+}
+
+.app__listWrapper .list {
+    margin: auto;
 }

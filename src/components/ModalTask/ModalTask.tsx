@@ -1,20 +1,20 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useContext, useState } from 'react';
 import { createCn } from 'bem-react-classname';
 import { createOrEdit } from '../../shared/constants';
 import { useSelector } from 'react-redux';
 import { getCategories } from '../../store/categoriesSlice/selectors';
 import { Button, Input, Modal, Select, Textarea } from '../../components';
 import './style.css';
+import { useAppDispatch } from '../../store';
+import { actions as todosActions } from '../../store/todosReducer';
+import { ModalContext } from '../HOCs/ModalProvider';
 
 
 const cn = createCn('modalTask');
 
 type PropsType = {
   type: 'create' | 'edit'
-  onClose: () => void
-  open: boolean
   className?: string
-  onConfirm: () => void
   initialName: string
   initialDescription: string
   initialCategory: undefined | number
@@ -23,16 +23,16 @@ type PropsType = {
 
 export const ModalTask: FC<PropsType> = ({
                                            type,
-                                           onConfirm,
                                            initialName,
                                            initialDescription,
                                            initialCategory,
-                                           onClose,
                                            ...modalProps
                                          }) => {
 
   /* hooks */
-  const categories = useSelector(getCategories).map((item) => item.name);
+  const categories = useSelector(getCategories);
+  const dispatch = useAppDispatch();
+  const modalContext = useContext(ModalContext);
 
   /* state */
   const [name, setName] = useState(initialName);
@@ -48,11 +48,25 @@ export const ModalTask: FC<PropsType> = ({
     setDescription(e.target.value);
   };
 
+  const handleConfirm = () => {
+    if (typeof currentCategory === 'number') {
+      dispatch(todosActions.addTodo({
+        todo: {
+          id: Math.random().toString(), // TODO
+          name,
+          description,
+          categoryId: categories[currentCategory].id, // TODO
+        },
+      }));
+    }
+    modalContext.setIsCreating!(false);
+  };
+
   const handleClose = () => {
     setName(initialName);
     setCurrentCategory(initialCategory);
     setDescription(initialDescription);
-    onClose();
+    modalContext.setIsCreating!(false);
   };
 
   return (
@@ -60,6 +74,7 @@ export const ModalTask: FC<PropsType> = ({
       className={cn()}
       title={`${createOrEdit[type][0]} задачи`}
       onClose={handleClose}
+      open
       {...modalProps}
     >
       <div className={cn('body')}>
@@ -75,7 +90,7 @@ export const ModalTask: FC<PropsType> = ({
           <Select
             className={cn('category')}
             placeholder="Выберите категорию"
-            list={categories}
+            list={categories.map((category) => category.name)}
             selectItem={setCurrentCategory}
             selected={currentCategory}
           />
@@ -88,7 +103,10 @@ export const ModalTask: FC<PropsType> = ({
         </div>
       </div>
       <div className={cn('controls')}>
-        <Button className={cn('createControl')} onClick={onConfirm}>
+        <Button
+          className={cn('createControl')}
+          onClick={handleConfirm}
+        >
           {createOrEdit[type][1]}
         </Button>
         <Button

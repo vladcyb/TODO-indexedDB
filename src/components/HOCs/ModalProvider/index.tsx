@@ -26,11 +26,6 @@ export const ModalProvider: FC = ({ children }) => {
   /* hooks */
   const appState = useSelector(getAppState);
 
-  /* methods */
-  const cancelCreating = () => {
-    setIsCreating(false);
-  };
-
   return (
     <ModalContext.Provider
       value={{
@@ -56,24 +51,16 @@ export const ModalProvider: FC = ({ children }) => {
       {appState === 'tasks' && isCreating && (
         <ModalTask
           type="create"
-          onClose={cancelCreating}
-          open
-          onConfirm={() => {
-          }}
-          initialName={''}
-          initialDescription={''}
+          initialName=""
+          initialDescription=""
           initialCategory={undefined}
         />
       )}
       {appState === 'categories' && isCreating && (
         <ModalCategory
           type="create"
-          onClose={cancelCreating}
-          open
-          onConfirm={() => {
-          }}
-          initialName={''}
-          initialDescription={''}
+          initialName=""
+          initialDescription=""
         />
       )}
       {children}
