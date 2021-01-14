@@ -38,11 +38,8 @@ export const ModalTask: FC<PropsType> = ({
   const nameInput = useInput(initialName, true);
 
   /* state */
-  const [selectedCategoryId, setSelectedCategoryId] = useState<string | undefined>(undefined);
+  const [categoryId, setCategoryId] = useState<string | undefined>(initialCategoryId);
   const [description, setDescription] = useState(initialDescription);
-
-  /* vars */
-  const catId = selectedCategoryId || initialCategoryId;
 
   /* methods */
   const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -52,7 +49,7 @@ export const ModalTask: FC<PropsType> = ({
   const handleConfirm = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (catId && nameInput.value) {
+    if (categoryId && nameInput.value) {
       onClose();
       if (mode === 'create') {
         dispatch(actions.tasks.addTask({
@@ -60,14 +57,14 @@ export const ModalTask: FC<PropsType> = ({
             id: Math.random().toString(), // TODO
             name: nameInput.value,
             description,
-            categoryId: catId,
+            categoryId,
           },
         }));
       } else {
         dispatch(actions.tasks.editTask({
           task: {
             id: modalContext.editingTaskId!,
-            categoryId: catId,
+            categoryId,
             description,
             name: nameInput.value,
           },
@@ -98,8 +95,8 @@ export const ModalTask: FC<PropsType> = ({
               className={cn()}
               placeholder="Выберите категорию"
               list={categories}
-              selectedId={catId}
-              selectId={setSelectedCategoryId}
+              selectedId={categoryId}
+              selectId={setCategoryId}
             />
             <Textarea
               className={cn('description')}
