@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Category } from '../../shared/types';
-import { AddCategoryActionPayload, DeleteCategoryActionPayload } from './types';
+import { AddCategoryActionPayload, DeleteCategoryActionPayload, EditCategoryActionPayload } from './types';
 
 
 const initialState: Category[] = [];
@@ -18,6 +18,12 @@ export const categoriesSlice = createSlice({
         state.splice(
           index, 1,
         );
+      }
+    },
+    editCategory: (state, { payload }: PayloadAction<EditCategoryActionPayload>) => {
+      const index = state.findIndex((item) => item.id === payload.category.id);
+      if (index >= 0) {
+        state[index] = payload.category;
       }
     },
   },

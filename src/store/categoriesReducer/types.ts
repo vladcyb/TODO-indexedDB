@@ -7,3 +7,7 @@ export type AddCategoryActionPayload = {
 export type DeleteCategoryActionPayload = {
   id: string
 }
+
+export type EditCategoryActionPayload = {
+  category: Category
+}

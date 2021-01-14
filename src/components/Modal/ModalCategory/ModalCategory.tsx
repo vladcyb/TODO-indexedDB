@@ -3,9 +3,8 @@ import { createCn } from 'bem-react-classname';
 import { Button, Input, Modal, Textarea } from '../../index';
 import { createOrEdit } from '../../../shared/constants';
 import './style.css';
-import { useAppDispatch } from '../../../store';
+import { actions, useAppDispatch } from '../../../store';
 import { ModalContext } from '../../HOCs/ModalProvider';
-import { actions as categoriesActions } from '../../../store/categoriesReducer';
 import { useInput } from '../../../shared/hooks/useInput';
 
 
@@ -29,13 +28,13 @@ export const ModalCategory: FC<PropsType> = ({
   /* hooks */
   const dispatch = useAppDispatch();
   const modalContext = useContext(ModalContext);
-  const nameField = useInput('', true);
+  const nameField = useInput(initialName, true);
 
   /* classes */
   const cn = createCn('modalCategory', className);
 
   /* state */
-  const [description, setDescription] = useState('');
+  const [description, setDescription] = useState(initialDescription);
 
   /* methods */
   const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -46,14 +45,24 @@ export const ModalCategory: FC<PropsType> = ({
     e.preventDefault();
     const name = nameField.value;
     if (name) {
-      dispatch(categoriesActions.addCategory({
-        category: {
-          id: Math.random().toString(), // TODO
-          name,
-          description,
-        },
-      }));
-      modalContext.setIsCreating!(false);
+      if (mode === 'create') {
+        dispatch(actions.categories.addCategory({
+          category: {
+            id: Math.random().toString(), // TODO
+            name,
+            description,
+          },
+        }));
+      } else {
+        dispatch(actions.categories.editCategory({
+          category: {
+            id: modalContext.editingCategoryId!,
+            name: nameField.value,
+            description,
+          },
+        }));
+      }
+      onClose();
     }
   };
 
