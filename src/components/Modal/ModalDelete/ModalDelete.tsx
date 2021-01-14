@@ -15,12 +15,14 @@ type TargetType = 'task' | 'category'
 
 type PropsType = {
   type: TargetType
+  onClose: () => void
 }
 
 const cn = createCn('modalDelete');
 
 export const ModalDelete: FC<PropsType> = ({
                                              type,
+                                             onClose,
                                              ...modalProps
                                            }) => {
 
@@ -36,25 +38,17 @@ export const ModalDelete: FC<PropsType> = ({
 
 
   /* methods */
-  const handleClose = () => {
-    if (state === 'tasks') {
-      modalContext.setDeletingTaskId!('');
-    } else {
-      modalContext.setDeletingCategoryId!('');
-    }
-  };
-
   const handleConfirm = () => {
     if (state === 'tasks') {
       dispatch(actions.tasks.deleteTask({
         id: modalContext.deletingTaskId!,
       }));
-      handleClose();
+      onClose();
     } else {
       dispatch(actions.categories.deleteCategory({
         id: modalContext.deletingCategoryId!,
       }));
-      handleClose();
+      onClose();
     }
   };
 
@@ -62,7 +56,7 @@ export const ModalDelete: FC<PropsType> = ({
     <Modal
       className={cn()}
       title={`Удаление ${taskOrCategoryWords[type][0]}`}
-      onClose={handleClose}
+      onClose={onClose}
       open
       {...modalProps}
     >
@@ -79,7 +73,7 @@ export const ModalDelete: FC<PropsType> = ({
         <Button
           className={cn('no')}
           variant="secondary"
-          onClick={handleClose}
+          onClick={onClose}
         >
           Нет
         </Button>

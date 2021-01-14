@@ -10,17 +10,19 @@ import { useInput } from '../../../shared/hooks/useInput';
 
 
 type PropsType = {
-  type: 'create' | 'edit'
+  mode: 'create' | 'edit'
   initialName: string
   initialDescription: string
+  onClose: () => void
   className?: string
 }
 
 export const ModalCategory: FC<PropsType> = ({
-                                               type,
+                                               mode,
                                                className,
                                                initialDescription,
                                                initialName,
+                                               onClose,
                                                ...modalProps
                                              }) => {
 
@@ -38,10 +40,6 @@ export const ModalCategory: FC<PropsType> = ({
   /* methods */
   const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setDescription(e.target.value);
-  };
-
-  const handleClose = () => {
-    modalContext.setIsCreating!(false);
   };
 
   const handleConfirm = (e: React.FormEvent) => {
@@ -63,8 +61,8 @@ export const ModalCategory: FC<PropsType> = ({
   return (
     <Modal
       className={cn()}
-      title={`${createOrEdit[type][0]} категории`}
-      onClose={handleClose}
+      title={`${createOrEdit[mode][0]} категории`}
+      onClose={onClose}
       open
       {...modalProps}
     >
@@ -85,9 +83,9 @@ export const ModalCategory: FC<PropsType> = ({
         />
         <div className={cn('controls')}>
           <Button className={cn('confirm')} type="submit">
-            {createOrEdit[type][1]}
+            {createOrEdit[mode][1]}
           </Button>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="secondary" onClick={onClose}>
             Закрыть
           </Button>
         </div>

@@ -10,6 +10,10 @@ export type ModalContextType = {
   setDeletingTaskId?: Dispatch<SetStateAction<string>>
   isCreating?: boolean
   setIsCreating?: Dispatch<SetStateAction<boolean>>
+  editingTaskId?: string
+  setEditingTaskId?: Dispatch<SetStateAction<string>>
+  editingCategoryId?: string
+  setEditingCategoryId?: Dispatch<SetStateAction<string>>
 }
 
 export const ModalContext = createContext<ModalContextType>({});
@@ -20,9 +24,28 @@ export const ModalProvider: FC = ({ children }) => {
   const [deletingCategoryId, setDeletingCategoryId] = useState('');
   const [deletingTaskId, setDeletingTaskId] = useState('');
   const [isCreating, setIsCreating] = useState(false);
+  const [editingTaskId, setEditingTaskId] = useState('');
+  const [editingCategoryId, setEditingCategoryId] = useState('');
 
   /* hooks */
   const appState = useSelector(getAppState);
+
+  /* methods */
+  const cancelCreating = () => {
+    setIsCreating(false);
+  };
+
+  const cancelEditing = () => {
+    setEditingTaskId('');
+  };
+
+  const cancelCategoryDeleting = () => {
+    setDeletingCategoryId('');
+  };
+
+  const cancelTaskDeleting = () => {
+    setDeletingTaskId('');
+  };
 
   return (
     <ModalContext.Provider
@@ -33,27 +56,42 @@ export const ModalProvider: FC = ({ children }) => {
         setDeletingCategoryId,
         isCreating,
         setIsCreating,
+        editingTaskId,
+        setEditingTaskId,
+        editingCategoryId,
+        setEditingCategoryId,
       }}
     >
       {appState === 'tasks' && deletingTaskId && (
-        <ModalDelete type="task" />
+        <ModalDelete type="task" onClose={cancelTaskDeleting} />
       )}
       {appState === 'categories' && deletingCategoryId && (
-        <ModalDelete type="category" />
+        <ModalDelete type="category" onClose={cancelCategoryDeleting} />
       )}
       {appState === 'tasks' && isCreating && (
         <ModalTask
-          type="create"
+          mode="create"
           initialName=""
           initialDescription=""
           initialCategoryId={undefined}
+          onClose={cancelCreating}
         />
       )}
       {appState === 'categories' && isCreating && (
         <ModalCategory
-          type="create"
+          mode="create"
           initialName=""
           initialDescription=""
+          onClose={cancelCreating}
+        />
+      )}
+      {appState === 'tasks' && editingTaskId && (
+        <ModalTask
+          mode="edit"
+          initialName="hello"
+          initialDescription="asdf"
+          initialCategoryId={undefined}
+          onClose={cancelEditing}
         />
       )}
       {children}

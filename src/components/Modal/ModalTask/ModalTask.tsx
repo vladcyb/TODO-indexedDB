@@ -13,19 +13,21 @@ import { useInput } from '../../../shared/hooks/useInput';
 const cn = createCn('modalTask');
 
 type PropsType = {
-  type: 'create' | 'edit'
+  mode: 'create' | 'edit'
   className?: string
   initialName: string
   initialDescription: string
   initialCategoryId: string | undefined
+  onClose: () => void
 }
 
 
 export const ModalTask: FC<PropsType> = ({
-                                           type,
+                                           mode,
                                            initialName,
                                            initialDescription,
                                            initialCategoryId,
+                                           onClose,
                                            ...modalProps
                                          }) => {
 
@@ -33,7 +35,7 @@ export const ModalTask: FC<PropsType> = ({
   const dispatch = useAppDispatch();
   const modalContext = useContext(ModalContext);
   const categories = useSelector(getCategories);
-  const nameInput = useInput('', true);
+  const nameInput = useInput(initialName, true);
 
   /* state */
   const [selectedCategoryId, setSelectedCategoryId] = useState<string | undefined>(undefined);
@@ -62,15 +64,12 @@ export const ModalTask: FC<PropsType> = ({
     }
   };
 
-  const handleClose = () => {
-    modalContext.setIsCreating!(false);
-  };
 
   return (
     <Modal
       className={cn()}
-      title={`${createOrEdit[type][0]} задачи`}
-      onClose={handleClose}
+      title={`${createOrEdit[mode][0]} задачи`}
+      onClose={onClose}
       open
       {...modalProps}
     >
@@ -104,12 +103,12 @@ export const ModalTask: FC<PropsType> = ({
             className={cn('createControl')}
             type="submit"
           >
-            {createOrEdit[type][1]}
+            {createOrEdit[mode][1]}
           </Button>
           <Button
             className={cn('closeControl')}
             variant="secondary"
-            onClick={handleClose}
+            onClick={onClose}
           >
             Закрыть
           </Button>
