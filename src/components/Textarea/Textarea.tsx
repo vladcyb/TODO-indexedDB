@@ -13,7 +13,7 @@ export const Textarea: FC<PropsType> = ({
                                           required,
                                           error,
                                           className,
-                                          ...all
+                                          ...textareaProps
                                         }) => {
 
   /* classes */
@@ -26,7 +26,7 @@ export const Textarea: FC<PropsType> = ({
       </label>
       <textarea
         className={cn('input')}
-        {...all}
+        {...textareaProps}
       />
       <div className={cn('error')}>
         {error}

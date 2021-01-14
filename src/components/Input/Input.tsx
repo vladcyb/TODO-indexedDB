@@ -14,7 +14,7 @@ export const Input: FC<PropsType> = ({
                                        error,
                                        type = 'text',
                                        className,
-                                       ...all
+                                       ...inputProps
                                      }) => {
 
   /* classes */
@@ -28,7 +28,7 @@ export const Input: FC<PropsType> = ({
       <input
         className={cn('input')}
         type={type}
-        {...all}
+        {...inputProps}
       />
       <div className={cn('error')}>
         {error}
