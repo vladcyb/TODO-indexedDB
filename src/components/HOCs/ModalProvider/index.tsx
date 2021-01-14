@@ -2,6 +2,7 @@ import { createContext, Dispatch, FC, SetStateAction, useState } from 'react';
 import { ModalCategory, ModalDelete, ModalTask } from '../../Modal';
 import { useSelector } from 'react-redux';
 import { getAppState } from '../../../store/appReducer/selectors';
+import { getTasks } from '../../../store/tasksReducer/selectors';
 
 export type ModalContextType = {
   deletingTaskId?: string
@@ -29,6 +30,7 @@ export const ModalProvider: FC = ({ children }) => {
 
   /* hooks */
   const appState = useSelector(getAppState);
+  const tasks = useSelector(getTasks);
 
   /* methods */
   const cancelCreating = () => {
@@ -46,6 +48,9 @@ export const ModalProvider: FC = ({ children }) => {
   const cancelTaskDeleting = () => {
     setDeletingTaskId('');
   };
+
+  /* vars */
+  const editingTask = tasks.find((task) => task.id === editingTaskId);
 
   return (
     <ModalContext.Provider
@@ -88,9 +93,9 @@ export const ModalProvider: FC = ({ children }) => {
       {appState === 'tasks' && editingTaskId && (
         <ModalTask
           mode="edit"
-          initialName="hello"
-          initialDescription="asdf"
-          initialCategoryId={undefined}
+          initialName={editingTask!.name}
+          initialDescription={editingTask!.description}
+          initialCategoryId={editingTask!.categoryId}
           onClose={cancelEditing}
         />
       )}

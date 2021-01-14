@@ -6,8 +6,8 @@ import { actions, useAppDispatch } from '../../../store';
 import { ModalContext } from '../../HOCs/ModalProvider';
 import { useSelector } from 'react-redux';
 import { getCategories } from '../../../store/categoriesReducer/selectors';
-import './style.css';
 import { useInput } from '../../../shared/hooks/useInput';
+import './style.css';
 
 
 const cn = createCn('modalTask');
@@ -51,19 +51,30 @@ export const ModalTask: FC<PropsType> = ({
 
   const handleConfirm = (e: React.FormEvent) => {
     e.preventDefault();
-    if (catId) {
-      dispatch(actions.tasks.addTask({
-        task: {
-          id: Math.random().toString(), // TODO
-          name: nameInput.value,
-          description,
-          categoryId: catId,
-        },
-      }));
-      modalContext.setIsCreating!(false);
+
+    if (catId && nameInput.value) {
+      onClose();
+      if (mode === 'create') {
+        dispatch(actions.tasks.addTask({
+          task: {
+            id: Math.random().toString(), // TODO
+            name: nameInput.value,
+            description,
+            categoryId: catId,
+          },
+        }));
+      } else {
+        dispatch(actions.tasks.editTask({
+          task: {
+            id: modalContext.editingTaskId!,
+            categoryId: catId,
+            description,
+            name: nameInput.value,
+          },
+        }));
+      }
     }
   };
-
 
   return (
     <Modal

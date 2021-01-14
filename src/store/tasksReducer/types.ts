@@ -7,3 +7,7 @@ export type AddTaskPayloadType = {
 export type DeleteTaskPayloadType = {
   id: string
 }
+
+export type EditTaskPayloadType = {
+  task: Task
+}
