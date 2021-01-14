@@ -63,8 +63,6 @@ export const ModalTask: FC<PropsType> = ({
   };
 
   const handleClose = () => {
-    setSelectedCategoryId(initialCategoryId);
-    setDescription(initialDescription);
     modalContext.setIsCreating!(false);
   };
 
