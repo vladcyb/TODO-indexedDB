@@ -1,19 +1,11 @@
-import { createContext, Dispatch, FC, SetStateAction, useState } from 'react';
+import { createContext, FC, useState } from 'react';
 import { ModalCategory, ModalDelete, ModalTask } from '../../Modal';
 import { useSelector } from 'react-redux';
 import { getAppState } from '../../../store/appReducer/selectors';
 import { getTasks } from '../../../store/tasksReducer/selectors';
 import { getCategories } from '../../../store/categoriesReducer/selectors';
 import { ModalTargetType, Mode } from '../../../shared/constants';
-
-export type ModalContextType = {
-  deletingId: string
-  setDeletingId: Dispatch<SetStateAction<string>>
-  isCreating: boolean
-  setIsCreating: Dispatch<SetStateAction<boolean>>
-  editingId: string
-  setEditingId: Dispatch<SetStateAction<string>>
-}
+import { ModalContextType } from '../../Modal/types';
 
 export const ModalContext = createContext<ModalContextType>(null as any);
 
