@@ -6,6 +6,7 @@ import './style.css';
 import { useAppDispatch } from '../../store';
 import { ModalContext } from '../HOCs/ModalProvider';
 import { actions as categoriesActions } from '../../store/categoriesReducer';
+import { useRequiredInput } from '../../shared/hooks/useRequredInput';
 
 
 type PropsType = {
@@ -26,33 +27,26 @@ export const ModalCategory: FC<PropsType> = ({
   /* hooks */
   const dispatch = useAppDispatch();
   const modalContext = useContext(ModalContext);
+  const nameField = useRequiredInput();
 
   /* classes */
   const cn = createCn('modalCategory', className);
 
   /* state */
-  const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  const [nameError, setNameError] = useState('');
 
   /* methods */
-  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setNameError('');
-    setName(e.target.value);
-  };
-
   const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setDescription(e.target.value);
   };
 
   const handleClose = () => {
-    setName(initialName);
-    setDescription(initialDescription);
     modalContext.setIsCreating!(false);
   };
 
   const handleConfirm = (e: React.FormEvent) => {
     e.preventDefault();
+    const name = nameField.value;
     if (name) {
       dispatch(categoriesActions.addCategory({
         category: {
@@ -62,8 +56,6 @@ export const ModalCategory: FC<PropsType> = ({
         },
       }));
       modalContext.setIsCreating!(false);
-    } else {
-      setNameError('Поле должно быть обязательным');
     }
   };
 
@@ -82,10 +74,8 @@ export const ModalCategory: FC<PropsType> = ({
           required
           label="Имя"
           placeholder="Введите имя категории"
-          onChange={handleNameChange}
-          value={name}
           autoFocus
-          error={nameError}
+          {...nameField}
         />
         <Textarea
           className={cn('description')}
