@@ -63,7 +63,7 @@ export const ModalTask: FC<PropsType> = ({
       } else {
         dispatch(actions.tasks.editTask({
           task: {
-            id: modalContext.editingId!,
+            id: modalContext.editingId,
             categoryId,
             description,
             name: nameInput.value,

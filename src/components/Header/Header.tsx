@@ -27,7 +27,7 @@ export const Header: FC = () => {
   };
 
   const handleAddClick = () => {
-    modalContext.setIsCreating!(true);
+    modalContext.setIsCreating(true);
   };
 
   return (

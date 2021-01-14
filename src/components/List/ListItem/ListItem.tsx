@@ -34,17 +34,17 @@ export const ListItem: FC<PropsType> = ({
   /* methods */
   const handleDelete = () => {
     if (state === 'tasks') {
-      modalContext.setDeletingId!(id);
+      modalContext.setDeletingId(id);
     } else {
-      modalContext.setDeletingId!(id);
+      modalContext.setDeletingId(id);
     }
   };
 
   const handleEdit = () => {
     if (state === 'tasks') {
-      modalContext.setEditingId!(id);
+      modalContext.setEditingId(id);
     } else {
-      modalContext.setEditingId!(id);
+      modalContext.setEditingId(id);
     }
   };
 

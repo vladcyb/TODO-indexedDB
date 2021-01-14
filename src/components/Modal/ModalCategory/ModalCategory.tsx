@@ -53,7 +53,7 @@ export const ModalCategory: FC<PropsType> = ({
         }));
       } else {
         dispatch(actions.categories.editCategory({
-          id: modalContext.editingId!,
+          id: modalContext.editingId,
           name: nameField.value,
           description,
         }));
