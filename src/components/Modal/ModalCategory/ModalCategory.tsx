@@ -1,12 +1,12 @@
 import React, { FC, useContext, useState } from 'react';
 import { createCn } from 'bem-react-classname';
-import { Button, Input, Modal, Textarea } from '../../components';
-import { createOrEdit } from '../../shared/constants';
+import { Button, Input, Modal, Textarea } from '../../index';
+import { createOrEdit } from '../../../shared/constants';
 import './style.css';
-import { useAppDispatch } from '../../store';
-import { ModalContext } from '../HOCs/ModalProvider';
-import { actions as categoriesActions } from '../../store/categoriesReducer';
-import { useRequiredInput } from '../../shared/hooks/useRequredInput';
+import { useAppDispatch } from '../../../store';
+import { ModalContext } from '../../HOCs/ModalProvider';
+import { actions as categoriesActions } from '../../../store/categoriesReducer';
+import { useRequiredInput } from '../../../shared/hooks/useRequredInput';
 
 
 type PropsType = {

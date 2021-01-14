@@ -1,12 +1,12 @@
 import React, { FC, useContext, useState } from 'react';
 import { createCn } from 'bem-react-classname';
-import { createOrEdit } from '../../shared/constants';
-import { Button, Input, Modal, Select, Textarea } from '../../components';
-import { useAppDispatch } from '../../store';
-import { actions } from '../../store';
-import { ModalContext } from '../HOCs/ModalProvider';
+import { createOrEdit } from '../../../shared/constants';
+import { Button, Input, Modal, Select, Textarea } from '../../index';
+import { useAppDispatch } from '../../../store';
+import { actions } from '../../../store';
+import { ModalContext } from '../../HOCs/ModalProvider';
 import { useSelector } from 'react-redux';
-import { getCategories } from '../../store/categoriesReducer/selectors';
+import { getCategories } from '../../../store/categoriesReducer/selectors';
 import './style.css';
 
 

@@ -1,9 +1,7 @@
 import { createContext, Dispatch, FC, SetStateAction, useState } from 'react';
-import { ModalDelete } from '../../ModalDelete';
+import { ModalCategory, ModalDelete, ModalTask } from '../../Modal';
 import { useSelector } from 'react-redux';
 import { getAppState } from '../../../store/appReducer/selectors';
-import { ModalTask } from '../../ModalTask';
-import { ModalCategory } from '../../ModalCategory';
 
 export type ModalContextType = {
   deletingTaskId?: string
