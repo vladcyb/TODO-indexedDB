@@ -7,16 +7,12 @@ import { getCategories } from '../../../store/categoriesReducer/selectors';
 import { ModalTargetType, Mode } from '../../../shared/constants';
 
 export type ModalContextType = {
-  deletingTaskId?: string
-  deletingCategoryId?: string
-  setDeletingCategoryId?: Dispatch<SetStateAction<string>>
-  setDeletingTaskId?: Dispatch<SetStateAction<string>>
+  deletingId?: string
+  setDeletingId?: Dispatch<SetStateAction<string>>
   isCreating?: boolean
   setIsCreating?: Dispatch<SetStateAction<boolean>>
-  editingTaskId?: string
-  setEditingTaskId?: Dispatch<SetStateAction<string>>
-  editingCategoryId?: string
-  setEditingCategoryId?: Dispatch<SetStateAction<string>>
+  editingId?: string
+  setEditingId?: Dispatch<SetStateAction<string>>
 }
 
 export const ModalContext = createContext<ModalContextType>({});
@@ -24,11 +20,9 @@ export const ModalContext = createContext<ModalContextType>({});
 export const ModalProvider: FC = ({ children }) => {
 
   /* state */
-  const [deletingCategoryId, setDeletingCategoryId] = useState('');
-  const [deletingTaskId, setDeletingTaskId] = useState('');
+  const [deletingId, setDeletingId] = useState('');
   const [isCreating, setIsCreating] = useState(false);
-  const [editingTaskId, setEditingTaskId] = useState('');
-  const [editingCategoryId, setEditingCategoryId] = useState('');
+  const [editingId, setEditingId] = useState('');
 
   /* hooks */
   const appState = useSelector(getAppState);
@@ -40,46 +34,34 @@ export const ModalProvider: FC = ({ children }) => {
     setIsCreating(false);
   };
 
-  const cancelTaskEditing = () => {
-    setEditingTaskId('');
+  const cancelEditing = () => {
+    setEditingId('');
   };
 
-  const cancelCategoryEditing = () => {
-    setEditingCategoryId('');
-  };
-
-  const cancelCategoryDeleting = () => {
-    setDeletingCategoryId('');
-  };
-
-  const cancelTaskDeleting = () => {
-    setDeletingTaskId('');
+  const cancelDeleting = () => {
+    setDeletingId('');
   };
 
   /* vars */
-  const editingTask = tasks.find((task) => task.id === editingTaskId);
-  const editingCategory = categories.find((category) => category.id === editingCategoryId);
+  const editingTask = tasks.find((task) => task.id === editingId);
+  const editingCategory = categories.find((category) => category.id === editingId);
 
   return (
     <ModalContext.Provider
       value={{
-        deletingTaskId,
-        setDeletingTaskId,
-        deletingCategoryId,
-        setDeletingCategoryId,
         isCreating,
         setIsCreating,
-        editingTaskId,
-        setEditingTaskId,
-        editingCategoryId,
-        setEditingCategoryId,
+        editingId,
+        setDeletingId,
+        deletingId,
+        setEditingId,
       }}
     >
-      {appState === 'tasks' && deletingTaskId && (
-        <ModalDelete type={ModalTargetType.task} onClose={cancelTaskDeleting} />
+      {appState === 'tasks' && deletingId && (
+        <ModalDelete type={ModalTargetType.task} onClose={cancelDeleting} />
       )}
-      {appState === 'categories' && deletingCategoryId && (
-        <ModalDelete type={ModalTargetType.category} onClose={cancelCategoryDeleting} />
+      {appState === 'categories' && deletingId && (
+        <ModalDelete type={ModalTargetType.category} onClose={cancelDeleting} />
       )}
       {appState === 'tasks' && isCreating && (
         <ModalTask
@@ -93,19 +75,19 @@ export const ModalProvider: FC = ({ children }) => {
           onClose={cancelCreating}
         />
       )}
-      {appState === 'tasks' && editingTaskId && (
+      {appState === 'tasks' && editingId && (
         <ModalTask
           mode={Mode.edit}
           initialName={editingTask!.name}
           initialDescription={editingTask!.description}
           initialCategoryId={editingTask!.categoryId}
-          onClose={cancelTaskEditing}
+          onClose={cancelEditing}
         />
       )}
-      {appState === 'categories' && editingCategoryId && (
+      {appState === 'categories' && editingId && (
         <ModalCategory
           mode={Mode.edit}
-          onClose={cancelCategoryEditing}
+          onClose={cancelEditing}
           initialDescription={editingCategory!.description}
           initialName={editingCategory!.name}
         />

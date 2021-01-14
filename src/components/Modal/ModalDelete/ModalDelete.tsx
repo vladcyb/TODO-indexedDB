@@ -25,25 +25,25 @@ export const ModalDelete: FC<PropsType> = ({
                                            }) => {
 
   /* hooks */
-  const modalContext = useContext(ModalContext);
+  const {deletingId} = useContext(ModalContext);
   const state = useSelector(getAppState);
   const dispatch = useAppDispatch();
   const categories = useSelector(getCategories);
   const tasks = useSelector(getTasks);
   const target = type === ModalTargetType.category ?
-    categories.find((item) => item.id === modalContext.deletingCategoryId)!.name :
-    tasks.find((item) => item.id === modalContext.deletingTaskId)!.name;
+    categories.find((item) => item.id === deletingId)!.name :
+    tasks.find((item) => item.id === deletingId)!.name;
 
 
   /* methods */
   const handleConfirm = () => {
     if (state === 'tasks') {
       dispatch(actions.tasks.deleteTask({
-        id: modalContext.deletingTaskId!,
+        id: deletingId!,
       }));
       onClose();
     } else {
-      dispatch(actions.categories.deleteCategory(modalContext.deletingCategoryId!));
+      dispatch(actions.categories.deleteCategory(deletingId!));
       onClose();
     }
   };
