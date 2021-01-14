@@ -1,7 +1,7 @@
 import React, { FC, useContext, useState } from 'react';
 import { createCn } from 'bem-react-classname';
 import { Button, Input, Modal, Textarea } from '../../index';
-import { createOrEdit } from '../../../shared/constants';
+import { createOrEdit, Mode } from '../../../shared/constants';
 import './style.css';
 import { actions, useAppDispatch } from '../../../store';
 import { ModalContext } from '../../HOCs/ModalProvider';
@@ -9,7 +9,7 @@ import { useInput } from '../../../shared/hooks/useInput';
 
 
 type PropsType = {
-  mode: 'create' | 'edit'
+  mode: Mode
   initialName: string
   initialDescription: string
   onClose: () => void
@@ -45,7 +45,7 @@ export const ModalCategory: FC<PropsType> = ({
     e.preventDefault();
     const name = nameField.value;
     if (name) {
-      if (mode === 'create') {
+      if (mode === Mode.create) {
         dispatch(actions.categories.addCategory({
           id: Math.random().toString(), // TODO
           name,
@@ -61,7 +61,6 @@ export const ModalCategory: FC<PropsType> = ({
       onClose();
     }
   };
-
 
   return (
     <Modal

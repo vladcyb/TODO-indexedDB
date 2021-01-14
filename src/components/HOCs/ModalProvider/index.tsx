@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { getAppState } from '../../../store/appReducer/selectors';
 import { getTasks } from '../../../store/tasksReducer/selectors';
 import { getCategories } from '../../../store/categoriesReducer/selectors';
+import { ModalTargetType, Mode } from '../../../shared/constants';
 
 export type ModalContextType = {
   deletingTaskId?: string
@@ -59,6 +60,19 @@ export const ModalProvider: FC = ({ children }) => {
   const editingTask = tasks.find((task) => task.id === editingTaskId);
   const editingCategory = categories.find((category) => category.id === editingCategoryId);
 
+  console.table({
+    deletingTaskId,
+    setDeletingTaskId,
+    deletingCategoryId,
+    setDeletingCategoryId,
+    isCreating,
+    setIsCreating,
+    editingTaskId,
+    setEditingTaskId,
+    editingCategoryId,
+    setEditingCategoryId,
+  });
+
   return (
     <ModalContext.Provider
       value={{
@@ -75,14 +89,14 @@ export const ModalProvider: FC = ({ children }) => {
       }}
     >
       {appState === 'tasks' && deletingTaskId && (
-        <ModalDelete type="task" onClose={cancelTaskDeleting} />
+        <ModalDelete type={ModalTargetType.task} onClose={cancelTaskDeleting} />
       )}
       {appState === 'categories' && deletingCategoryId && (
-        <ModalDelete type="category" onClose={cancelCategoryDeleting} />
+        <ModalDelete type={ModalTargetType.category} onClose={cancelCategoryDeleting} />
       )}
       {appState === 'tasks' && isCreating && (
         <ModalTask
-          mode="create"
+          mode={Mode.create}
           initialName=""
           initialDescription=""
           initialCategoryId={undefined}
@@ -91,7 +105,7 @@ export const ModalProvider: FC = ({ children }) => {
       )}
       {appState === 'categories' && isCreating && (
         <ModalCategory
-          mode="create"
+          mode={Mode.create}
           initialName=""
           initialDescription=""
           onClose={cancelCreating}
@@ -99,7 +113,7 @@ export const ModalProvider: FC = ({ children }) => {
       )}
       {appState === 'tasks' && editingTaskId && (
         <ModalTask
-          mode="edit"
+          mode={Mode.edit}
           initialName={editingTask!.name}
           initialDescription={editingTask!.description}
           initialCategoryId={editingTask!.categoryId}
@@ -108,7 +122,7 @@ export const ModalProvider: FC = ({ children }) => {
       )}
       {appState === 'categories' && editingCategoryId && (
         <ModalCategory
-          mode="edit"
+          mode={Mode.edit}
           onClose={cancelCategoryEditing}
           initialDescription={editingCategory!.description}
           initialName={editingCategory!.name}

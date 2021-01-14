@@ -9,3 +9,7 @@ export const taskOrCategoryWords = {
 };
 
 export const requiredFieldError = 'Поле должно быть обязательным';
+
+export enum Mode { create = 'create', edit = 'edit' }
+
+export enum ModalTargetType { task = 'task', category = 'category' }

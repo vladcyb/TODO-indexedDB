@@ -1,6 +1,6 @@
 import React, { FC, useContext, useState } from 'react';
 import { createCn } from 'bem-react-classname';
-import { createOrEdit } from '../../../shared/constants';
+import { createOrEdit, Mode } from '../../../shared/constants';
 import { Button, Input, Modal, Select, Textarea } from '../../index';
 import { actions, useAppDispatch } from '../../../store';
 import { ModalContext } from '../../HOCs/ModalProvider';
@@ -13,7 +13,7 @@ import './style.css';
 const cn = createCn('modalTask');
 
 type PropsType = {
-  mode: 'create' | 'edit'
+  mode: Mode
   className?: string
   initialName: string
   initialDescription: string
@@ -51,7 +51,7 @@ export const ModalTask: FC<PropsType> = ({
 
     if (categoryId && nameInput.value) {
       onClose();
-      if (mode === 'create') {
+      if (mode === Mode.create) {
         dispatch(actions.tasks.addTask({
           task: {
             id: Math.random().toString(), // TODO

@@ -1,7 +1,7 @@
 import { FC, useContext } from 'react';
 import { createCn } from 'bem-react-classname';
 import { Button, Modal } from '../../index';
-import { taskOrCategoryWords } from '../../../shared/constants';
+import { ModalTargetType, taskOrCategoryWords } from '../../../shared/constants';
 import { ModalContext } from '../../HOCs/ModalProvider';
 import { useSelector } from 'react-redux';
 import { getAppState } from '../../../store/appReducer/selectors';
@@ -11,10 +11,8 @@ import { getCategories } from '../../../store/categoriesReducer/selectors';
 import { getTasks } from '../../../store/tasksReducer/selectors';
 
 
-type TargetType = 'task' | 'category'
-
 type PropsType = {
-  type: TargetType
+  type: ModalTargetType
   onClose: () => void
 }
 
@@ -32,7 +30,7 @@ export const ModalDelete: FC<PropsType> = ({
   const dispatch = useAppDispatch();
   const categories = useSelector(getCategories);
   const tasks = useSelector(getTasks);
-  const target = type === 'category' ?
+  const target = type === ModalTargetType.category ?
     categories.find((item) => item.id === modalContext.deletingCategoryId)!.name :
     tasks.find((item) => item.id === modalContext.deletingTaskId)!.name;
 
