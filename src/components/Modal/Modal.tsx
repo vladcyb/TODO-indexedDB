@@ -32,6 +32,7 @@ export const Modal: FC<PropsType> = (props) => {
     return () => {
       window.removeEventListener('keydown', onKeyDown);
     };
+    // eslint-disable-next-line
   }, []);
 
   return (

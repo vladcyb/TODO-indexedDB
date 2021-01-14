@@ -6,6 +6,7 @@ import { getTasks } from '../../store/tasksReducer/selectors';
 import { getAppState } from '../../store/appReducer/selectors';
 import { getCategories } from '../../store/categoriesReducer/selectors';
 import './style.css';
+import { useIndexedDb } from '../../shared/hooks/useIndexedDb';
 
 
 const cn = createCn('list');
@@ -19,7 +20,7 @@ export const List: FC<PropsType> = () => {
   const state = useSelector(getAppState);
   const tasks = useSelector(getTasks);
   const categories = useSelector(getCategories);
-
+  useIndexedDb();
 
   return (
     <div className={cn()}>

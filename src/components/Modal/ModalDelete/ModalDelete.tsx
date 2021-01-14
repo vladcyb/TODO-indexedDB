@@ -38,12 +38,10 @@ export const ModalDelete: FC<PropsType> = ({
   /* methods */
   const handleConfirm = () => {
     if (state === 'tasks') {
-      dispatch(actions.tasks.deleteTask({
-        id: deletingId!,
-      }));
+      dispatch(actions.tasks.deleteTask(deletingId));
       onClose();
     } else {
-      dispatch(actions.categories.deleteCategory(deletingId!));
+      dispatch(actions.categories.deleteCategory(deletingId));
       onClose();
     }
   };

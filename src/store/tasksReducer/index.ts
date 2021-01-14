@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AddTaskPayloadType, DeleteTaskPayloadType, EditTaskPayloadType } from './types';
 import { Task } from '../../shared/types';
 
 
@@ -9,21 +8,21 @@ export const tasksSlice = createSlice({
   name: 'tasks',
   initialState,
   reducers: {
-    addTask: (state, { payload }: PayloadAction<AddTaskPayloadType>) => {
-      state.push(payload.task);
+    addTask: (state, { payload }: PayloadAction<Task>) => {
+      state.push(payload);
     },
-    deleteTask: (state, { payload }: PayloadAction<DeleteTaskPayloadType>) => {
-      const index = state.findIndex((item) => item.id === payload.id);
+    deleteTask: (state, { payload }: PayloadAction<string>) => {
+      const index = state.findIndex((item) => item.id === payload);
       if (index >= 0) {
         state.splice(
           index, 1,
         );
       }
     },
-    editTask: (state, { payload }: PayloadAction<EditTaskPayloadType>) => {
-      const index = state.findIndex((task) => task.id === payload.task.id);
+    editTask: (state, { payload }: PayloadAction<Task>) => {
+      const index = state.findIndex((task) => task.id === payload.id);
       if (index >= 0) {
-        state[index] = payload.task;
+        state[index] = payload;
       }
     },
   },

@@ -8,6 +8,8 @@ import { getCategories } from '../../../store/categoriesReducer/selectors';
 import { useInput } from '../../../shared/hooks/useInput';
 import { useModal } from '../useModal';
 import './style.css';
+import { useSetters } from '../../../shared/hooks/useSetters';
+import { TasksThunk } from '../../../store/tasksReducer/thunk';
 
 
 const cn = createCn('modalTask');
@@ -37,6 +39,10 @@ export const ModalTask: FC<PropsType> = ({
   const categories = useSelector(getCategories);
   const nameInput = useInput(initialName, true);
 
+  /* thunk */
+  const [getters, setters] = useSetters()
+  const thunk = TasksThunk(setters)
+
   /* state */
   const [categoryId, setCategoryId] = useState<string | undefined>(initialCategoryId);
   const [description, setDescription] = useState(initialDescription);
@@ -52,22 +58,19 @@ export const ModalTask: FC<PropsType> = ({
     if (categoryId && nameInput.value) {
       onClose();
       if (mode === Mode.create) {
-        dispatch(actions.tasks.addTask({
-          task: {
-            id: Math.random().toString(), // TODO
-            name: nameInput.value,
-            description,
-            categoryId,
-          },
+        dispatch(thunk.addTask({
+          id: Math.random().toString(), // TODO
+          name: nameInput.value,
+          description,
+          categoryId,
         }));
+
       } else {
         dispatch(actions.tasks.editTask({
-          task: {
-            id: modalContext.editingId,
-            categoryId,
-            description,
-            name: nameInput.value,
-          },
+          id: modalContext.editingId,
+          categoryId,
+          description,
+          name: nameInput.value,
         }));
       }
     }
