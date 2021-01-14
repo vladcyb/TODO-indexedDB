@@ -10,8 +10,8 @@ import { useInput } from '../../../shared/hooks/useInput';
 
 type PropsType = {
   mode: Mode
-  initialName: string
-  initialDescription: string
+  initialName?: string
+  initialDescription?: string
   onClose: () => void
   className?: string
 }
@@ -19,8 +19,8 @@ type PropsType = {
 export const ModalCategory: FC<PropsType> = ({
                                                mode,
                                                className,
-                                               initialDescription,
-                                               initialName,
+                                               initialName = '',
+                                               initialDescription = '',
                                                onClose,
                                                ...modalProps
                                              }) => {

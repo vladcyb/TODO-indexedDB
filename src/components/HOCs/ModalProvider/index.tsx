@@ -60,19 +60,6 @@ export const ModalProvider: FC = ({ children }) => {
   const editingTask = tasks.find((task) => task.id === editingTaskId);
   const editingCategory = categories.find((category) => category.id === editingCategoryId);
 
-  console.table({
-    deletingTaskId,
-    setDeletingTaskId,
-    deletingCategoryId,
-    setDeletingCategoryId,
-    isCreating,
-    setIsCreating,
-    editingTaskId,
-    setEditingTaskId,
-    editingCategoryId,
-    setEditingCategoryId,
-  });
-
   return (
     <ModalContext.Provider
       value={{
@@ -97,17 +84,12 @@ export const ModalProvider: FC = ({ children }) => {
       {appState === 'tasks' && isCreating && (
         <ModalTask
           mode={Mode.create}
-          initialName=""
-          initialDescription=""
-          initialCategoryId={undefined}
           onClose={cancelCreating}
         />
       )}
       {appState === 'categories' && isCreating && (
         <ModalCategory
           mode={Mode.create}
-          initialName=""
-          initialDescription=""
           onClose={cancelCreating}
         />
       )}

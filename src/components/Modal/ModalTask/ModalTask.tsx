@@ -15,17 +15,17 @@ const cn = createCn('modalTask');
 type PropsType = {
   mode: Mode
   className?: string
-  initialName: string
-  initialDescription: string
-  initialCategoryId: string | undefined
+  initialName?: string
+  initialDescription?: string
+  initialCategoryId?: string
   onClose: () => void
 }
 
 
 export const ModalTask: FC<PropsType> = ({
                                            mode,
-                                           initialName,
-                                           initialDescription,
+                                           initialName = '',
+                                           initialDescription = '',
                                            initialCategoryId,
                                            onClose,
                                            ...modalProps
