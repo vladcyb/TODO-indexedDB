@@ -13,7 +13,7 @@ declare global {
 
 export const TasksThunk = (setters: SettersType) => {
 
-  const addTask = (task: Task) => async (dispatch: AppDispatch) => {
+  const addTask = (task: Task) => (dispatch: AppDispatch) => {
     setters.setIsLoading(true);
     const request = API.Tasks.add(task);
     request.onsuccess = () => {
@@ -22,8 +22,8 @@ export const TasksThunk = (setters: SettersType) => {
     };
 
     request.onerror = () => {
-      console.log(request.result);
       setters.setIsLoading(false);
+      throw Error(JSON.stringify(request.result));
     };
   };
 

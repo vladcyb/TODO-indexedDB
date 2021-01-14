@@ -1,4 +1,4 @@
-import { Task } from '../shared/types';
+import { Category, Task } from '../shared/types';
 
 export const API = {
   Tasks: {
@@ -14,4 +14,11 @@ export const API = {
 
     },
   },
+  Categories: {
+    add: (category: Category) => {
+      const transaction = window.db.transaction('Category', 'readwrite');
+      const categories = transaction.objectStore('Category');
+      return categories.add(category);
+    }
+  }
 };

@@ -6,6 +6,8 @@ import './style.css';
 import { actions, useAppDispatch } from '../../../store';
 import { useInput } from '../../../shared/hooks/useInput';
 import { useModal } from '../useModal';
+import { useSetters } from '../../../shared/hooks/useSetters';
+import { CategoriesThunk } from '../../../store/categoriesReducer/thunk';
 
 
 type PropsType = {
@@ -30,6 +32,10 @@ export const ModalCategory: FC<PropsType> = ({
   const modalContext = useModal();
   const nameField = useInput(initialName, true);
 
+  /* thunk */
+  const [getters, setters] = useSetters();
+  const thunk = CategoriesThunk(setters);
+
   /* classes */
   const cn = createCn('modalCategory', className);
 
@@ -46,7 +52,12 @@ export const ModalCategory: FC<PropsType> = ({
     const name = nameField.value;
     if (name) {
       if (mode === Mode.create) {
-        dispatch(actions.categories.addCategory({
+        // dispatch(actions.categories.addCategory({
+        //   id: Math.random().toString(), // TODO
+        //   name,
+        //   description,
+        // }));
+        dispatch(thunk.addCategory({
           id: Math.random().toString(), // TODO
           name,
           description,
