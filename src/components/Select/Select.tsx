@@ -3,7 +3,7 @@ import { createCn } from 'bem-react-classname';
 import './style.css';
 
 type ListItem = {
-  id: number
+  id?: number
   name: string
 }
 

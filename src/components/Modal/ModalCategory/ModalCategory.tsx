@@ -52,13 +52,7 @@ export const ModalCategory: FC<PropsType> = ({
     const name = nameField.value;
     if (name) {
       if (mode === Mode.create) {
-        // dispatch(actions.categories.addCategory({
-        //   id: Math.random().toString(), // TODO
-        //   name,
-        //   description,
-        // }));
         dispatch(thunk.addCategory({
-          id: Math.random(), // TODO
           name,
           description,
         }));

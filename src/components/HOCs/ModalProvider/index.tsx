@@ -12,9 +12,9 @@ export const ModalContext = createContext<ModalContextType>(null as any);
 export const ModalProvider: FC = ({ children }) => {
 
   /* state */
-  const [deletingId, setDeletingId] = useState(0);
+  const [deletingId, setDeletingId] = useState<undefined | number>(undefined);
   const [isCreating, setIsCreating] = useState(false);
-  const [editingId, setEditingId] = useState(0);
+  const [editingId, setEditingId] = useState<undefined | number>(undefined);
 
   /* hooks */
   const appState = useSelector(getAppState);

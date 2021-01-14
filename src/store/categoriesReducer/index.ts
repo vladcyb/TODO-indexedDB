@@ -25,6 +25,9 @@ export const categoriesSlice = createSlice({
         state[index] = payload;
       }
     },
+    setCategories: (state, { payload }: PayloadAction<Category[]>) => {
+      return payload;
+    },
   },
 });
 
