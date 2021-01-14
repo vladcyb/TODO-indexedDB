@@ -40,7 +40,7 @@ export const ModalTask: FC<PropsType> = ({
   const [description, setDescription] = useState(initialDescription);
 
   /* vars */
-  const catId = selectedCategoryId || initialCategoryId
+  const catId = selectedCategoryId || initialCategoryId;
 
   /* methods */
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -51,7 +51,8 @@ export const ModalTask: FC<PropsType> = ({
     setDescription(e.target.value);
   };
 
-  const handleConfirm = () => {
+  const handleConfirm = (e: React.FormEvent) => {
+    e.preventDefault();
     if (catId) {
       dispatch(todosActions.addTodo({
         todo: {
@@ -80,46 +81,49 @@ export const ModalTask: FC<PropsType> = ({
       open
       {...modalProps}
     >
-      <div className={cn('body')}>
-        <div className={cn('grid')}>
-          <Input
-            className={cn('name')}
-            label="Имя"
-            placeholder="Введите имя задачи"
-            required
-            value={name}
-            onChange={handleNameChange}
-          />
-          <Select
-            className={cn()}
-            placeholder="Выберите категорию"
-            list={categories}
-            selectedId={catId}
-            selectId={setSelectedCategoryId}
-          />
-          <Textarea
-            className={cn('description')}
-            placeholder="Введите описание задачи"
-            value={description}
-            onChange={handleDescriptionChange}
-          />
+      <form onSubmit={handleConfirm}>
+        <div className={cn('body')}>
+          <div className={cn('grid')}>
+            <Input
+              className={cn('name')}
+              label="Имя"
+              placeholder="Введите имя задачи"
+              required
+              value={name}
+              onChange={handleNameChange}
+              autoFocus
+            />
+            <Select
+              className={cn()}
+              placeholder="Выберите категорию"
+              list={categories}
+              selectedId={catId}
+              selectId={setSelectedCategoryId}
+            />
+            <Textarea
+              className={cn('description')}
+              placeholder="Введите описание задачи"
+              value={description}
+              onChange={handleDescriptionChange}
+            />
+          </div>
         </div>
-      </div>
-      <div className={cn('controls')}>
-        <Button
-          className={cn('createControl')}
-          onClick={handleConfirm}
-        >
-          {createOrEdit[type][1]}
-        </Button>
-        <Button
-          className={cn('closeControl')}
-          variant="secondary"
-          onClick={handleClose}
-        >
-          Закрыть
-        </Button>
-      </div>
+        <div className={cn('controls')}>
+          <Button
+            className={cn('createControl')}
+            type="submit"
+          >
+            {createOrEdit[type][1]}
+          </Button>
+          <Button
+            className={cn('closeControl')}
+            variant="secondary"
+            onClick={handleClose}
+          >
+            Закрыть
+          </Button>
+        </div>
+      </form>
     </Modal>
   );
 };

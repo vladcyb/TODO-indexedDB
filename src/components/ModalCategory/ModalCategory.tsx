@@ -49,7 +49,8 @@ export const ModalCategory: FC<PropsType> = ({
     modalContext.setIsCreating!(false);
   };
 
-  const handleConfirm = () => {
+  const handleConfirm = (e: React.FormEvent) => {
+    e.preventDefault();
     dispatch(categoriesActions.addCategory({
       category: {
         id: Math.random().toString(), // TODO
@@ -69,29 +70,32 @@ export const ModalCategory: FC<PropsType> = ({
       open
       {...modalProps}
     >
-      <Input
-        className={cn('name')}
-        required
-        label="Имя"
-        placeholder="Введите имя категории"
-        onChange={handleNameChange}
-        value={name}
-      />
-      <Textarea
-        className={cn('description')}
-        label="Описание"
-        placeholder="Введите описание категории"
-        onChange={handleDescriptionChange}
-        value={description}
-      />
-      <div className={cn('controls')}>
-        <Button className={cn('confirm')} onClick={handleConfirm}>
-          {createOrEdit[type][1]}
-        </Button>
-        <Button variant="secondary" onClick={handleClose}>
-          Закрыть
-        </Button>
-      </div>
+      <form onSubmit={handleConfirm}>
+        <Input
+          className={cn('name')}
+          required
+          label="Имя"
+          placeholder="Введите имя категории"
+          onChange={handleNameChange}
+          value={name}
+          autoFocus
+        />
+        <Textarea
+          className={cn('description')}
+          label="Описание"
+          placeholder="Введите описание категории"
+          onChange={handleDescriptionChange}
+          value={description}
+        />
+        <div className={cn('controls')}>
+          <Button className={cn('confirm')} type="submit">
+            {createOrEdit[type][1]}
+          </Button>
+          <Button variant="secondary" onClick={handleClose}>
+            Закрыть
+          </Button>
+        </div>
+      </form>
     </Modal>
   );
 };
