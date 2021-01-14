@@ -1,11 +1,11 @@
-import React, { FC, useContext, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { createCn } from 'bem-react-classname';
 import { Button, Input, Modal, Textarea } from '../../index';
 import { createOrEdit, Mode } from '../../../shared/constants';
 import './style.css';
 import { actions, useAppDispatch } from '../../../store';
-import { ModalContext } from '../../HOCs/ModalProvider';
 import { useInput } from '../../../shared/hooks/useInput';
+import { useModal } from '../useModal';
 
 
 type PropsType = {
@@ -27,7 +27,7 @@ export const ModalCategory: FC<PropsType> = ({
 
   /* hooks */
   const dispatch = useAppDispatch();
-  const modalContext = useContext(ModalContext);
+  const modalContext = useModal();
   const nameField = useInput(initialName, true);
 
   /* classes */

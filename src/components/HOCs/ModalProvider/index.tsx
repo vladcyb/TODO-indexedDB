@@ -7,15 +7,15 @@ import { getCategories } from '../../../store/categoriesReducer/selectors';
 import { ModalTargetType, Mode } from '../../../shared/constants';
 
 export type ModalContextType = {
-  deletingId?: string
-  setDeletingId?: Dispatch<SetStateAction<string>>
-  isCreating?: boolean
-  setIsCreating?: Dispatch<SetStateAction<boolean>>
-  editingId?: string
-  setEditingId?: Dispatch<SetStateAction<string>>
+  deletingId: string
+  setDeletingId: Dispatch<SetStateAction<string>>
+  isCreating: boolean
+  setIsCreating: Dispatch<SetStateAction<boolean>>
+  editingId: string
+  setEditingId: Dispatch<SetStateAction<string>>
 }
 
-export const ModalContext = createContext<ModalContextType>({});
+export const ModalContext = createContext<ModalContextType>(null as any);
 
 export const ModalProvider: FC = ({ children }) => {
 

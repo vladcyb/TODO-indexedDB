@@ -1,11 +1,11 @@
-import { FC, useContext } from 'react';
+import { FC } from 'react';
 import { createCn } from 'bem-react-classname';
 import { TodoOrCategory } from '../../../shared/types';
 import { useSelector } from 'react-redux';
 import { getCategories } from '../../../store/categoriesReducer/selectors';
 import './style.css';
-import { ModalContext } from '../../HOCs/ModalProvider';
 import { getAppState } from '../../../store/appReducer/selectors';
+import { useModal } from '../../Modal/useModal';
 
 
 const cn = createCn('listItem');
@@ -25,7 +25,7 @@ export const ListItem: FC<PropsType> = ({
 
   /* hooks */
   const categories = useSelector(getCategories);
-  const modalContext = useContext(ModalContext);
+  const modalContext = useModal();
   const state = useSelector(getAppState);
 
   /* vars */
@@ -46,7 +46,7 @@ export const ListItem: FC<PropsType> = ({
     } else {
       modalContext.setEditingId!(id);
     }
-  }
+  };
 
   return (
     <div className={cn()}>

@@ -1,14 +1,14 @@
-import { FC, useContext } from 'react';
+import { FC } from 'react';
 import { createCn } from 'bem-react-classname';
 import { Button, Modal } from '../../index';
 import { ModalTargetType, taskOrCategoryWords } from '../../../shared/constants';
-import { ModalContext } from '../../HOCs/ModalProvider';
 import { useSelector } from 'react-redux';
 import { getAppState } from '../../../store/appReducer/selectors';
 import { actions, useAppDispatch } from '../../../store';
 import './style.css';
 import { getCategories } from '../../../store/categoriesReducer/selectors';
 import { getTasks } from '../../../store/tasksReducer/selectors';
+import { useModal } from '../useModal';
 
 
 type PropsType = {
@@ -25,7 +25,7 @@ export const ModalDelete: FC<PropsType> = ({
                                            }) => {
 
   /* hooks */
-  const {deletingId} = useContext(ModalContext);
+  const { deletingId } = useModal();
   const state = useSelector(getAppState);
   const dispatch = useAppDispatch();
   const categories = useSelector(getCategories);
