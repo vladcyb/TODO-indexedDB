@@ -1,11 +1,11 @@
 import { FC } from 'react';
 import { createCn } from 'bem-react-classname';
 import { ListItem } from './ListItem';
-import './style.css';
 import { useSelector } from 'react-redux';
 import { getTasks } from '../../store/tasksReducer/selectors';
 import { getAppState } from '../../store/appReducer/selectors';
 import { getCategories } from '../../store/categoriesReducer/selectors';
+import './style.css';
 
 
 const cn = createCn('list');
@@ -19,6 +19,7 @@ export const List: FC<PropsType> = () => {
   const state = useSelector(getAppState);
   const tasks = useSelector(getTasks);
   const categories = useSelector(getCategories);
+
 
   return (
     <div className={cn()}>
