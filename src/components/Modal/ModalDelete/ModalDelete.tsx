@@ -45,9 +45,7 @@ export const ModalDelete: FC<PropsType> = ({
       }));
       onClose();
     } else {
-      dispatch(actions.categories.deleteCategory({
-        id: modalContext.deletingCategoryId!,
-      }));
+      dispatch(actions.categories.deleteCategory(modalContext.deletingCategoryId!));
       onClose();
     }
   };

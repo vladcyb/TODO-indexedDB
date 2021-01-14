@@ -7,7 +7,7 @@ export const useIndexedDb = () => {
 
     db.onsuccess = (e: any) => {
       console.log(e);
-    }
+    };
 
   }, []);
 };

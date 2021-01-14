@@ -47,19 +47,15 @@ export const ModalCategory: FC<PropsType> = ({
     if (name) {
       if (mode === 'create') {
         dispatch(actions.categories.addCategory({
-          category: {
-            id: Math.random().toString(), // TODO
-            name,
-            description,
-          },
+          id: Math.random().toString(), // TODO
+          name,
+          description,
         }));
       } else {
         dispatch(actions.categories.editCategory({
-          category: {
-            id: modalContext.editingCategoryId!,
-            name: nameField.value,
-            description,
-          },
+          id: modalContext.editingCategoryId!,
+          name: nameField.value,
+          description,
         }));
       }
       onClose();
