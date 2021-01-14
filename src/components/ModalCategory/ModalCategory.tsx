@@ -33,9 +33,11 @@ export const ModalCategory: FC<PropsType> = ({
   /* state */
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
+  const [nameError, setNameError] = useState('');
 
   /* methods */
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNameError('');
     setName(e.target.value);
   };
 
@@ -51,14 +53,18 @@ export const ModalCategory: FC<PropsType> = ({
 
   const handleConfirm = (e: React.FormEvent) => {
     e.preventDefault();
-    dispatch(categoriesActions.addCategory({
-      category: {
-        id: Math.random().toString(), // TODO
-        name,
-        description,
-      },
-    }));
-    modalContext.setIsCreating!(false);
+    if (name) {
+      dispatch(categoriesActions.addCategory({
+        category: {
+          id: Math.random().toString(), // TODO
+          name,
+          description,
+        },
+      }));
+      modalContext.setIsCreating!(false);
+    } else {
+      setNameError('Поле должно быть обязательным');
+    }
   };
 
 
@@ -79,6 +85,7 @@ export const ModalCategory: FC<PropsType> = ({
           onChange={handleNameChange}
           value={name}
           autoFocus
+          error={nameError}
         />
         <Textarea
           className={cn('description')}
