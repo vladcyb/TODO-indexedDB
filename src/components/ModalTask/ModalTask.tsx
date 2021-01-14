@@ -3,10 +3,10 @@ import { createCn } from 'bem-react-classname';
 import { createOrEdit } from '../../shared/constants';
 import { Button, Input, Modal, Select, Textarea } from '../../components';
 import { useAppDispatch } from '../../store';
-import { actions as todosActions } from '../../store/todosReducer';
+import { actions } from '../../store';
 import { ModalContext } from '../HOCs/ModalProvider';
 import { useSelector } from 'react-redux';
-import { getCategories } from '../../store/categoriesSlice/selectors';
+import { getCategories } from '../../store/categoriesReducer/selectors';
 import './style.css';
 
 
@@ -54,8 +54,8 @@ export const ModalTask: FC<PropsType> = ({
   const handleConfirm = (e: React.FormEvent) => {
     e.preventDefault();
     if (catId) {
-      dispatch(todosActions.addTodo({
-        todo: {
+      dispatch(actions.tasks.addTask({
+        task: {
           id: Math.random().toString(), // TODO
           name,
           description,

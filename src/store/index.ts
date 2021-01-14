@@ -1,14 +1,13 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import { actions as todosActions, todosSlice } from './todosReducer';
+import { actions as tasksActions, tasksSlice } from './tasksReducer';
 import { useDispatch } from 'react-redux';
 import { actions as appActions, appSlice } from './appReducer';
-import { actions as categoriesActions, categoriesSlice } from './categoriesSlice';
-
+import { actions as categoriesActions, categoriesSlice } from './categoriesReducer';
 
 const store = configureStore({
   reducer: combineReducers({
     app: appSlice.reducer,
-    todos: todosSlice.reducer,
+    tasks: tasksSlice.reducer,
     categories: categoriesSlice.reducer,
   }),
 });
@@ -20,7 +19,7 @@ export type RootState = ReturnType<typeof store.getState>;
 
 export const actions = {
   app: appActions,
-  todos: todosActions,
+  tasks: tasksActions,
   categories: categoriesActions,
 };
 

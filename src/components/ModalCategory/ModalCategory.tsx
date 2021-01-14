@@ -5,7 +5,7 @@ import { createOrEdit } from '../../shared/constants';
 import './style.css';
 import { useAppDispatch } from '../../store';
 import { ModalContext } from '../HOCs/ModalProvider';
-import { actions as categoriesActions } from '../../store/categoriesSlice';
+import { actions as categoriesActions } from '../../store/categoriesReducer';
 
 
 type PropsType = {

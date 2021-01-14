@@ -7,8 +7,8 @@ import { useSelector } from 'react-redux';
 import { getAppState } from '../../store/appReducer/selectors';
 import { actions, useAppDispatch } from '../../store';
 import './style.css';
-import { getCategories } from '../../store/categoriesSlice/selectors';
-import { getTasks } from '../../store/todosReducer/selectors';
+import { getCategories } from '../../store/categoriesReducer/selectors';
+import { getTasks } from '../../store/tasksReducer/selectors';
 
 
 type TargetType = 'task' | 'category'
@@ -46,7 +46,7 @@ export const ModalDelete: FC<PropsType> = ({
 
   const handleConfirm = () => {
     if (state === 'tasks') {
-      dispatch(actions.todos.deleteTodo({
+      dispatch(actions.tasks.deleteTask({
         id: modalContext.deletingTaskId!,
       }));
       handleClose();

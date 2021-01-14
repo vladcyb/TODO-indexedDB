@@ -3,9 +3,9 @@ import { createCn } from 'bem-react-classname';
 import { ListItem } from './ListItem';
 import './style.css';
 import { useSelector } from 'react-redux';
-import { getTasks } from '../../store/todosReducer/selectors';
+import { getTasks } from '../../store/tasksReducer/selectors';
 import { getAppState } from '../../store/appReducer/selectors';
-import { getCategories } from '../../store/categoriesSlice/selectors';
+import { getCategories } from '../../store/categoriesReducer/selectors';
 
 
 const cn = createCn('list');
