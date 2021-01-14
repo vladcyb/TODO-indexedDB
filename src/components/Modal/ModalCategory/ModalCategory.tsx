@@ -6,7 +6,7 @@ import './style.css';
 import { useAppDispatch } from '../../../store';
 import { ModalContext } from '../../HOCs/ModalProvider';
 import { actions as categoriesActions } from '../../../store/categoriesReducer';
-import { useRequiredInput } from '../../../shared/hooks/useRequredInput';
+import { useInput } from '../../../shared/hooks/useInput';
 
 
 type PropsType = {
@@ -27,7 +27,7 @@ export const ModalCategory: FC<PropsType> = ({
   /* hooks */
   const dispatch = useAppDispatch();
   const modalContext = useContext(ModalContext);
-  const nameField = useRequiredInput();
+  const nameField = useInput('', true);
 
   /* classes */
   const cn = createCn('modalCategory', className);
@@ -71,7 +71,6 @@ export const ModalCategory: FC<PropsType> = ({
       <form onSubmit={handleConfirm}>
         <Input
           className={cn('name')}
-          required
           label="Имя"
           placeholder="Введите имя категории"
           autoFocus

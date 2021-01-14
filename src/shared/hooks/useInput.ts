@@ -1,27 +1,29 @@
 import React, { useState } from 'react';
+import { requiredFieldError } from '../constants';
 
 type ChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => void
 
-type UseRequiredInput = (initialValue?: string) => {
+type ReturnedType = (initialValue?: string, required?: boolean) => {
   value: string
   onChange: ChangeHandler
   error: string
   onFocus: () => void
+  required: boolean
 }
 
-export const useRequiredInput: UseRequiredInput = (initialValue = '') => {
+export const useInput: ReturnedType = (initialValue = '', required) => {
 
   /* state */
   const [value, setValue] = useState(initialValue);
-  const [error, setError] = useState('Поле должно быть обязательным');
+  const [error, setError] = useState(required ? requiredFieldError : '');
   const [touched, setTouched] = useState(false);
 
   /* methods */
   const onChange: ChangeHandler = (e) => {
     const { value } = e.target;
     setValue(value);
-    if (!value) {
-      setError('Поле должно быть обязательным');
+    if (!value && required) {
+      setError(requiredFieldError);
     } else {
       setError('');
     }
@@ -36,5 +38,6 @@ export const useRequiredInput: UseRequiredInput = (initialValue = '') => {
     onChange,
     error: touched ? error : '',
     onFocus,
+    required: !!required,
   };
 };
