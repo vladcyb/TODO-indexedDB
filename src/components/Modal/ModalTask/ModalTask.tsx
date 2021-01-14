@@ -19,7 +19,7 @@ type PropsType = {
   className?: string
   initialName?: string
   initialDescription?: string
-  initialCategoryId?: string
+  initialCategoryId?: number
   onClose: () => void
 }
 
@@ -44,7 +44,7 @@ export const ModalTask: FC<PropsType> = ({
   const thunk = TasksThunk(setters)
 
   /* state */
-  const [categoryId, setCategoryId] = useState<string | undefined>(initialCategoryId);
+  const [categoryId, setCategoryId] = useState<number | undefined>(initialCategoryId);
   const [description, setDescription] = useState(initialDescription);
 
   /* methods */
@@ -59,7 +59,7 @@ export const ModalTask: FC<PropsType> = ({
       onClose();
       if (mode === Mode.create) {
         dispatch(thunk.addTask({
-          id: Math.random().toString(), // TODO
+          id: Math.random(), // TODO
           name: nameInput.value,
           description,
           categoryId,

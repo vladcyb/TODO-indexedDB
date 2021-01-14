@@ -16,6 +16,7 @@ export const TasksThunk = (setters: SettersType) => {
   const addTask = (task: Task) => (dispatch: AppDispatch) => {
     setters.setIsLoading(true);
     const request = API.Tasks.add(task);
+
     request.onsuccess = () => {
       dispatch(actions.addTask(task));
       setters.setIsLoading(false);

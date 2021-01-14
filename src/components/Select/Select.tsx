@@ -3,15 +3,15 @@ import { createCn } from 'bem-react-classname';
 import './style.css';
 
 type ListItem = {
-  id: string
+  id: number
   name: string
 }
 
 type PropsType = {
   placeholder: string
   list: ListItem[]
-  selectedId: string | undefined
-  selectId: Dispatch<SetStateAction<string | undefined>>
+  selectedId: number | undefined
+  selectId: Dispatch<SetStateAction<number | undefined>>
   className?: string
 }
 
@@ -61,7 +61,7 @@ export const Select: FC<PropsType> = ({
       </div>
       {isOpened && (
         <div className={cn('list')}>
-          {list.map((item, index) => (
+          {list.map((item) => (
             <div
               className={cn('item', { selected: item.id === selectedId })}
               onClick={() => selectId(item.id)}

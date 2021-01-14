@@ -1,4 +1,7 @@
 import { useEffect } from 'react';
+import { useAppDispatch } from '../../store';
+import { useSetters } from './useSetters';
+import { CategoriesThunk } from '../../store/categoriesReducer/thunk';
 
 declare global {
   interface Window {
@@ -9,6 +12,10 @@ declare global {
 
 export const useIndexedDb = () => {
 
+
+  const dispatch = useAppDispatch();
+  const [getters, setters] = useSetters();
+  const thunk = CategoriesThunk(setters);
 
   useEffect(() => {
 
@@ -25,7 +32,15 @@ export const useIndexedDb = () => {
     };
 
     DBOpenRequest.onsuccess = () => {
-      window.db = DBOpenRequest.result;
+      const db = DBOpenRequest.result;
+      window.db = db;
+      setters.setIsLoading(true);
+      const getTransaction = db.transaction('Category', 'readwrite');
+      const categories = getTransaction.objectStore('Category')
+      const getCategoriesRequest = categories.getAll()
+      getCategoriesRequest.onsuccess = () => {
+        console.log(getCategoriesRequest.result);
+      }
     };
 
   }, []);

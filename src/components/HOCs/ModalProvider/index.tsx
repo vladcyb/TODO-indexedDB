@@ -12,9 +12,9 @@ export const ModalContext = createContext<ModalContextType>(null as any);
 export const ModalProvider: FC = ({ children }) => {
 
   /* state */
-  const [deletingId, setDeletingId] = useState('');
+  const [deletingId, setDeletingId] = useState(0);
   const [isCreating, setIsCreating] = useState(false);
-  const [editingId, setEditingId] = useState('');
+  const [editingId, setEditingId] = useState(0);
 
   /* hooks */
   const appState = useSelector(getAppState);
@@ -27,11 +27,11 @@ export const ModalProvider: FC = ({ children }) => {
   };
 
   const cancelEditing = () => {
-    setEditingId('');
+    setEditingId(0);
   };
 
   const cancelDeleting = () => {
-    setDeletingId('');
+    setDeletingId(0);
   };
 
   /* vars */

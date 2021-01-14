@@ -58,7 +58,7 @@ export const ModalCategory: FC<PropsType> = ({
         //   description,
         // }));
         dispatch(thunk.addCategory({
-          id: Math.random().toString(), // TODO
+          id: Math.random(), // TODO
           name,
           description,
         }));

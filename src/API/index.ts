@@ -10,7 +10,7 @@ export const API = {
     edit: (task: Task) => {
 
     },
-    delete: (id: string) => {
+    delete: (id: number) => {
 
     },
   },

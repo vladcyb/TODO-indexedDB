@@ -1,19 +1,19 @@
 export type Task = {
-  id: string
+  id: number
   name: string
   description: string
-  categoryId: string
+  categoryId: number
 }
 
 export type Category = {
-  id: string
+  id: number
   name: string
   description: string
 }
 
 export type TodoOrCategory = {
-  id: string
+  id: number
   name: string
   description: string
-  categoryId?: string
+  categoryId?: number
 }

@@ -11,7 +11,7 @@ export const tasksSlice = createSlice({
     addTask: (state, { payload }: PayloadAction<Task>) => {
       state.push(payload);
     },
-    deleteTask: (state, { payload }: PayloadAction<string>) => {
+    deleteTask: (state, { payload }: PayloadAction<number>) => {
       const index = state.findIndex((item) => item.id === payload);
       if (index >= 0) {
         state.splice(
