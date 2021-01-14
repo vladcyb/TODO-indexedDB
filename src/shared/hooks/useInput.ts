@@ -3,7 +3,7 @@ import { requiredFieldError } from '../constants';
 
 type ChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => void
 
-type ReturnedType = (initialValue?: string, required?: boolean) => {
+type UseInputHookType = (initialValue?: string, required?: boolean) => {
   value: string
   onChange: ChangeHandler
   error: string
@@ -11,11 +11,11 @@ type ReturnedType = (initialValue?: string, required?: boolean) => {
   required: boolean
 }
 
-export const useInput: ReturnedType = (initialValue = '', required) => {
+export const useInput: UseInputHookType = (initialValue = '', required) => {
 
   /* state */
   const [value, setValue] = useState(initialValue);
-  const [error, setError] = useState(required ? requiredFieldError : '');
+  const [error, setError] = useState(required && !initialValue ? requiredFieldError : '');
   const [touched, setTouched] = useState(false);
 
   /* methods */
