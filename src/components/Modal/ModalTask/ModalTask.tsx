@@ -7,6 +7,7 @@ import { ModalContext } from '../../HOCs/ModalProvider';
 import { useSelector } from 'react-redux';
 import { getCategories } from '../../../store/categoriesReducer/selectors';
 import './style.css';
+import { useInput } from '../../../shared/hooks/useInput';
 
 
 const cn = createCn('modalTask');
@@ -32,9 +33,9 @@ export const ModalTask: FC<PropsType> = ({
   const dispatch = useAppDispatch();
   const modalContext = useContext(ModalContext);
   const categories = useSelector(getCategories);
+  const nameInput = useInput('', true);
 
   /* state */
-  const [name, setName] = useState(initialName);
   const [selectedCategoryId, setSelectedCategoryId] = useState<string | undefined>(undefined);
   const [description, setDescription] = useState(initialDescription);
 
@@ -42,10 +43,6 @@ export const ModalTask: FC<PropsType> = ({
   const catId = selectedCategoryId || initialCategoryId;
 
   /* methods */
-  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setName(e.target.value);
-  };
-
   const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setDescription(e.target.value);
   };
@@ -56,7 +53,7 @@ export const ModalTask: FC<PropsType> = ({
       dispatch(actions.tasks.addTask({
         task: {
           id: Math.random().toString(), // TODO
-          name,
+          name: nameInput.value,
           description,
           categoryId: catId,
         },
@@ -66,7 +63,6 @@ export const ModalTask: FC<PropsType> = ({
   };
 
   const handleClose = () => {
-    setName(initialName);
     setSelectedCategoryId(initialCategoryId);
     setDescription(initialDescription);
     modalContext.setIsCreating!(false);
@@ -87,10 +83,8 @@ export const ModalTask: FC<PropsType> = ({
               className={cn('name')}
               label="Имя"
               placeholder="Введите имя задачи"
-              required
-              value={name}
-              onChange={handleNameChange}
               autoFocus
+              {...nameInput}
             />
             <Select
               className={cn()}
