@@ -79,12 +79,35 @@ export const API = {
     },
     drop: (id: number) => {
       return new Promise((resolve) => {
-        const transaction = window.db.transaction('Category', 'readwrite');
-        const categories = transaction.objectStore('Category');
+        const db = window.db;
+        const rootTransaction = db.transaction('Category', 'readwrite');
+        const categories = rootTransaction.objectStore('Category');
         const request = categories.delete(id);
 
         request.onsuccess = () => {
-          resolve({ ok: true, request });
+
+          /* удаление categoryId из связанных тасков */
+          const tasksTransaction = db.transaction('Item', 'readwrite');
+          const tasks = tasksTransaction.objectStore('Item');
+          const editTasksRequest = tasks.openCursor();
+
+          editTasksRequest.onsuccess = async () => {
+            const cursor = editTasksRequest.result;
+            if (cursor) {
+              const task: Task = cursor.value;
+              if (task.categoryId === id) {
+                const deleteRequest = await cursor.delete();
+                deleteRequest.onerror = () => {
+                  rootTransaction.abort();
+                };
+              }
+              cursor.continue();
+            }
+          };
+
+          editTasksRequest.onerror = () => {
+            rootTransaction.abort();
+          };
         };
 
         request.onerror = () => {

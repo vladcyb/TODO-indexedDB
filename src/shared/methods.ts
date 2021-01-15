@@ -1,3 +1,3 @@
-export const createTransaction = (storeNames: string, mode: 'readwrite' | 'readonly') => {
+export const createTransaction = (storeNames: 'Item' | 'Category', mode: 'readwrite' | 'readonly') => {
   return window.db.transaction(storeNames, mode).objectStore(storeNames);
 };
