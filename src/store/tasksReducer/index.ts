@@ -25,6 +25,9 @@ export const tasksSlice = createSlice({
         state[index] = payload;
       }
     },
+    setTasks: (state, { payload }: PayloadAction<Task[]>) => {
+      return payload;
+    },
   },
 });
 

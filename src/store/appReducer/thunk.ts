@@ -24,17 +24,17 @@ export const AppThunk = (setters: SettersType) => {
       const categories = createTransaction('Category', 'readonly');
       const tasks = createTransaction('Item', 'readonly');
       const getCategoriesRequest = categories.getAll();
-      // const getTasksRequest = tasks.getAll();
+      const getTasksRequest = tasks.getAll();
 
       getCategoriesRequest.onsuccess = () => {
         dispatch(actions.categories.setCategories(getCategoriesRequest.result));
-        setters.setIsLoading(true);
+        setters.setIsLoading(false);
       };
 
-      // getTasksRequest.onsuccess = () => {
-      //   // TODO
-      //   setters.setIsLoading(true);
-      // };
+      getTasksRequest.onsuccess = () => {
+        dispatch(actions.tasks.setTasks(getTasksRequest.result));
+        setters.setIsLoading(false);
+      };
     };
   };
 
