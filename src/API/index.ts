@@ -10,7 +10,7 @@ export const API = {
         const request = tasks.add(task);
 
         request.onsuccess = () => {
-          resolve({ ok: true });
+          resolve({ ok: true, request });
         };
 
         request.onerror = () => {
@@ -24,7 +24,7 @@ export const API = {
         const request = editTask.put(task);
 
         request.onsuccess = () => {
-          resolve({ ok: true });
+          resolve({ ok: true, request });
         };
 
         request.onerror = () => {
@@ -38,7 +38,7 @@ export const API = {
         const request = deleteTask.delete(id);
 
         request.onsuccess = () => {
-          resolve({ ok: true });
+          resolve({ ok: true, request });
         };
 
         request.onerror = () => {

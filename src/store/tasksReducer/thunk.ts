@@ -11,7 +11,10 @@ export const TasksThunk = (setters: SettersType) => {
     setters.setIsLoading(true);
     const request = await API.Tasks.add(task) as MyIDBResponse;
     if (request.ok) {
-      dispatch(actions.addTask(task));
+      dispatch(actions.addTask({
+        id: request.request.result,
+        ...task,
+      }));
     }
     setters.setIsLoading(false);
   };
