@@ -15,7 +15,7 @@ const allEqualsTrue = (state: UpdateStateType) => {
 
 export const AppThunk = (setters: SettersType) => {
 
-  const initialize = () => (dispatch: AppDispatch) => {
+  const update = () => (dispatch: AppDispatch) => {
     setters.setIsLoading(true);
     const state: UpdateStateType = {
       tasksLoaded: false,
@@ -60,6 +60,6 @@ export const AppThunk = (setters: SettersType) => {
   };
 
   return {
-    initialize,
+    update,
   };
 };

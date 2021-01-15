@@ -16,7 +16,7 @@ export const useIndexedDb = () => {
   const thunk = AppThunk(setters);
 
   useEffect(() => {
-    dispatch(thunk.initialize());
+    dispatch(thunk.update());
   }, []);
   return getters;
 };
