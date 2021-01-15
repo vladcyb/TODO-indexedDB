@@ -1,5 +1,5 @@
 export type Task = {
-  id: number | undefined
+  id?: number
   name: string
   description: string
   categoryId: number
