@@ -1,11 +1,14 @@
 import { Category, Task } from '../shared/types';
 
+const createTransaction = (storeNames: string, mode: 'readwrite' | 'readonly') => {
+  return window.db.transaction(storeNames, mode).objectStore(storeNames);
+}
+
 export const API = {
   Tasks: {
     add: (task: Task) => {
       return new Promise((resolve, reject) => {
-        const transaction = window.db.transaction('Item', 'readwrite');
-        const tasks = transaction.objectStore('Item');
+        const tasks = createTransaction('Item', 'readwrite');
         const request = tasks.add(task);
 
         request.onsuccess = () => {
@@ -27,8 +30,7 @@ export const API = {
   Categories: {
     add: (category: Category) => {
       return new Promise((resolve) => {
-        const transaction = window.db.transaction('Category', 'readwrite');
-        const categories = transaction.objectStore('Category');
+        const categories = createTransaction('Category', 'readwrite');
         const request = categories.add(category);
 
         request.onsuccess = () => {
@@ -43,8 +45,7 @@ export const API = {
     put: (category: Required<Category>) => {
       return new Promise((resolve) => {
 
-        const transaction = window.db.transaction('Category', 'readwrite');
-        const categories = transaction.objectStore('Category');
+        const categories = createTransaction('Category', 'readwrite');
         const request = categories.put(category);
 
         request.onsuccess = () => {
