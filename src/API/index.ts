@@ -32,7 +32,7 @@ export const API = {
         };
       });
     },
-    delete: (id: number) => {
+    drop: (id: number) => {
       return new Promise((resolve, reject) => {
         const deleteTask = createTransaction('Item', 'readwrite');
         const request = deleteTask.delete(id);
