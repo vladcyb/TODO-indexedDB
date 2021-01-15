@@ -1,19 +1,15 @@
 import { SettersType } from '../../shared/hooks/useSetters';
 import { AppDispatch } from '../index';
-import { Category } from '../../shared/types';
+import { Category, MyIDBResponse } from '../../shared/types';
 import { API } from '../../API';
 import { actions } from '.';
 
-type ResponseType = {
-  ok: boolean
-  request: IDBRequest
-}
 
 export const CategoriesThunk = (setters: SettersType) => {
 
   const add = (category: Category) => async (dispatch: AppDispatch) => {
     setters.setIsLoading(true);
-    const request = await API.Categories.add(category) as ResponseType;
+    const request = await API.Categories.add(category) as MyIDBResponse;
     if (request.ok) {
       dispatch(actions.addCategory({
         id: request.request.result,
@@ -25,7 +21,7 @@ export const CategoriesThunk = (setters: SettersType) => {
 
   const put = (category: Required<Category>) => async (dispatch: AppDispatch) => {
     setters.setIsLoading(true);
-    const request = await API.Categories.put(category) as ResponseType;
+    const request = await API.Categories.put(category) as MyIDBResponse;
     if (request.ok) {
       dispatch(actions.editCategory(category));
     }
@@ -34,7 +30,7 @@ export const CategoriesThunk = (setters: SettersType) => {
 
   const drop = (id: number) => async (dispatch: AppDispatch) => {
     setters.setIsLoading(true);
-    const request = await API.Categories.drop(id) as ResponseType;
+    const request = await API.Categories.drop(id) as MyIDBResponse;
     if (request.ok) {
       dispatch(actions.deleteCategory(id));
     }

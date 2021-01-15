@@ -19,7 +19,18 @@ export const API = {
       });
     },
     edit: (task: Task) => {
+      return new Promise((resolve, reject) => {
+        const editTask = createTransaction('Item', 'readwrite');
+        const request = editTask.put(task);
 
+        request.onsuccess = () => {
+          resolve({ ok: true });
+        };
+
+        request.onerror = () => {
+          reject(Error('Что-то пошло не так'));
+        };
+      });
     },
     delete: (id: number) => {
 

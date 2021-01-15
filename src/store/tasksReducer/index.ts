@@ -19,7 +19,7 @@ export const tasksSlice = createSlice({
         );
       }
     },
-    editTask: (state, { payload }: PayloadAction<Task>) => {
+    editTask: (state, { payload }: PayloadAction<Required<Task>>) => {
       const index = state.findIndex((task) => task.id === payload.id);
       if (index >= 0) {
         state[index] = payload;

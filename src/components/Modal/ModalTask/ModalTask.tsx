@@ -2,14 +2,14 @@ import React, { FC, useState } from 'react';
 import { createCn } from 'bem-react-classname';
 import { createOrEdit, Mode } from '../../../shared/constants';
 import { Button, Input, Modal, Select, Textarea } from '../../index';
-import { actions, useAppDispatch } from '../../../store';
+import { useAppDispatch } from '../../../store';
 import { useSelector } from 'react-redux';
 import { getCategories } from '../../../store/categoriesReducer/selectors';
 import { useInput } from '../../../shared/hooks/useInput';
 import { useModal } from '../useModal';
-import './style.css';
 import { useSetters } from '../../../shared/hooks/useSetters';
 import { TasksThunk } from '../../../store/tasksReducer/thunk';
+import './style.css';
 
 
 const cn = createCn('modalTask');
@@ -40,8 +40,8 @@ export const ModalTask: FC<PropsType> = ({
   const nameInput = useInput(initialName, true);
 
   /* thunk */
-  const [getters, setters] = useSetters()
-  const thunk = TasksThunk(setters)
+  const [getters, setters] = useSetters();
+  const thunk = TasksThunk(setters);
 
   /* state */
   const [categoryId, setCategoryId] = useState<number | undefined>(initialCategoryId);
@@ -59,15 +59,14 @@ export const ModalTask: FC<PropsType> = ({
       onClose();
       if (mode === Mode.create) {
         dispatch(thunk.addTask({
-          id: Math.random(), // TODO
           name: nameInput.value,
           description,
           categoryId,
         }));
 
       } else {
-        dispatch(actions.tasks.editTask({
-          id: modalContext.editingId,
+        dispatch(thunk.editTask({
+          id: modalContext.editingId!,
           categoryId,
           description,
           name: nameInput.value,
