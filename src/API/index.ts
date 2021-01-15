@@ -1,8 +1,6 @@
 import { Category, Task } from '../shared/types';
+import { createTransaction } from '../shared/methods';
 
-const createTransaction = (storeNames: string, mode: 'readwrite' | 'readonly') => {
-  return window.db.transaction(storeNames, mode).objectStore(storeNames);
-}
 
 export const API = {
   Tasks: {
