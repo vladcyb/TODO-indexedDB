@@ -12,6 +12,7 @@ type ResponseType = {
 export const CategoriesThunk = (setters: SettersType) => {
 
   const initialize = () => (dispatch: AppDispatch) => {
+    setters.setIsLoading(true);
     const DBOpenRequest = window.indexedDB.open('toDoList', 1);
 
     DBOpenRequest.onupgradeneeded = () => {
@@ -27,12 +28,12 @@ export const CategoriesThunk = (setters: SettersType) => {
     DBOpenRequest.onsuccess = () => {
       const db = DBOpenRequest.result;
       window.db = db;
-      setters.setIsLoading(true);
       const getTransaction = db.transaction('Category', 'readwrite');
       const categories = getTransaction.objectStore('Category');
       const getCategoriesRequest = categories.getAll();
       getCategoriesRequest.onsuccess = () => {
         dispatch(actions.setCategories(getCategoriesRequest.result));
+        setters.setIsLoading(true);
       };
     };
   };
