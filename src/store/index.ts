@@ -1,8 +1,8 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import { actions as tasksActions, tasksSlice } from './tasksReducer';
+import { actions as tasksActions, tasksSlice } from './tasksSlice';
 import { useDispatch } from 'react-redux';
-import { actions as appActions, appSlice } from './appReducer';
-import { actions as categoriesActions, categoriesSlice } from './categoriesReducer';
+import { actions as appActions, appSlice } from './appSlice';
+import { actions as categoriesActions, categoriesSlice } from './categoriesSlice';
 
 const store = configureStore({
   reducer: combineReducers({

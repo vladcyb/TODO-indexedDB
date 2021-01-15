@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useAppDispatch } from '../../store';
 import { useSetters } from './useSetters';
-import { AppThunk } from '../../store/appReducer/thunk';
+import { AppThunk } from '../../store/appSlice/thunk';
 
 declare global {
   interface Window {

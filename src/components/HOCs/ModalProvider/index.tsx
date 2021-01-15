@@ -1,9 +1,9 @@
 import { createContext, FC, useState } from 'react';
 import { ModalCategory, ModalDelete, ModalTask } from '../../Modal';
 import { useSelector } from 'react-redux';
-import { getAppState } from '../../../store/appReducer/selectors';
-import { getTasks } from '../../../store/tasksReducer/selectors';
-import { getCategories } from '../../../store/categoriesReducer/selectors';
+import { getAppState } from '../../../store/appSlice/selectors';
+import { getTasks } from '../../../store/tasksSlice/selectors';
+import { getCategories } from '../../../store/categoriesSlice/selectors';
 import { ModalTargetType, Mode } from '../../../shared/constants';
 import { ModalContextType } from '../../Modal/types';
 

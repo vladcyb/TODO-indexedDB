@@ -1,9 +1,9 @@
 import { FC, useContext } from 'react';
 import { useSelector } from 'react-redux';
-import { getAppState } from '../../store/appReducer/selectors';
+import { getAppState } from '../../store/appSlice/selectors';
 import { createCn } from 'bem-react-classname';
 import { useAppDispatch } from '../../store';
-import { actions as appActions } from '../../store/appReducer';
+import { actions as appActions } from '../../store/appSlice';
 import { ModalContext } from '../HOCs/ModalProvider';
 import './style.css';
 

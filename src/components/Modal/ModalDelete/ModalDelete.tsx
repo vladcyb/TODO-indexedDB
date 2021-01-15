@@ -3,13 +3,13 @@ import { createCn } from 'bem-react-classname';
 import { Button, Modal } from '../../index';
 import { ModalTargetType, taskOrCategoryWords } from '../../../shared/constants';
 import { useSelector } from 'react-redux';
-import { getAppState } from '../../../store/appReducer/selectors';
+import { getAppState } from '../../../store/appSlice/selectors';
 import { useAppDispatch } from '../../../store';
-import { getCategories } from '../../../store/categoriesReducer/selectors';
-import { getTasks } from '../../../store/tasksReducer/selectors';
+import { getCategories } from '../../../store/categoriesSlice/selectors';
+import { getTasks } from '../../../store/tasksSlice/selectors';
 import { useSetters } from '../../../shared/hooks/useSetters';
-import { CategoriesThunk } from '../../../store/categoriesReducer/thunk';
-import { TasksThunk } from '../../../store/tasksReducer/thunk';
+import { CategoriesThunk } from '../../../store/categoriesSlice/thunk';
+import { TasksThunk } from '../../../store/tasksSlice/thunk';
 import { ModalContext } from '../../HOCs/ModalProvider';
 import './style.css';
 

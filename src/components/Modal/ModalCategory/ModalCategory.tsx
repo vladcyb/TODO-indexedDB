@@ -5,7 +5,7 @@ import { createOrEdit, Mode } from '../../../shared/constants';
 import { useAppDispatch } from '../../../store';
 import { useInput } from '../../../shared/hooks/useInput';
 import { useSetters } from '../../../shared/hooks/useSetters';
-import { CategoriesThunk } from '../../../store/categoriesReducer/thunk';
+import { CategoriesThunk } from '../../../store/categoriesSlice/thunk';
 import { ModalContext } from '../../HOCs/ModalProvider';
 import './style.css';
 

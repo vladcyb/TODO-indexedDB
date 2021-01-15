@@ -3,7 +3,7 @@ import { AppDispatch } from '../index';
 import { Category, MyIDBResponse } from '../../shared/types';
 import { API } from '../../API';
 import { actions } from '.';
-import { AppThunk } from '../appReducer/thunk';
+import { AppThunk } from '../appSlice/thunk';
 
 
 export const CategoriesThunk = (setters: SettersType) => {

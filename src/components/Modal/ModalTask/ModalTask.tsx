@@ -4,10 +4,10 @@ import { createOrEdit, Mode } from '../../../shared/constants';
 import { Button, Input, Modal, Select, Textarea } from '../../index';
 import { useAppDispatch } from '../../../store';
 import { useSelector } from 'react-redux';
-import { getCategories } from '../../../store/categoriesReducer/selectors';
+import { getCategories } from '../../../store/categoriesSlice/selectors';
 import { useInput } from '../../../shared/hooks/useInput';
 import { useSetters } from '../../../shared/hooks/useSetters';
-import { TasksThunk } from '../../../store/tasksReducer/thunk';
+import { TasksThunk } from '../../../store/tasksSlice/thunk';
 import { ModalContext } from '../../HOCs/ModalProvider';
 import './style.css';
 

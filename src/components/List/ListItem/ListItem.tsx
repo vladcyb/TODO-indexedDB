@@ -2,8 +2,8 @@ import { FC, useContext } from 'react';
 import { createCn } from 'bem-react-classname';
 import { TodoOrCategory } from '../../../shared/types';
 import { useSelector } from 'react-redux';
-import { getCategories } from '../../../store/categoriesReducer/selectors';
-import { getAppState } from '../../../store/appReducer/selectors';
+import { getCategories } from '../../../store/categoriesSlice/selectors';
+import { getAppState } from '../../../store/appSlice/selectors';
 import { ModalContext } from '../../HOCs/ModalProvider';
 import './style.css';
 

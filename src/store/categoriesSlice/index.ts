@@ -14,9 +14,7 @@ export const categoriesSlice = createSlice({
     deleteCategory: (state, { payload }: PayloadAction<number>) => {
       const index = state.findIndex((item) => item.id === payload);
       if (index >= 0) {
-        state.splice(
-          index, 1,
-        );
+        state.splice(index, 1);
       }
     },
     editCategory: (state, { payload }: PayloadAction<Required<Category>>) => {
