@@ -1,6 +1,7 @@
 .input {
-    height: 46px;
+    height: 76px;
     position: relative;
+    padding-top: 10px;
 }
 
 .input * {
@@ -29,7 +30,7 @@
     line-height: 20px;
     position: absolute;
     left: 11px;
-    top: -10px;
+    top: 0;
     padding: 0 2px;
 }
 
@@ -46,6 +47,8 @@
 
 .input__control {
     position: relative;
+    height: 48px;
+    margin-top: -1px;
 }
 
 .input__fieldset {
@@ -54,7 +57,6 @@
     top: 0;
     right: 0;
     bottom: 0;
-    height: 46px !important;
     border: 2px solid #3F72AF;
     border-radius: 4px;
     min-height: 46px;
