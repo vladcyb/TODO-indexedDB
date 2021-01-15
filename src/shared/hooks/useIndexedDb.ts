@@ -12,10 +12,11 @@ declare global {
 export const useIndexedDb = () => {
 
   const dispatch = useAppDispatch();
-  const [, setters] = useSetters();
+  const [getters, setters] = useSetters();
   const thunk = AppThunk(setters);
 
   useEffect(() => {
     dispatch(thunk.initialize());
   }, []);
+  return getters;
 };

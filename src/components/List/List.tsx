@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { createCn } from 'bem-react-classname';
 import { ListItem } from './ListItem';
 import { useSelector } from 'react-redux';
@@ -18,7 +18,10 @@ export const List: FC = () => {
   const state = useSelector(getAppState);
   const tasks = useSelector(getTasks);
   const categories = useSelector(getCategories);
-  useIndexedDb();
+  const getters = useIndexedDb();
+  useEffect(() => {
+    console.log(getters);
+  }, [getters]);
 
   return (
     <div className={cn()}>

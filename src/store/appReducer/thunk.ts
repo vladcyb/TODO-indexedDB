@@ -3,10 +3,25 @@ import { AppDispatch } from '../index';
 import { createTransaction } from '../../shared/methods';
 import { actions } from '../';
 
+
+type UpdateStateType = {
+  tasksLoaded: boolean
+  categoriesLoaded: boolean
+}
+
+const allEqualsTrue = (state: UpdateStateType) => {
+  return Object.values(state).every((value) => value);
+};
+
 export const AppThunk = (setters: SettersType) => {
 
   const initialize = () => (dispatch: AppDispatch) => {
     setters.setIsLoading(true);
+    const state: UpdateStateType = {
+      tasksLoaded: false,
+      categoriesLoaded: false,
+    };
+
     const DBOpenRequest = window.indexedDB.open('toDoList', 1);
 
     DBOpenRequest.onupgradeneeded = () => {
@@ -28,12 +43,18 @@ export const AppThunk = (setters: SettersType) => {
 
       getCategoriesRequest.onsuccess = () => {
         dispatch(actions.categories.setCategories(getCategoriesRequest.result));
-        setters.setIsLoading(false);
+        state.categoriesLoaded = true;
+        if (allEqualsTrue(state)) {
+          setters.setIsLoading(false);
+        }
       };
 
       getTasksRequest.onsuccess = () => {
         dispatch(actions.tasks.setTasks(getTasksRequest.result));
-        setters.setIsLoading(false);
+        state.tasksLoaded = true;
+        if (allEqualsTrue(state)) {
+          setters.setIsLoading(false);
+        }
       };
     };
   };
