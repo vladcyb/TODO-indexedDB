@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useContext, useState } from 'react';
 import { createCn } from 'bem-react-classname';
 import { createOrEdit, Mode } from '../../../shared/constants';
 import { Button, Input, Modal, Select, Textarea } from '../../index';
@@ -6,9 +6,9 @@ import { useAppDispatch } from '../../../store';
 import { useSelector } from 'react-redux';
 import { getCategories } from '../../../store/categoriesReducer/selectors';
 import { useInput } from '../../../shared/hooks/useInput';
-import { useModal } from '../useModal';
 import { useSetters } from '../../../shared/hooks/useSetters';
 import { TasksThunk } from '../../../store/tasksReducer/thunk';
+import { ModalContext } from '../../HOCs/ModalProvider';
 import './style.css';
 
 
@@ -35,7 +35,7 @@ export const ModalTask: FC<PropsType> = ({
 
   /* hooks */
   const dispatch = useAppDispatch();
-  const modalContext = useModal();
+  const modalContext = useContext(ModalContext);
   const categories = useSelector(getCategories);
   const nameInput = useInput(initialName, true);
 

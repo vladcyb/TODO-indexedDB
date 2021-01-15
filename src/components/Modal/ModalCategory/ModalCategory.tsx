@@ -1,12 +1,12 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useContext, useState } from 'react';
 import { createCn } from 'bem-react-classname';
 import { Button, Input, Modal, Textarea } from '../../index';
 import { createOrEdit, Mode } from '../../../shared/constants';
 import { useAppDispatch } from '../../../store';
 import { useInput } from '../../../shared/hooks/useInput';
-import { useModal } from '../useModal';
 import { useSetters } from '../../../shared/hooks/useSetters';
 import { CategoriesThunk } from '../../../store/categoriesReducer/thunk';
+import { ModalContext } from '../../HOCs/ModalProvider';
 import './style.css';
 
 
@@ -29,7 +29,7 @@ export const ModalCategory: FC<PropsType> = ({
 
   /* hooks */
   const dispatch = useAppDispatch();
-  const modalContext = useModal();
+  const modalContext = useContext(ModalContext);
   const nameField = useInput(initialName, true);
 
   /* thunk */

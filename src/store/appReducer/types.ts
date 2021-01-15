@@ -1,4 +1,4 @@
-export type CurrentStateType = 'tasks' | 'categories'
+type CurrentStateType = 'tasks' | 'categories'
 
 export type StateType = {
   state: CurrentStateType

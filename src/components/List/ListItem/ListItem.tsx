@@ -1,11 +1,11 @@
-import { FC } from 'react';
+import { FC, useContext } from 'react';
 import { createCn } from 'bem-react-classname';
 import { TodoOrCategory } from '../../../shared/types';
 import { useSelector } from 'react-redux';
 import { getCategories } from '../../../store/categoriesReducer/selectors';
-import './style.css';
 import { getAppState } from '../../../store/appReducer/selectors';
-import { useModal } from '../../Modal/useModal';
+import { ModalContext } from '../../HOCs/ModalProvider';
+import './style.css';
 
 
 const cn = createCn('listItem');
@@ -25,7 +25,7 @@ export const ListItem: FC<PropsType> = ({
 
   /* hooks */
   const categories = useSelector(getCategories);
-  const modalContext = useModal();
+  const modalContext = useContext(ModalContext);
   const state = useSelector(getAppState);
 
   /* vars */

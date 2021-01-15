@@ -50,7 +50,7 @@ export const Modal: FC<PropsType> = (props) => {
           </div>
         </div>
       ) : null,
-      document.getElementById('root')!,
+      document.getElementById('modal')!,
     )
   );
 };
