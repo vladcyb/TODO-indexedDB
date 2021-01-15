@@ -82,9 +82,9 @@ export const API = {
         const db = window.db;
         const rootTransaction = db.transaction('Category', 'readwrite');
         const categories = rootTransaction.objectStore('Category');
-        const request = categories.delete(id);
+        const rootRequest = categories.delete(id);
 
-        request.onsuccess = () => {
+        rootRequest.onsuccess = () => {
 
           /* удаление categoryId из связанных тасков */
           const tasksTransaction = db.transaction('Item', 'readwrite');
@@ -102,6 +102,8 @@ export const API = {
                 };
               }
               cursor.continue();
+            } else {
+              resolve({ ok: true, request: rootRequest });
             }
           };
 
@@ -110,7 +112,7 @@ export const API = {
           };
         };
 
-        request.onerror = () => {
+        rootRequest.onerror = () => {
           resolve({ ok: false });
         };
       });

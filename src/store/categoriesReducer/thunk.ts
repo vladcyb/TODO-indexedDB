@@ -3,6 +3,7 @@ import { AppDispatch } from '../index';
 import { Category, MyIDBResponse } from '../../shared/types';
 import { API } from '../../API';
 import { actions } from '.';
+import { AppThunk } from '../appReducer/thunk';
 
 
 export const CategoriesThunk = (setters: SettersType) => {
@@ -31,8 +32,10 @@ export const CategoriesThunk = (setters: SettersType) => {
   const drop = (id: number) => async (dispatch: AppDispatch) => {
     setters.setIsLoading(true);
     const request = await API.Categories.drop(id) as MyIDBResponse;
+    console.log(request);
     if (request.ok) {
       dispatch(actions.deleteCategory(id));
+      dispatch(AppThunk(setters).update())
     }
     setters.setIsLoading(false);
   };
