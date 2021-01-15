@@ -7,11 +7,11 @@ import { API } from '../../API';
 
 export const TasksThunk = (setters: SettersType) => {
 
-  const addTask = (task: Task) => async (dispatch: AppDispatch) => {
+  const add = (task: Task) => async (dispatch: AppDispatch) => {
     setters.setIsLoading(true);
     const request = await API.Tasks.add(task) as MyIDBResponse;
     if (request.ok) {
-      dispatch(actions.addTask({
+      dispatch(actions.add({
         id: request.request.result,
         ...task,
       }));
@@ -19,11 +19,11 @@ export const TasksThunk = (setters: SettersType) => {
     setters.setIsLoading(false);
   };
 
-  const editTask = (task: Required<Task>) => async (dispatch: AppDispatch) => {
+  const edit = (task: Required<Task>) => async (dispatch: AppDispatch) => {
     setters.setIsLoading(true);
     const request = await API.Tasks.edit(task) as MyIDBResponse;
     if (request.ok) {
-      dispatch(actions.editTask(task));
+      dispatch(actions.edit(task));
     }
     setters.setIsLoading(false);
   };
@@ -38,8 +38,8 @@ export const TasksThunk = (setters: SettersType) => {
   };
 
   return {
-    addTask,
-    editTask,
+    add,
+    edit,
     drop,
   };
 };

@@ -19,9 +19,9 @@ export const CategoriesThunk = (setters: SettersType) => {
     setters.setIsLoading(false);
   };
 
-  const put = (category: Required<Category>) => async (dispatch: AppDispatch) => {
+  const edit = (category: Required<Category>) => async (dispatch: AppDispatch) => {
     setters.setIsLoading(true);
-    const request = await API.Categories.put(category) as MyIDBResponse;
+    const request = await API.Categories.edit(category) as MyIDBResponse;
     if (request.ok) {
       dispatch(actions.editCategory(category));
     }
@@ -39,7 +39,7 @@ export const CategoriesThunk = (setters: SettersType) => {
 
   return {
     add,
-    put,
+    edit,
     drop,
   };
 };

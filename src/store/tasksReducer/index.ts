@@ -8,7 +8,7 @@ export const tasksSlice = createSlice({
   name: 'tasks',
   initialState,
   reducers: {
-    addTask: (state, { payload }: PayloadAction<Required<Task>>) => {
+    add: (state, { payload }: PayloadAction<Required<Task>>) => {
       state.push(payload);
     },
     deleteTask: (state, { payload }: PayloadAction<number>) => {
@@ -19,7 +19,7 @@ export const tasksSlice = createSlice({
         );
       }
     },
-    editTask: (state, { payload }: PayloadAction<Required<Task>>) => {
+    edit: (state, { payload }: PayloadAction<Required<Task>>) => {
       const index = state.findIndex((task) => task.id === payload.id);
       if (index >= 0) {
         state[index] = payload;

@@ -58,14 +58,14 @@ export const ModalTask: FC<PropsType> = ({
     if (nameInput.value) {
       onClose();
       if (mode === Mode.create) {
-        dispatch(thunk.addTask({
+        dispatch(thunk.add({
           name: nameInput.value,
           description,
           categoryId,
         }));
 
       } else {
-        dispatch(thunk.editTask({
+        dispatch(thunk.edit({
           id: modalContext.editingId!,
           categoryId,
           description,

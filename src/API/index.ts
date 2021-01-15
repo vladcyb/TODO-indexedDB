@@ -62,7 +62,7 @@ export const API = {
         };
       });
     },
-    put: (category: Required<Category>) => {
+    edit: (category: Required<Category>) => {
       return new Promise((resolve) => {
 
         const categories = createTransaction('Category', 'readwrite');
