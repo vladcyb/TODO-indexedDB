@@ -18,7 +18,7 @@ export const useIndexedDb = () => {
   useEffect(() => {
     setTimeout(() => {
       dispatch(thunk.update());
-    }, 4000);
+    }, 2000);
     // eslint-disable-next-line
   }, []);
   return getters;
