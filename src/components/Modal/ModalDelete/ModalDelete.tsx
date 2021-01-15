@@ -5,10 +5,12 @@ import { ModalTargetType, taskOrCategoryWords } from '../../../shared/constants'
 import { useSelector } from 'react-redux';
 import { getAppState } from '../../../store/appReducer/selectors';
 import { actions, useAppDispatch } from '../../../store';
-import './style.css';
 import { getCategories } from '../../../store/categoriesReducer/selectors';
 import { getTasks } from '../../../store/tasksReducer/selectors';
 import { useModal } from '../useModal';
+import { useSetters } from '../../../shared/hooks/useSetters';
+import { CategoriesThunk } from '../../../store/categoriesReducer/thunk';
+import './style.css';
 
 
 type PropsType = {
@@ -34,6 +36,9 @@ export const ModalDelete: FC<PropsType> = ({
     categories.find((item) => item.id === deletingId)!.name :
     tasks.find((item) => item.id === deletingId)!.name;
 
+  /* thunk */
+  const [getters, setters] = useSetters();
+  const categoriesThunk = CategoriesThunk(setters);
 
   /* methods */
   const handleConfirm = () => {
@@ -41,7 +46,7 @@ export const ModalDelete: FC<PropsType> = ({
       dispatch(actions.tasks.deleteTask(deletingId!));
       onClose();
     } else {
-      dispatch(actions.categories.deleteCategory(deletingId!));
+      dispatch(categoriesThunk.drop(deletingId!));
       onClose();
     }
   };

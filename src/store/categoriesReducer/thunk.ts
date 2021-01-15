@@ -62,9 +62,24 @@ export const CategoriesThunk = (setters: SettersType) => {
     };
   };
 
+  const drop = (id: number) => (dispatch: AppDispatch) => {
+    setters.setIsLoading(true);
+    const request = API.Categories.drop(id);
+
+    request.onsuccess = () => {
+      setters.setIsLoading(false);
+      dispatch(actions.deleteCategory(id));
+    };
+
+    request.onerror = () => {
+      setters.setIsLoading(false);
+    };
+  };
+
   return {
     initialize,
     add,
     put,
+    drop,
   };
 };

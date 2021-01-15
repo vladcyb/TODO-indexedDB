@@ -21,9 +21,14 @@ export const API = {
       return categories.add(category);
     },
     put: (category: Required<Category>) => {
-      const transaction = window.db.transaction('Category', 'readwrite')
+      const transaction = window.db.transaction('Category', 'readwrite');
       const categories = transaction.objectStore('Category');
       return categories.put(category);
+    },
+    drop: (id: number) => {
+      const transaction = window.db.transaction('Category', 'readwrite');
+      const categories = transaction.objectStore('Category');
+      return categories.delete(id);
     },
   },
 };

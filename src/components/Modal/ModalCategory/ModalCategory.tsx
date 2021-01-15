@@ -2,12 +2,12 @@ import React, { FC, useState } from 'react';
 import { createCn } from 'bem-react-classname';
 import { Button, Input, Modal, Textarea } from '../../index';
 import { createOrEdit, Mode } from '../../../shared/constants';
-import './style.css';
-import { actions, useAppDispatch } from '../../../store';
+import { useAppDispatch } from '../../../store';
 import { useInput } from '../../../shared/hooks/useInput';
 import { useModal } from '../useModal';
 import { useSetters } from '../../../shared/hooks/useSetters';
 import { CategoriesThunk } from '../../../store/categoriesReducer/thunk';
+import './style.css';
 
 
 type PropsType = {
