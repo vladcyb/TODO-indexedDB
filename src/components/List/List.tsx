@@ -5,16 +5,14 @@ import { useSelector } from 'react-redux';
 import { getTasks } from '../../store/tasksReducer/selectors';
 import { getAppState } from '../../store/appReducer/selectors';
 import { getCategories } from '../../store/categoriesReducer/selectors';
-import './style.css';
 import { useIndexedDb } from '../../shared/hooks/useIndexedDb';
+import './style.css';
 
 
 const cn = createCn('list');
 
-type PropsType = {}
 
-
-export const List: FC<PropsType> = () => {
+export const List: FC = () => {
 
   /* hooks */
   const state = useSelector(getAppState);
