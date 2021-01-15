@@ -32,10 +32,9 @@ export const CategoriesThunk = (setters: SettersType) => {
   const drop = (id: number) => async (dispatch: AppDispatch) => {
     setters.setIsLoading(true);
     const request = await API.Categories.drop(id) as MyIDBResponse;
-    console.log(request);
     if (request.ok) {
       dispatch(actions.deleteCategory(id));
-      dispatch(AppThunk(setters).update())
+      dispatch(AppThunk(setters).update());
     }
     setters.setIsLoading(false);
   };

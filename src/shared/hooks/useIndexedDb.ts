@@ -12,11 +12,14 @@ declare global {
 export const useIndexedDb = () => {
 
   const dispatch = useAppDispatch();
-  const [getters, setters] = useSetters();
+  const [getters, setters] = useSetters(true);
   const thunk = AppThunk(setters);
 
   useEffect(() => {
-    dispatch(thunk.update());
+    setTimeout(() => {
+      dispatch(thunk.update());
+    }, 4000);
+    // eslint-disable-next-line
   }, []);
   return getters;
 };

@@ -10,8 +10,8 @@ export type SettersType = {
 
 type HookType = [GettersType, SettersType]
 
-export const useSetters = (): HookType => {
-  const [isLoading, setIsLoading] = useState(false);
+export const useSetters = (initialLoading = false): HookType => {
+  const [isLoading, setIsLoading] = useState(initialLoading);
 
   const getters: GettersType = {
     isLoading,
