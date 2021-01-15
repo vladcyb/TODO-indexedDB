@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useAppDispatch } from '../../store';
 import { useSetters } from './useSetters';
-import { CategoriesThunk } from '../../store/categoriesReducer/thunk';
+import { AppThunk } from '../../store/appReducer/thunk';
 
 declare global {
   interface Window {
@@ -13,7 +13,7 @@ export const useIndexedDb = () => {
 
   const dispatch = useAppDispatch();
   const [, setters] = useSetters();
-  const thunk = CategoriesThunk(setters);
+  const thunk = AppThunk(setters);
 
   useEffect(() => {
     dispatch(thunk.initialize());
