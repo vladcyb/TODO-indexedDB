@@ -4,6 +4,11 @@ import { Category } from '../../shared/types';
 import { API } from '../../API';
 import { actions } from '.';
 
+type ResponseType = {
+  ok: boolean
+  request: IDBRequest
+}
+
 export const CategoriesThunk = (setters: SettersType) => {
 
   const initialize = () => (dispatch: AppDispatch) => {
@@ -32,48 +37,36 @@ export const CategoriesThunk = (setters: SettersType) => {
     };
   };
 
-  const add = (category: Category) => (dispatch: AppDispatch) => {
+  const add = (category: Category) => async (dispatch: AppDispatch) => {
     setters.setIsLoading(true);
-    const request = API.Categories.add(category);
-    request.onsuccess = () => {
+    const request = await API.Categories.add(category) as ResponseType;
+    if (request.ok) {
       dispatch(actions.addCategory({
-        id: request.result as number,
+        id: request.request.result,
         ...category,
       }));
-      setters.setIsLoading(false);
-    };
-
-    request.onerror = () => {
-      setters.setIsLoading(false);
-    };
+    }
+    setters.setIsLoading(false);
   };
 
-  const put = (category: Required<Category>) => (dispatch: AppDispatch) => {
+  const put = (category: Required<Category>) => async (dispatch: AppDispatch) => {
     setters.setIsLoading(true);
-    const request = API.Categories.put(category);
-
-    request.onsuccess = () => {
-      setters.setIsLoading(false);
+    const request = await API.Categories.put(category) as ResponseType;
+    if (request.ok) {
       dispatch(actions.editCategory(category));
-    };
-
-    request.onerror = () => {
-      setters.setIsLoading(false);
-    };
+    }
+    setters.setIsLoading(false);
   };
 
-  const drop = (id: number) => (dispatch: AppDispatch) => {
+  const drop = (id: number) => async (dispatch: AppDispatch) => {
     setters.setIsLoading(true);
-    const request = API.Categories.drop(id);
+    const request = await API.Categories.drop(id) as ResponseType;
 
-    request.onsuccess = () => {
-      setters.setIsLoading(false);
+    if (request.ok) {
       dispatch(actions.deleteCategory(id));
-    };
+    }
 
-    request.onerror = () => {
-      setters.setIsLoading(false);
-    };
+    setters.setIsLoading(false);
   };
 
   return {
