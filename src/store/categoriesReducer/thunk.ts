@@ -6,20 +6,6 @@ import { actions } from '.';
 
 export const CategoriesThunk = (setters: SettersType) => {
 
-  const addCategory = (category: Category) => (dispatch: AppDispatch) => {
-    setters.setIsLoading(true);
-    const request = API.Categories.add(category);
-    request.onsuccess = () => {
-      dispatch(actions.addCategory(category));
-      setters.setIsLoading(false);
-    };
-
-    request.onerror = () => {
-      setters.setIsLoading(false);
-      throw Error(JSON.stringify(request.result));
-    };
-  };
-
   const initialize = () => (dispatch: AppDispatch) => {
     const DBOpenRequest = window.indexedDB.open('toDoList', 1);
 
@@ -41,14 +27,44 @@ export const CategoriesThunk = (setters: SettersType) => {
       const categories = getTransaction.objectStore('Category');
       const getCategoriesRequest = categories.getAll();
       getCategoriesRequest.onsuccess = () => {
-        console.log(getCategoriesRequest.result);
         dispatch(actions.setCategories(getCategoriesRequest.result));
       };
     };
   };
 
+  const add = (category: Category) => (dispatch: AppDispatch) => {
+    setters.setIsLoading(true);
+    const request = API.Categories.add(category);
+    request.onsuccess = () => {
+      dispatch(actions.addCategory({
+        id: request.result as number,
+        ...category,
+      }));
+      setters.setIsLoading(false);
+    };
+
+    request.onerror = () => {
+      setters.setIsLoading(false);
+    };
+  };
+
+  const put = (category: Required<Category>) => (dispatch: AppDispatch) => {
+    setters.setIsLoading(true);
+    const request = API.Categories.put(category);
+
+    request.onsuccess = () => {
+      setters.setIsLoading(false);
+      dispatch(actions.editCategory(category));
+    };
+
+    request.onerror = () => {
+      setters.setIsLoading(false);
+    };
+  };
+
   return {
-    addCategory,
     initialize,
+    add,
+    put,
   };
 };

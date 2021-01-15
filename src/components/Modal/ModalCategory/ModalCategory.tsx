@@ -34,7 +34,7 @@ export const ModalCategory: FC<PropsType> = ({
 
   /* thunk */
   const [getters, setters] = useSetters();
-  const thunk = CategoriesThunk(setters);
+  const categoriesThunk = CategoriesThunk(setters);
 
   /* classes */
   const cn = createCn('modalCategory', className);
@@ -52,13 +52,13 @@ export const ModalCategory: FC<PropsType> = ({
     const name = nameField.value;
     if (name) {
       if (mode === Mode.create) {
-        dispatch(thunk.addCategory({
+        dispatch(categoriesThunk.add({
           name,
           description,
         }));
       } else {
-        dispatch(actions.categories.editCategory({
-          id: modalContext.editingId,
+        dispatch(categoriesThunk.put({
+          id: modalContext.editingId!,
           name: nameField.value,
           description,
         }));

@@ -27,11 +27,11 @@ export const ModalProvider: FC = ({ children }) => {
   };
 
   const cancelEditing = () => {
-    setEditingId(0);
+    setEditingId(undefined);
   };
 
   const cancelDeleting = () => {
-    setDeletingId(0);
+    setDeletingId(undefined);
   };
 
   /* vars */

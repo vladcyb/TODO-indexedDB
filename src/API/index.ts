@@ -19,6 +19,11 @@ export const API = {
       const transaction = window.db.transaction('Category', 'readwrite');
       const categories = transaction.objectStore('Category');
       return categories.add(category);
-    }
-  }
+    },
+    put: (category: Required<Category>) => {
+      const transaction = window.db.transaction('Category', 'readwrite')
+      const categories = transaction.objectStore('Category');
+      return categories.put(category);
+    },
+  },
 };

@@ -8,7 +8,7 @@ export const categoriesSlice = createSlice({
   name: 'categories',
   initialState,
   reducers: {
-    addCategory: (state, { payload }: PayloadAction<Category>) => {
+    addCategory: (state, { payload }: PayloadAction<Required<Category>>) => {
       state.push(payload);
     },
     deleteCategory: (state, { payload }: PayloadAction<number>) => {
@@ -19,7 +19,7 @@ export const categoriesSlice = createSlice({
         );
       }
     },
-    editCategory: (state, { payload }: PayloadAction<Category>) => {
+    editCategory: (state, { payload }: PayloadAction<Required<Category>>) => {
       const index = state.findIndex((item) => item.id === payload.id);
       if (index >= 0) {
         state[index] = payload;
