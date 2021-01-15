@@ -61,6 +61,12 @@ export const Select: FC<PropsType> = ({
       </div>
       {isOpened && (
         <div className={cn('list')}>
+          <div
+            className={cn('item', { selected: !selectedId })}
+            onClick={() => selectId(undefined)}
+          >
+            Не выбрано
+          </div>
           {list.map((item) => (
             <div
               className={cn('item', { selected: item.id === selectedId })}

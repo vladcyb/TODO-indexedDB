@@ -2,7 +2,7 @@ export type Task = {
   id?: number
   name: string
   description: string
-  categoryId: number
+  categoryId: number | undefined
 }
 
 export type Category = {

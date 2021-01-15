@@ -29,7 +29,7 @@ export const ListItem: FC<PropsType> = ({
   const state = useSelector(getAppState);
 
   /* vars */
-  const category = categories.find(item => item.id === categoryId)!;
+  const category = categories.find(item => item.id === categoryId);
 
   /* methods */
   const handleDelete = () => {
@@ -55,7 +55,7 @@ export const ListItem: FC<PropsType> = ({
           <span className={cn('name')}>{name}</span>
           {categoryId && (
             <span className={cn('category')}>
-              {category.name}
+              {category?.name}
             </span>
           )}
         </div>

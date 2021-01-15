@@ -55,7 +55,7 @@ export const ModalTask: FC<PropsType> = ({
   const handleConfirm = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (categoryId && nameInput.value) {
+    if (nameInput.value) {
       onClose();
       if (mode === Mode.create) {
         dispatch(thunk.addTask({
