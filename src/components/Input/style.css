@@ -8,28 +8,19 @@
     font-weight: 400;
 }
 
-.input_error .input__input {
-    border-color: #EC1D1D !important;
-}
-
-.input_error .input__label {
-    color: #EC1D1D !important;
-}
-
 .input__input {
     font-size: 20px;
     height: 46px;
-    border: 2px solid #3F72AF;
-    border-radius: 4px;
+    border: none;
     width: 100%;
     padding: 0 8px;
     background: transparent;
     outline: none;
 }
 
-.input__input:hover,
-.input__input:focus {
-    border: 2px solid #257FEA;
+.input__input:hover + .input__fieldset,
+.input__input:focus + .input__fieldset {
+    border-color: #257FEA;
 }
 
 .input__label {
@@ -37,7 +28,6 @@
     color: #3F72AF;
     line-height: 20px;
     position: absolute;
-    background: #DBE2EF;
     left: 11px;
     top: -10px;
     padding: 0 2px;
@@ -52,4 +42,37 @@
     font-size: 14px;
     line-height: 20px;
     padding-left: 8px;
+}
+
+.input__control {
+    position: relative;
+}
+
+.input__fieldset {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    height: 46px !important;
+    border: 2px solid #3F72AF;
+    border-radius: 4px;
+    min-height: 46px;
+    pointer-events: none;
+}
+
+.input__legend {
+    visibility: hidden;
+    height: 5px;
+    margin-left: 8px;
+    padding-right: 6px;
+    font-size: 18px;
+}
+
+.input_error .input__fieldset {
+    border-color: #EC1D1D !important;
+}
+
+.input_error .input__label {
+    color: #EC1D1D !important;
 }
