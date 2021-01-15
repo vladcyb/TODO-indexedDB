@@ -8,13 +8,14 @@ type PropsType = React.TextareaHTMLAttributes<HTMLTextAreaElement> & {
   error?: string
 }
 
-export const Textarea: FC<PropsType> = ({
-                                          label,
-                                          required,
-                                          error,
-                                          className,
-                                          ...textareaProps
-                                        }) => {
+export const Textarea: FC<PropsType> = (
+  {
+    label,
+    required,
+    error,
+    className,
+    ...textareaProps
+  }) => {
 
   /* classes */
   const cn = createCn('input', className);

@@ -15,13 +15,14 @@ type PropsType = {
   className?: string
 }
 
-export const Select: FC<PropsType> = ({
-                                        placeholder,
-                                        list,
-                                        selectedId,
-                                        selectId,
-                                        className,
-                                      }) => {
+export const Select: FC<PropsType> = (
+  {
+    placeholder,
+    list,
+    selectedId,
+    selectId,
+    className,
+  }) => {
 
   /* state */
   const [isOpened, setIsOpened] = useState(false);

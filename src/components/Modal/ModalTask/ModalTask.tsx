@@ -24,14 +24,15 @@ type PropsType = {
 }
 
 
-export const ModalTask: FC<PropsType> = ({
-                                           mode,
-                                           initialName = '',
-                                           initialDescription = '',
-                                           initialCategoryId,
-                                           onClose,
-                                           ...modalProps
-                                         }) => {
+export const ModalTask: FC<PropsType> = (
+  {
+    mode,
+    initialName = '',
+    initialDescription = '',
+    initialCategoryId,
+    onClose,
+    ...modalProps
+  }) => {
 
   /* hooks */
   const dispatch = useAppDispatch();

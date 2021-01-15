@@ -8,14 +8,15 @@ type PropsType = React.InputHTMLAttributes<HTMLInputElement> & {
   error?: string
 }
 
-export const Input: FC<PropsType> = ({
-                                       label,
-                                       required,
-                                       error,
-                                       type = 'text',
-                                       className,
-                                       ...inputProps
-                                     }) => {
+export const Input: FC<PropsType> = (
+  {
+    label,
+    required,
+    error,
+    type = 'text',
+    className,
+    ...inputProps
+  }) => {
 
   /* classes */
   const cn = createCn('input', className);

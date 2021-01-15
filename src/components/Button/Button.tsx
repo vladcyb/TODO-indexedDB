@@ -7,14 +7,15 @@ type PropsType = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: 'primary' | 'secondary'
 }
 
-export const Button: FC<PropsType> = ({
-                                        onClick,
-                                        type = 'button',
-                                        children,
-                                        variant = 'primary',
-                                        className,
-                                        ...buttonProps
-                                      }) => {
+export const Button: FC<PropsType> = (
+  {
+    onClick,
+    type = 'button',
+    children,
+    variant = 'primary',
+    className,
+    ...buttonProps
+  }) => {
 
   /* classes */
   const cn = createCn('button', className);

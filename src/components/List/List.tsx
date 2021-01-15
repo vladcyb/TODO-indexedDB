@@ -29,11 +29,11 @@ export const List: FC = () => {
         <div className={cn()}>
           {state === 'tasks' ? (
             tasks.map((item) => (
-              <ListItem item={item} key={item.id} />
+              <ListItem {...item } key={item.id} />
             ))
           ) : (
             categories.map((item) => (
-              <ListItem item={item} key={item.id} />
+              <ListItem {...item } key={item.id} />
             ))
           )}
         </div>

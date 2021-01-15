@@ -21,11 +21,12 @@ type PropsType = {
 
 const cn = createCn('modalDelete');
 
-export const ModalDelete: FC<PropsType> = ({
-                                             type,
-                                             onClose,
-                                             ...modalProps
-                                           }) => {
+export const ModalDelete: FC<PropsType> = (
+  {
+    type,
+    onClose,
+    ...modalProps
+  }) => {
 
   /* hooks */
   const { deletingId } = useContext(ModalContext);

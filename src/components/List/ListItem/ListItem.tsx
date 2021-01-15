@@ -10,18 +10,13 @@ import './style.css';
 
 const cn = createCn('listItem');
 
-type PropsType = {
-  item: TodoOrCategory
-}
-
-export const ListItem: FC<PropsType> = ({
-                                          item: {
-                                            id,
-                                            name,
-                                            description,
-                                            categoryId,
-                                          },
-                                        }) => {
+export const ListItem: FC<TodoOrCategory> = (
+  {
+    id,
+    name,
+    description,
+    categoryId,
+  }) => {
 
   /* hooks */
   const categories = useSelector(getCategories);

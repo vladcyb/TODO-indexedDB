@@ -11,10 +11,14 @@ type PropsType = {
   open: boolean
 }
 
-export const Modal: FC<PropsType> = (props) => {
-
-  /* props */
-  const { open, onClose, title, className, children } = props;
+export const Modal: FC<PropsType> = (
+  {
+    open,
+    onClose,
+    title,
+    children,
+    className,
+  }) => {
 
   /* classname */
   const cn = createCn('modal', className);

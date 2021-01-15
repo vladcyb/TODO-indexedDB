@@ -18,14 +18,15 @@ type PropsType = {
   className?: string
 }
 
-export const ModalCategory: FC<PropsType> = ({
-                                               mode,
-                                               className,
-                                               initialName = '',
-                                               initialDescription = '',
-                                               onClose,
-                                               ...modalProps
-                                             }) => {
+export const ModalCategory: FC<PropsType> = (
+  {
+    mode,
+    className,
+    initialName = '',
+    initialDescription = '',
+    onClose,
+    ...modalProps
+  }) => {
 
   /* hooks */
   const dispatch = useAppDispatch();
