@@ -33,7 +33,18 @@ export const API = {
       });
     },
     delete: (id: number) => {
+      return new Promise((resolve, reject) => {
+        const deleteTask = createTransaction('Item', 'readwrite');
+        const request = deleteTask.delete(id);
 
+        request.onsuccess = () => {
+          resolve({ ok: true });
+        };
+
+        request.onerror = () => {
+          reject(Error('Что-то пошло не так'));
+        };
+      });
     },
   },
   Categories: {

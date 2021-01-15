@@ -25,8 +25,18 @@ export const TasksThunk = (setters: SettersType) => {
     setters.setIsLoading(false);
   };
 
+  const drop = (id: number) => async (dispatch: AppDispatch) => {
+    setters.setIsLoading(true);
+    const request = await API.Tasks.delete(id) as MyIDBResponse;
+    if (request.ok) {
+      dispatch(actions.deleteTask(id));
+    }
+    setters.setIsLoading(false);
+  };
+
   return {
     addTask,
     editTask,
+    drop,
   };
 };

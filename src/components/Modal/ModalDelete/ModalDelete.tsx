@@ -4,12 +4,13 @@ import { Button, Modal } from '../../index';
 import { ModalTargetType, taskOrCategoryWords } from '../../../shared/constants';
 import { useSelector } from 'react-redux';
 import { getAppState } from '../../../store/appReducer/selectors';
-import { actions, useAppDispatch } from '../../../store';
+import { useAppDispatch } from '../../../store';
 import { getCategories } from '../../../store/categoriesReducer/selectors';
 import { getTasks } from '../../../store/tasksReducer/selectors';
 import { useModal } from '../useModal';
 import { useSetters } from '../../../shared/hooks/useSetters';
 import { CategoriesThunk } from '../../../store/categoriesReducer/thunk';
+import { TasksThunk } from '../../../store/tasksReducer/thunk';
 import './style.css';
 
 
@@ -39,11 +40,12 @@ export const ModalDelete: FC<PropsType> = ({
   /* thunk */
   const [getters, setters] = useSetters();
   const categoriesThunk = CategoriesThunk(setters);
+  const tasksThunk = TasksThunk(setters);
 
   /* methods */
   const handleConfirm = () => {
     if (state === 'tasks') {
-      dispatch(actions.tasks.deleteTask(deletingId!));
+      dispatch(tasksThunk.drop(deletingId!));
       onClose();
     } else {
       dispatch(categoriesThunk.drop(deletingId!));
