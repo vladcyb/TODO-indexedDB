@@ -96,8 +96,11 @@ export const API = {
             if (cursor) {
               const task: Task = cursor.value;
               if (task.categoryId === id) {
-                const deleteRequest = await cursor.delete();
-                deleteRequest.onerror = () => {
+                const updateRequest = cursor.update({
+                  ...task,
+                  categoryId: undefined,
+                } as Task);
+                updateRequest.onerror = () => {
                   rootTransaction.abort();
                 };
               }
