@@ -21,7 +21,7 @@ export const useInput = (initialValue = '', required?: boolean): ReturnedType =>
   const onChange: ChangeHandler = (e) => {
     setIsDirty(true);
     setValue(e.target.value);
-    if (!value && required) {
+    if (!e.target.value && required) {
       setError(requiredFieldError);
     } else {
       setError('');
