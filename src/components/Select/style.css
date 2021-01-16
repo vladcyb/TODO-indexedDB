@@ -19,7 +19,7 @@
     margin-top: 11px;
 }
 
-.select__fieldset:hover,
+.select:hover .select__fieldset,
 .select:focus .select__fieldset {
     border-color: #257FEA;
 }
