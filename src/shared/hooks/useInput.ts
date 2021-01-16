@@ -8,9 +8,10 @@ type ReturnedType = {
   onChange: ChangeHandler
   required: boolean
   error: string
+  onBlur: () => void
 }
 
-export const useInput = (initialValue = '', required?: boolean): ReturnedType => {
+export const useInput = (initialValue = '', required?: boolean, submitted?: boolean): ReturnedType => {
 
   /* state */
   const [value, setValue] = useState(initialValue);
@@ -28,10 +29,15 @@ export const useInput = (initialValue = '', required?: boolean): ReturnedType =>
     }
   };
 
+  const onBlur = () => {
+    setIsDirty(true);
+  };
+
   return {
     value,
     onChange,
     required: !!required,
-    error: isDirty ? error : '',
+    error: isDirty || submitted ? error : '',
+    onBlur,
   };
 };

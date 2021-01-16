@@ -34,11 +34,13 @@ export const ModalTask: FC<PropsType> = (
     ...modalProps
   }) => {
 
+  const [isSubmitted, setIsSubmitted] = useState(false)
+
   /* hooks */
   const dispatch = useAppDispatch();
   const modalContext = useContext(ModalContext);
   const categories = useSelector(getCategories);
-  const nameInput = useInput(initialName, true);
+  const nameInput = useInput(initialName, true, isSubmitted);
 
   /* thunk */
   const [getters, setters] = useSetters();
@@ -55,6 +57,7 @@ export const ModalTask: FC<PropsType> = (
 
   const handleConfirm = (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitted(true);
 
     if (nameInput.value) {
       onClose();
