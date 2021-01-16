@@ -16,12 +16,17 @@
 .select__grid {
     display: grid;
     grid-template-columns: 1fr 44px;
-    margin-top: 12px;
+    margin-top: 11px;
 }
 
 .select__fieldset:hover,
 .select:focus .select__fieldset {
     border-color: #257FEA;
+}
+
+.select:hover .select__label,
+.select:focus .select__label {
+    color: #257FEA;
 }
 
 .select__title {
@@ -94,10 +99,10 @@
 
 .select__fieldset {
     position: absolute;
-    top: 3px;
+    top: 9px;
     left: 0;
     right: 0;
-    bottom: -3px;
+    height: 46px;
     border: 2px solid #3F72AF;
     border-radius: 4px;
 }
@@ -105,7 +110,7 @@
 .select__legend {
     font-family: Roboto, serif;
     font-size: 18px;
-    line-height: 19px;
+    height: 5px;
     color: #3F72AF;
     margin-left: 8px;
     padding: 0 6px;
@@ -113,7 +118,6 @@
 }
 
 .select__label {
-    top: 2px;
     font-family: Roboto, serif;
     font-size: 18px;
     line-height: 20px;

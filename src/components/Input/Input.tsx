@@ -6,6 +6,7 @@ import './style.css';
 type PropsType = React.InputHTMLAttributes<HTMLInputElement> & {
   label?: string
   error?: string
+  focused: boolean
 }
 
 export const Input: FC<PropsType> = (
@@ -15,13 +16,15 @@ export const Input: FC<PropsType> = (
     error,
     type = 'text',
     className,
+    focused,
     ...inputProps
   }) => {
 
+  /* classes */
   const cn = createCn('input', className);
 
   return (
-    <div className={cn({ error: !!error })}>
+    <div className={cn({ error: !!error, focused })}>
       <label className={cn('label')}>
         {label}{required && <span className={cn('ast')}>*</span>}
       </label>

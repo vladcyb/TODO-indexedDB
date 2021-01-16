@@ -19,9 +19,18 @@
     outline: none;
 }
 
+.input_focused .input__label {
+    color: #257FEA;
+}
+
 .input__input:hover + .input__fieldset,
 .input__input:focus + .input__fieldset {
     border-color: #257FEA;
+}
+
+.input:hover .input__label,
+.input:focus .input__label {
+    color: #257FEA;
 }
 
 .input__label {
@@ -55,7 +64,7 @@
     left: 0;
     top: 0;
     right: 0;
-    bottom: 0;
+    height: 46px;
     border: 2px solid #3F72AF;
     border-radius: 4px;
     min-height: 46px;
@@ -68,7 +77,6 @@
     margin-left: 8px;
     padding-right: 6px;
     font-size: 18px;
-    line-height: 20px;
 }
 
 .input_error .input__fieldset {

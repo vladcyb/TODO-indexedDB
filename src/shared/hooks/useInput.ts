@@ -6,9 +6,11 @@ type ChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => void
 type UseInputHookType = (initialValue?: string, required?: boolean) => {
   value: string
   onChange: ChangeHandler
-  error: string
   onFocus: () => void
+  onBlur: () => void
   required: boolean
+  error: string
+  focused: boolean
 }
 
 export const useInput: UseInputHookType = (initialValue = '', required) => {
@@ -17,6 +19,7 @@ export const useInput: UseInputHookType = (initialValue = '', required) => {
   const [value, setValue] = useState(initialValue);
   const [error, setError] = useState(required && !initialValue ? requiredFieldError : '');
   const [touched, setTouched] = useState(false);
+  const [focused, setFocused] = useState(false);
 
   /* methods */
   const onChange: ChangeHandler = (e) => {
@@ -31,13 +34,20 @@ export const useInput: UseInputHookType = (initialValue = '', required) => {
 
   const onFocus = () => {
     setTouched(true);
+    setFocused(true);
+  };
+
+  const onBlur = () => {
+    setFocused(false);
   };
 
   return {
     value,
     onChange,
-    error: touched ? error : '',
     onFocus,
+    onBlur,
     required: !!required,
+    focused,
+    error: touched ? error : '',
   };
 };
