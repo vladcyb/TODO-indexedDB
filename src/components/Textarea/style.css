@@ -50,8 +50,17 @@
     font-weight: normal;
     font-size: 18px;
     line-height: 20px;
-    color: #3F72AF;
     margin-left: 8px;
     padding: 0 3px;
     visibility: hidden;
+}
+
+.textarea:hover .textarea__label,
+.textarea_focused .textarea__label {
+    color: #257FEA;
+}
+
+.textarea:hover .textarea__fieldset,
+.textarea_focused .textarea__fieldset {
+    border-color: #257FEA;
 }
