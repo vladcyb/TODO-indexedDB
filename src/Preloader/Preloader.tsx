@@ -10,7 +10,10 @@ const getNext = (x: number) => {
 
 export const Preloader: FC = () => {
 
+  /* state */
   const [state, setState] = useState(1);
+
+  /* hooks */
   useEffect(() => {
     const interval = window.setInterval(() => {
       setState(value => {

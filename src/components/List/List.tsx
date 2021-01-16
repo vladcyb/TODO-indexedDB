@@ -23,20 +23,21 @@ export const List: FC = () => {
 
 
   return (
-    getters.isLoading ?
-      <Preloader />
-      : (
-        <div className={cn()}>
-          {state === 'tasks' ? (
-            tasks.map((item) => (
-              <ListItem {...item } key={item.id} />
-            ))
-          ) : (
-            categories.map((item) => (
-              <ListItem {...item } key={item.id} />
-            ))
-          )}
+    <div className={cn()}>
+      {getters.isLoading && (
+        <div className={cn('preloader')}>
+          <Preloader />
         </div>
-      )
+      )}
+      {state === 'tasks' ? (
+        tasks.map((item) => (
+          <ListItem {...item} key={item.id} />
+        ))
+      ) : (
+        categories.map((item) => (
+          <ListItem {...item} key={item.id} />
+        ))
+      )}
+    </div>
   );
 };

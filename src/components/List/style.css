@@ -1,3 +1,7 @@
 .list {
     width: 1000px;
 }
+
+.list__preloader {
+    padding: 100px 0;
+}
