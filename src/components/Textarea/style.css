@@ -1,7 +1,57 @@
-.input_textarea {
-    height: auto;
+.textarea {
+    position: relative;
+    padding-top: 10px;
 }
 
-.input_textarea textarea {
-    padding-top: 10px;
+.textarea__textarea {
+    font-family: Roboto, serif;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 20px;
+    padding: 0 8px;
+    width: calc(100% - 4px);
+    outline: none;
+    position: absolute;
+    top: 20px;
+    left: 2px;
+    bottom: 2px;
+    resize: none;
+    border: none;
+    border-radius: 2px;
+    background: transparent;
+}
+
+.textarea__fieldset {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 2px solid #3F72AF;
+    border-radius: 4px;
+    pointer-events: none;
+}
+
+.textarea__label {
+    font-family: Roboto, serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 20px;
+    color: #3F72AF;
+    position: absolute;
+    top: 0;
+    left: 12px;
+}
+
+.textarea__legend {
+    font-family: Roboto, serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 20px;
+    color: #3F72AF;
+    margin-left: 8px;
+    padding: 0 3px;
+    visibility: hidden;
 }

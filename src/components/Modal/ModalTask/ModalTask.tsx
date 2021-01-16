@@ -104,6 +104,7 @@ export const ModalTask: FC<PropsType> = (
             />
             <Textarea
               className={cn('description')}
+              label="Описание"
               placeholder="Введите описание задачи"
               value={description}
               onChange={handleDescriptionChange}
