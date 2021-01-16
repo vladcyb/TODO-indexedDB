@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { createCn } from 'bem-react-classname';
 import './style.css';
 
@@ -6,7 +6,6 @@ import './style.css';
 type PropsType = React.InputHTMLAttributes<HTMLInputElement> & {
   label?: string
   error?: string
-  focused: boolean
 }
 
 export const Input: FC<PropsType> = (
@@ -16,12 +15,31 @@ export const Input: FC<PropsType> = (
     error,
     type = 'text',
     className,
-    focused,
+    onFocus,
+    onBlur,
     ...inputProps
   }) => {
 
   /* classes */
   const cn = createCn('input', className);
+
+  /* state */
+  const [focused, setFocused] = useState(false);
+
+  /* methods */
+  const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
+    setFocused(true);
+    if (onFocus) {
+      onFocus(e);
+    }
+  };
+
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    setFocused(false);
+    if (onBlur) {
+      onBlur(e);
+    }
+  };
 
   return (
     <div className={cn({ error: !!error, focused })}>
@@ -32,6 +50,8 @@ export const Input: FC<PropsType> = (
         <input
           className={cn('input')}
           type={type}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
           {...inputProps}
         />
         <fieldset className={cn('fieldset')}>

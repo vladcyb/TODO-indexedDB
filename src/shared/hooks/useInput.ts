@@ -3,28 +3,24 @@ import { requiredFieldError } from '../constants';
 
 type ChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => void
 
-type UseInputHookType = (initialValue?: string, required?: boolean) => {
+type ReturnedType = {
   value: string
   onChange: ChangeHandler
-  onFocus: () => void
-  onBlur: () => void
   required: boolean
   error: string
-  focused: boolean
 }
 
-export const useInput: UseInputHookType = (initialValue = '', required) => {
+export const useInput = (initialValue = '', required?: boolean): ReturnedType => {
 
   /* state */
   const [value, setValue] = useState(initialValue);
   const [error, setError] = useState(required && !initialValue ? requiredFieldError : '');
-  const [touched, setTouched] = useState(false);
-  const [focused, setFocused] = useState(false);
+  const [isDirty, setIsDirty] = useState(false);
 
   /* methods */
   const onChange: ChangeHandler = (e) => {
-    const { value } = e.target;
-    setValue(value);
+    setIsDirty(true);
+    setValue(e.target.value);
     if (!value && required) {
       setError(requiredFieldError);
     } else {
@@ -32,22 +28,10 @@ export const useInput: UseInputHookType = (initialValue = '', required) => {
     }
   };
 
-  const onFocus = () => {
-    setTouched(true);
-    setFocused(true);
-  };
-
-  const onBlur = () => {
-    setFocused(false);
-  };
-
   return {
     value,
     onChange,
-    onFocus,
-    onBlur,
     required: !!required,
-    focused,
-    error: touched ? error : '',
+    error: isDirty ? error : '',
   };
 };

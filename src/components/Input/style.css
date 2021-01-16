@@ -23,7 +23,7 @@
     color: #257FEA;
 }
 
-.input__input:hover + .input__fieldset,
+.input:hover .input__fieldset,
 .input__input:focus + .input__fieldset {
     border-color: #257FEA;
 }
