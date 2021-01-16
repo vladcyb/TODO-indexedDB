@@ -18,15 +18,20 @@ export const Textarea: FC<PropsType> = (
   }) => {
 
   /* classes */
-  const cn = createCn('input', className);
+  const cn = createCn('textarea', className);
 
   return (
-    <div className={cn({ error: !!error, textarea: true })}>
-      <label className={cn('label')}>
-        {label}{required ? <span className={cn('ast')}>*</span> : null}
-      </label>
+    <div className={cn({ error: !!error })}>
+      {/*<label className={cn('label')}>*/}
+      {/*  {label}{required ? <span className={cn('ast')}>*</span> : null}*/}
+      {/*</label>*/}
+      <fieldset className={cn('fieldset')}>
+        <legend className={cn('legend')}>
+          {label}{required && '*'}
+        </legend>
+      </fieldset>
       <textarea
-        className={cn('input')}
+        className={cn('textarea')}
         {...textareaProps}
       />
       <div className={cn('error')}>

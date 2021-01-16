@@ -13,11 +13,12 @@
 
 .modalTask__description {
     grid-column: 1 / 3;
+    grid-row: 2 / 3;
 }
 
-.modalTask__description textarea {
-    resize: vertical;
-    height: 72px;
+.modalTask__description {
+    height: 100px;
+    /*TODO*/
 }
 
 .modalTask__controls {
