@@ -3,7 +3,7 @@
     grid-template-columns: 264px 264px;
     grid-template-rows: auto auto;
     column-gap: 24px;
-    row-gap: 34px;
+    row-gap: 10px;
     margin-bottom: 24px;
 }
 
@@ -17,8 +17,7 @@
 }
 
 .modalTask__description {
-    height: 100px;
-    /*TODO*/
+    height: 72px;
 }
 
 .modalTask__controls {

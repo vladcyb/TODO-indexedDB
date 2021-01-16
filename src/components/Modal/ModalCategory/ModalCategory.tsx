@@ -28,10 +28,14 @@ export const ModalCategory: FC<PropsType> = (
     ...modalProps
   }) => {
 
+  /* state */
+  const [description, setDescription] = useState(initialDescription);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
   /* hooks */
   const dispatch = useAppDispatch();
   const modalContext = useContext(ModalContext);
-  const nameField = useInput(initialName, true);
+  const nameField = useInput(initialName, true, isSubmitted);
 
   /* thunk */
   const [getters, setters] = useSetters();
@@ -40,9 +44,6 @@ export const ModalCategory: FC<PropsType> = (
   /* classes */
   const cn = createCn('modalCategory', className);
 
-  /* state */
-  const [description, setDescription] = useState(initialDescription);
-
   /* methods */
   const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setDescription(e.target.value);
@@ -50,6 +51,7 @@ export const ModalCategory: FC<PropsType> = (
 
   const handleConfirm = (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitted(true);
     const name = nameField.value;
     if (name) {
       if (mode === Mode.create) {

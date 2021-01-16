@@ -3,7 +3,11 @@
 }
 
 .modalCategory__name {
-    margin: 42px 0 34px 0;
+    margin: 42px 0 10px 0;
+}
+
+.modalCategory__description {
+    height: 72px;
 }
 
 .modalCategory__controls {

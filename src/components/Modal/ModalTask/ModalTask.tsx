@@ -34,7 +34,11 @@ export const ModalTask: FC<PropsType> = (
     ...modalProps
   }) => {
 
-  const [isSubmitted, setIsSubmitted] = useState(false)
+
+  /* state */
+  const [categoryId, setCategoryId] = useState<number | undefined>(initialCategoryId);
+  const [description, setDescription] = useState(initialDescription);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   /* hooks */
   const dispatch = useAppDispatch();
@@ -45,10 +49,6 @@ export const ModalTask: FC<PropsType> = (
   /* thunk */
   const [getters, setters] = useSetters();
   const thunk = TasksThunk(setters);
-
-  /* state */
-  const [categoryId, setCategoryId] = useState<number | undefined>(initialCategoryId);
-  const [description, setDescription] = useState(initialDescription);
 
   /* methods */
   const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
