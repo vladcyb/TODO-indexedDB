@@ -1,12 +1,8 @@
 .select {
-    border: 2px solid #3F72AF;
-    border-radius: 4px;
-    height: 46px;
+    height: 55px;
     font-size: 20px;
     line-height: 46px;
     font-family: Roboto, serif;
-    display: grid;
-    grid-template-columns: 1fr 44px;
     cursor: pointer;
     position: relative;
     outline: none;
@@ -17,8 +13,14 @@
     user-select: none;
 }
 
-.select:hover,
-.select:focus {
+.select__grid {
+    display: grid;
+    grid-template-columns: 1fr 44px;
+    margin-top: 12px;
+}
+
+.select__fieldset:hover,
+.select:focus .select__fieldset {
     border-color: #257FEA;
 }
 
@@ -42,7 +44,7 @@
 .select__list {
     background: #DBE2EF;
     position: absolute;
-    top: 50px;
+    top: 62px;
     left: -2px;
     right: -2px;
     border: 2px solid #257FEA;
@@ -88,4 +90,36 @@
 
 .select__title_default {
     color: #808080;
+}
+
+.select__fieldset {
+    position: absolute;
+    top: 3px;
+    left: 0;
+    right: 0;
+    bottom: -3px;
+    border: 2px solid #3F72AF;
+    border-radius: 4px;
+}
+
+.select__legend {
+    font-family: Roboto, serif;
+    font-size: 18px;
+    line-height: 19px;
+    color: #3F72AF;
+    margin-left: 8px;
+    padding: 0 6px;
+    visibility: hidden;
+}
+
+.select__label {
+    top: 2px;
+    font-family: Roboto, serif;
+    font-size: 18px;
+    line-height: 20px;
+    color: #3F72AF;
+    position: absolute;
+    left: 8px;
+    padding: 0 6px;
+    pointer-events: none;
 }

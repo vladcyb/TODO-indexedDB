@@ -26,8 +26,8 @@
 
 .input__label {
     font-size: 18px;
-    color: #3F72AF;
     line-height: 20px;
+    color: #3F72AF;
     position: absolute;
     left: 11px;
     top: 0;
@@ -48,7 +48,6 @@
 .input__control {
     position: relative;
     height: 48px;
-    margin-top: -1px;
 }
 
 .input__fieldset {
@@ -69,6 +68,7 @@
     margin-left: 8px;
     padding-right: 6px;
     font-size: 18px;
+    line-height: 20px;
 }
 
 .input_error .input__fieldset {

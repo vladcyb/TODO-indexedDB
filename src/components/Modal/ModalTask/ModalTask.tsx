@@ -95,11 +95,12 @@ export const ModalTask: FC<PropsType> = (
               {...nameInput}
             />
             <Select
-              className={cn()}
+              className={cn('select')}
               placeholder="Выберите категорию"
               list={categories}
               selectedId={categoryId}
               selectId={setCategoryId}
+              label="Категория"
             />
             <Textarea
               className={cn('description')}

@@ -1,4 +1,4 @@
-import { Dispatch, FC, SetStateAction, useState } from 'react';
+import React, { Dispatch, FC, SetStateAction, useState } from 'react';
 import { createCn } from 'bem-react-classname';
 import './style.css';
 
@@ -13,6 +13,7 @@ type PropsType = {
   selectedId: number | undefined
   selectId: Dispatch<SetStateAction<number | undefined>>
   className?: string
+  label?: string
 }
 
 export const Select: FC<PropsType> = (
@@ -22,6 +23,7 @@ export const Select: FC<PropsType> = (
     selectedId,
     selectId,
     className,
+    label,
   }) => {
 
   /* state */
@@ -43,22 +45,27 @@ export const Select: FC<PropsType> = (
       tabIndex={0}
       role="button"
     >
-      {typeof selectedId === 'undefined' ? (
-        <div className={cn('title', {
-          opened: isOpened,
-          placeholder: true,
-        })}>
-          {placeholder}
+      <label className={cn('label')}>
+        {label}
+      </label>
+      <div className={cn('grid')}>
+        {!selectedId ? (
+          <div className={cn('title', {
+            opened: isOpened,
+            placeholder: true,
+          })}>
+            {placeholder}
+          </div>
+        ) : (
+          <div className={cn('title')}>
+            {list.find((item) => item.id === selectedId)!.name}
+          </div>
+        )}
+        <div className={cn('img')}>
+          <svg width="16" height="8" viewBox="0 0 16 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 0L8 8L16 0H0Z" fill="currentColor" />
+          </svg>
         </div>
-      ) : (
-        <div className={cn('title')}>
-          {list.find((item) => item.id === selectedId)!.name}
-        </div>
-      )}
-      <div className={cn('img')}>
-        <svg width="16" height="8" viewBox="0 0 16 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M0 0L8 8L16 0H0Z" fill="currentColor" />
-        </svg>
       </div>
       {isOpened && (
         <div className={cn('list')}>
@@ -79,6 +86,11 @@ export const Select: FC<PropsType> = (
           ))}
         </div>
       )}
+      <fieldset className={cn('fieldset')}>
+        <legend className={cn('legend')}>
+          {label}
+        </legend>
+      </fieldset>
     </div>
   );
 };
