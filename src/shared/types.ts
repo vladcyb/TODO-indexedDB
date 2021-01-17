@@ -17,8 +17,3 @@ export type TodoOrCategory = {
   description: string
   categoryId?: number
 }
-
-export type MyIDBResponse = {
-  ok: boolean
-  request: IDBRequest
-}

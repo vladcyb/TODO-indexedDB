@@ -1,6 +1,6 @@
 import { AppDispatch } from '../index';
 import { SettersType } from '../../shared/hooks/useSetters';
-import { MyIDBResponse, Task } from '../../shared/types';
+import { Task } from '../../shared/types';
 import { actions } from './index';
 import { API } from '../../API';
 

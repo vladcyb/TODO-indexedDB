@@ -1,6 +1,6 @@
 import { SettersType } from '../../shared/hooks/useSetters';
 import { AppDispatch } from '../index';
-import { Category, MyIDBResponse } from '../../shared/types';
+import { Category } from '../../shared/types';
 import { API } from '../../API';
 import { actions } from '.';
 import { AppThunk } from '../appSlice/thunk';
