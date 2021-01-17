@@ -34,13 +34,15 @@ export const API = {
           getCategoriesRequest.onsuccess = () => {
             state.categoriesLoaded = true;
             if (state.tasksLoaded) {
-              resolve({
-                ok: true,
-                data: {
-                  categories: getCategoriesRequest.result,
-                  tasks: getTasksRequest.result,
-                },
-              });
+              setTimeout(() => {
+                resolve({
+                  ok: true,
+                  data: {
+                    categories: getCategoriesRequest.result,
+                    tasks: getTasksRequest.result,
+                  },
+                });
+              }, 1000);
             }
           };
 
@@ -51,13 +53,15 @@ export const API = {
           getTasksRequest.onsuccess = () => {
             state.tasksLoaded = true;
             if (state.categoriesLoaded) {
-              resolve({
-                ok: true,
-                data: {
-                  categories: getCategoriesRequest.result,
-                  tasks: getTasksRequest.result,
-                },
-              });
+              setTimeout(() => {
+                resolve({
+                  ok: true,
+                  data: {
+                    categories: getCategoriesRequest.result,
+                    tasks: getTasksRequest.result,
+                  },
+                });
+              }, 1000);
             }
           };
 
