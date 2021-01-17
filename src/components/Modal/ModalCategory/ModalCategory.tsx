@@ -47,7 +47,7 @@ export const ModalCategory: FC<PropsType> = (
   const handleConfirm = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitted(true);
-    const name = nameField.value;
+    const { value: name } = nameField;
     if (name) {
       if (mode === ModalActionType.CREATE) {
         dispatch(CategoriesThunk.add({
