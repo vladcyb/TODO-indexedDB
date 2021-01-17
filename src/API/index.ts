@@ -1,19 +1,20 @@
 import { Category, Task } from '../shared/types';
 import { createTransaction } from '../shared/methods';
+import {
+  InitializeResponseType,
+  ResponseWithId,
+  SimpleResponseType,
+  UpdateCategoriesResponseType,
+  UpdateTasksResponseType,
+} from './types';
 import { APIErrors } from '../shared/constants';
-import { ResponseWithId, LoadDataResponseType, LoadDataStateType, SimpleResponseType } from './types';
 
 
 export const API = {
   App: {
-    loadData: () => {
-      return new Promise<LoadDataResponseType>((resolve) => {
-        const state: LoadDataStateType = {
-          categoriesLoaded: false,
-          tasksLoaded: false,
-        };
+    initialize: () => {
+      return new Promise<InitializeResponseType>((resolve) => {
         const DBOpenRequest = window.indexedDB.open('toDoList', 1);
-
         DBOpenRequest.onupgradeneeded = () => {
           const db = DBOpenRequest.result;
           if (!db.objectStoreNames.contains('Category')) {
@@ -26,48 +27,7 @@ export const API = {
 
         DBOpenRequest.onsuccess = () => {
           window.db = DBOpenRequest.result;
-          const categories = createTransaction('Category', 'readonly');
-          const tasks = createTransaction('Item', 'readonly');
-          const getCategoriesRequest = categories.getAll();
-          const getTasksRequest = tasks.getAll();
-
-          getCategoriesRequest.onsuccess = () => {
-            state.categoriesLoaded = true;
-            if (state.tasksLoaded) {
-              setTimeout(() => {
-                resolve({
-                  ok: true,
-                  data: {
-                    categories: getCategoriesRequest.result,
-                    tasks: getTasksRequest.result,
-                  },
-                });
-              }, 1000);
-            }
-          };
-
-          getCategoriesRequest.onerror = () => {
-            resolve({ ok: false, error: APIErrors.couldNotLoadIndexedDB });
-          };
-
-          getTasksRequest.onsuccess = () => {
-            state.tasksLoaded = true;
-            if (state.categoriesLoaded) {
-              setTimeout(() => {
-                resolve({
-                  ok: true,
-                  data: {
-                    categories: getCategoriesRequest.result,
-                    tasks: getTasksRequest.result,
-                  },
-                });
-              }, 1000);
-            }
-          };
-
-          getTasksRequest.onerror = () => {
-            resolve({ ok: false, error: APIErrors.couldNotLoadIndexedDB });
-          };
+          resolve({ ok: true });
         };
 
         DBOpenRequest.onerror = () => {
@@ -77,8 +37,19 @@ export const API = {
     },
   },
   Tasks: {
+    update: () => {
+      return new Promise<UpdateTasksResponseType>((resolve) => {
+        const tasks = createTransaction('Item', 'readonly').getAll();
+        tasks.onsuccess = () => {
+          resolve({ ok: true, data: tasks.result });
+        };
+        tasks.onerror = (e) => {
+          resolve({ ok: false, error: e });
+        };
+      });
+    },
     add: (task: Task) => {
-      return new Promise<ResponseWithId>((resolve, reject) => {
+      return new Promise<ResponseWithId>((resolve) => {
         const tasks = createTransaction('Item', 'readwrite');
         const request = tasks.add(task);
 
@@ -86,8 +57,8 @@ export const API = {
           resolve({ ok: true, id: request.result });
         };
 
-        request.onerror = () => {
-          reject(Error('Что-то пошло не так'));
+        request.onerror = (e: any) => {
+          resolve({ ok: false, error: e });
         };
       });
     },
@@ -121,6 +92,18 @@ export const API = {
     },
   },
   Categories: {
+    update: () => {
+      return new Promise<UpdateCategoriesResponseType>((resolve) => {
+        const categories = createTransaction('Category', 'readonly').getAll();
+        categories.onsuccess = () => {
+          const { result } = categories;
+          resolve({ ok: true, data: result });
+        };
+        categories.onerror = (e) => {
+          resolve({ ok: false, error: e });
+        };
+      });
+    },
     add: (category: Category) => {
       return new Promise<ResponseWithId>((resolve) => {
         const categories = createTransaction('Category', 'readwrite');
@@ -131,7 +114,7 @@ export const API = {
         };
 
         request.onerror = () => {
-          resolve({ ok: false });
+          resolve({ ok: false, error: APIErrors.couldNotLoadIndexedDB });
         };
       });
     },

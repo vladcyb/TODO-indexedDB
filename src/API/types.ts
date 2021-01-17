@@ -9,15 +9,11 @@ export type SimpleResponseType = {
   ok: boolean
 }
 
-export type LoadDataResponseType = {
+export type InitializeResponseType = {
   ok: true
-  data: {
-    categories: Category[]
-    tasks: Task[]
-  }
 } | {
   ok: false
-  error?: string
+  error: string
 }
 
 export type ResponseWithId = {
@@ -25,4 +21,21 @@ export type ResponseWithId = {
   id: IDBValidKey
 } | {
   ok: false
+  error: string
+}
+
+export type UpdateCategoriesResponseType = {
+  ok: true
+  data: Category[]
+} | {
+  ok: false
+  error: Event
+}
+
+export type UpdateTasksResponseType = {
+  ok: true
+  data: Task[]
+} | {
+  ok: false
+  error: Event
 }

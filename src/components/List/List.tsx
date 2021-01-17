@@ -8,6 +8,8 @@ import { getCategories } from '../../store/categoriesSlice/selectors';
 import { Preloader } from '../../Preloader';
 import { useAppDispatch } from '../../store';
 import { AppThunk } from '../../store/appSlice/thunk';
+import { CategoriesThunk } from '../../store/categoriesSlice/thunk';
+import { TasksThunk } from '../../store/tasksSlice/thunk';
 import './style.css';
 
 
@@ -24,7 +26,17 @@ export const List: FC = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(AppThunk.update());
+    async function load() {
+      try {
+        await dispatch(AppThunk.initialize());
+        await dispatch(TasksThunk.update());
+        await dispatch(CategoriesThunk.update());
+      }catch(e) {
+        console.log(e);
+      }
+    }
+    load();
+    // eslint-disable-next-line
   }, []);
 
 

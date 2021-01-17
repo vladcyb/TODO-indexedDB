@@ -16,10 +16,10 @@ export const appSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(AppThunk.update.pending, (state) => {
+    builder.addCase(AppThunk.initialize.pending, (state) => {
       state.loading = true;
     });
-    builder.addCase(AppThunk.update.fulfilled, (state) => {
+    builder.addCase(AppThunk.initialize.fulfilled, (state) => {
       state.loading = false;
     });
   },

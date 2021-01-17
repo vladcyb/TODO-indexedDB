@@ -1,11 +1,19 @@
 import { Category } from '../../shared/types';
 import { API } from '../../API';
 import { actions } from '.';
-import { AppThunk } from '../appSlice/thunk';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 
 export const CategoriesThunk = {
+  update: createAsyncThunk(
+    'categories/update',
+    async (arg, { dispatch }) => {
+      const result = await API.Categories.update();
+      if (result.ok) {
+        dispatch(actions.setCategories(result.data));
+      }
+    },
+  ),
   add: createAsyncThunk(
     'categories/add',
     async (category: Category, { dispatch }) => {
@@ -34,7 +42,7 @@ export const CategoriesThunk = {
       if (request.ok) {
         dispatch(actions.deleteCategory(id));
         // TODO
-        dispatch(AppThunk.update());
+        // dispatch(AppThunk.update());
       }
     },
   ),

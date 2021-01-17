@@ -5,11 +5,22 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 
 export const TasksThunk = {
+  update: createAsyncThunk(
+    'tasks/update',
+    async (arg, { dispatch }) => {
+      const result = await API.Tasks.update();
+      if (result.ok) {
+        dispatch(actions.setTasks(result.data));
+      }
+    },
+  ),
   add: createAsyncThunk(
     'tasks/add',
     async (task: Task, { dispatch }) => {
+      console.log('Adding...');
       const request = await API.Tasks.add(task);
       if (request.ok) {
+        console.log(request);
         dispatch(actions.add({
           id: request.id as number,
           ...task,
