@@ -30,7 +30,8 @@ export const ModalDelete: FC<PropsType> = (
   }) => {
 
   /* state */
-  const [buttons, setButtons] = useState<NodeListOf<HTMLButtonElement> | undefined>(undefined);
+  const [focusableElements, setFocusableElements] =
+    useState<NodeListOf<HTMLButtonElement> | undefined>(undefined);
   const [focusedButtonIndex, setFocusedButtonIndex] = useState(1);
 
   /* hooks */
@@ -47,7 +48,7 @@ export const ModalDelete: FC<PropsType> = (
 
   useEffect(() => {
     if (ref.current) {
-      setButtons(ref.current.querySelectorAll('button'));
+      setFocusableElements(ref.current.querySelectorAll('button'));
     }
   }, []);
 
@@ -66,10 +67,10 @@ export const ModalDelete: FC<PropsType> = (
   }, [focusedButtonIndex]);
 
   useEffect(() => {
-    if (buttons) {
-      buttons[focusedButtonIndex].focus();
+    if (focusableElements) {
+      focusableElements[focusedButtonIndex].focus();
     }
-  }, [focusedButtonIndex, buttons])
+  }, [focusedButtonIndex, focusableElements]);
 
   /* methods */
   const handleConfirm = () => {
