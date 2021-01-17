@@ -90,6 +90,7 @@ export const ModalTask: FC<PropsType> = (
               label="Имя"
               placeholder="Введите имя задачи"
               autoFocus
+              maxLength={255}
               {...nameInput}
             />
             <Select
@@ -105,6 +106,7 @@ export const ModalTask: FC<PropsType> = (
               label="Описание"
               placeholder="Введите описание задачи"
               value={description}
+              maxLength={512}
               onChange={handleDescriptionChange}
             />
           </div>

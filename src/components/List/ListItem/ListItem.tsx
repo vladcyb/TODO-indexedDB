@@ -46,15 +46,17 @@ export const ListItem: FC<TodoOrCategory> = (
   return (
     <div className={cn()}>
       <div className={cn('main')}>
-        <div>
-          <span className={cn('name')}>{name}</span>
+        <div className={cn('top')}>
+          <div className={cn('name')} title={name}>
+            {name}
+          </div>
           {categoryId && (
-            <span className={cn('category')}>
+            <div className={cn('category')}>
               {category?.name}
-            </span>
+            </div>
           )}
         </div>
-        <div className={cn('description')}>
+        <div className={cn('description')} title={description}>
           {description}
         </div>
       </div>
