@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { getAppState } from '../../../store/appSlice/selectors';
 import { getTasks } from '../../../store/tasksSlice/selectors';
 import { getCategories } from '../../../store/categoriesSlice/selectors';
-import { ModalTargetType, ModalType } from '../../../shared/constants';
+import { ModalTargetType, ModalActionType } from '../../../shared/constants';
 import { ModalContextType } from '../../Modal/types';
 
 export const ModalContext = createContext<ModalContextType>(null as any);
@@ -50,26 +50,26 @@ export const ModalProvider: FC = ({ children }) => {
       }}
     >
       {appState === 'tasks' && deletingId && (
-        <ModalDelete type={ModalTargetType.task} onClose={cancelDeleting} />
+        <ModalDelete type={ModalTargetType.TASK} onClose={cancelDeleting} />
       )}
       {appState === 'categories' && deletingId && (
-        <ModalDelete type={ModalTargetType.category} onClose={cancelDeleting} />
+        <ModalDelete type={ModalTargetType.CATEGORY} onClose={cancelDeleting} />
       )}
       {appState === 'tasks' && isCreating && (
         <ModalTask
-          mode={ModalType.create}
+          mode={ModalActionType.CREATE}
           onClose={cancelCreating}
         />
       )}
       {appState === 'categories' && isCreating && (
         <ModalCategory
-          mode={ModalType.create}
+          mode={ModalActionType.CREATE}
           onClose={cancelCreating}
         />
       )}
       {appState === 'tasks' && editingId && (
         <ModalTask
-          mode={ModalType.edit}
+          mode={ModalActionType.EDIT}
           initialName={editingTask!.name}
           initialDescription={editingTask!.description}
           initialCategoryId={editingTask!.categoryId}
@@ -78,7 +78,7 @@ export const ModalProvider: FC = ({ children }) => {
       )}
       {appState === 'categories' && editingId && (
         <ModalCategory
-          mode={ModalType.edit}
+          mode={ModalActionType.EDIT}
           onClose={cancelEditing}
           initialDescription={editingCategory!.description}
           initialName={editingCategory!.name}

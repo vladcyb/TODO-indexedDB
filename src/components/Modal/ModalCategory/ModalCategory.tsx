@@ -1,7 +1,7 @@
 import React, { FC, useContext, useState } from 'react';
 import { createCn } from 'bem-react-classname';
 import { Button, Input, Modal, Textarea } from '../../index';
-import { createOrEdit, ModalType } from '../../../shared/constants';
+import { createOrEdit, ModalActionType } from '../../../shared/constants';
 import { useAppDispatch } from '../../../store';
 import { useInput } from '../../../shared/hooks/useInput';
 import { CategoriesThunk } from '../../../store/categoriesSlice/thunk';
@@ -10,7 +10,7 @@ import './style.css';
 
 
 type PropsType = {
-  mode: ModalType
+  mode: ModalActionType
   initialName?: string
   initialDescription?: string
   onClose: () => void
@@ -49,7 +49,7 @@ export const ModalCategory: FC<PropsType> = (
     setIsSubmitted(true);
     const name = nameField.value;
     if (name) {
-      if (mode === ModalType.create) {
+      if (mode === ModalActionType.CREATE) {
         dispatch(CategoriesThunk.add({
           name,
           description,

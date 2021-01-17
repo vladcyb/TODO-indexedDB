@@ -1,19 +1,19 @@
-export const createOrEdit: { [key in ModalType]: string[] } = {
-  create: ['Создание', 'Создать'],
-  edit: ['Редактирование', 'Сохранить'],
-};
-
-export const taskOrCategoryWords: { [key in ModalTargetType]: string[] } = {
-  task: ['задачи', 'задачу'],
-  category: ['категории', 'категорию'],
-};
-
 export const requiredFieldError = 'Поле должно быть обязательным';
 
-export enum ModalType { create = 'create', edit = 'edit' }
+export enum ModalActionType { CREATE = 'CREATE', EDIT = 'EDIT' }
 
-export enum ModalTargetType { task = 'task', category = 'category' }
+export const createOrEdit: { [key in ModalActionType]: string[] } = {
+  [ModalActionType.CREATE]: ['Создание', 'Создать'],
+  [ModalActionType.EDIT]: ['Редактирование', 'Сохранить'],
+};
+
+export enum ModalTargetType { TASK = 'TASK', CATEGORY = 'CATEGORY' }
 
 export const APIErrors = {
   couldNotLoadIndexedDB: 'Не удалось загрузить хранилище данные из IndexedDB',
+};
+
+export const taskOrCategoryWords: { [key in ModalTargetType]: string[] } = {
+  [ModalTargetType.TASK]: ['задачи', 'задачу'],
+  [ModalTargetType.CATEGORY]: ['категории', 'категорию'],
 };

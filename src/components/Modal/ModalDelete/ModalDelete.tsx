@@ -33,7 +33,7 @@ export const ModalDelete: FC<PropsType> = (
   const dispatch = useAppDispatch();
   const categories = useSelector(getCategories);
   const tasks = useSelector(getTasks);
-  const target = type === ModalTargetType.category ?
+  const target = type === ModalTargetType.CATEGORY ?
     categories.find((item) => item.id === deletingId)!.name :
     tasks.find((item) => item.id === deletingId)!.name;
 
