@@ -1,5 +1,5 @@
 import ReactDOM from 'react-dom';
-import { FC, useEffect } from 'react';
+import { FC, RefObject, useEffect } from 'react';
 import { createCn } from 'bem-react-classname';
 import './style.css';
 
@@ -9,6 +9,7 @@ type PropsType = {
   title: string
   onClose: () => void
   open: boolean
+  reference?: RefObject<HTMLDivElement>
 }
 
 export const Modal: FC<PropsType> = (
@@ -18,6 +19,7 @@ export const Modal: FC<PropsType> = (
     title,
     children,
     className,
+    reference,
   }) => {
 
   /* classname */
@@ -42,7 +44,7 @@ export const Modal: FC<PropsType> = (
   return (
     ReactDOM.createPortal(
       open ? (
-        <div className={cn()}>
+        <div className={cn()} ref={reference}>
           <div className={cn('content')}>
             <button className={cn('close')} onClick={onClose} />
             <div className={cn('title')}>

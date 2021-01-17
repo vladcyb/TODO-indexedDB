@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import { createCn } from 'bem-react-classname';
 import { Button, Modal } from '../../index';
 import { ModalTargetType, taskOrCategoryWords } from '../../../shared/constants';
@@ -20,12 +20,30 @@ type PropsType = {
 
 const cn = createCn('modalDelete');
 
+const getNextButtonIndex = (currIndex: number) => {
+  if (currIndex === 2) {
+    return 0;
+  }
+  return currIndex + 1;
+};
+
+const getPrevButtonIndex = (currIndex: number) => {
+  if (currIndex === 0) {
+    return 2;
+  }
+  return currIndex - 1;
+};
+
 export const ModalDelete: FC<PropsType> = (
   {
     type,
     onClose,
     ...modalProps
   }) => {
+
+  /* state */
+  const [buttons, setButtons] = useState<NodeListOf<HTMLButtonElement> | undefined>(undefined);
+  const [focusedButtonIndex, setFocusedButtonIndex] = useState(1);
 
   /* hooks */
   const { deletingId } = useModal();
@@ -36,6 +54,34 @@ export const ModalDelete: FC<PropsType> = (
   const target = type === ModalTargetType.CATEGORY ?
     categories.find((item) => item.id === deletingId)!.name :
     tasks.find((item) => item.id === deletingId)!.name;
+
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (ref.current) {
+      setButtons(ref.current.querySelectorAll('button'));
+    }
+  }, []);
+
+  useEffect(() => {
+    const tabulation = (e: KeyboardEvent) => {
+      if (e.key === 'Tab' && e.shiftKey) {
+        e.preventDefault();
+        setFocusedButtonIndex(getPrevButtonIndex(focusedButtonIndex));
+      } else if (e.key === 'Tab') {
+        e.preventDefault();
+        setFocusedButtonIndex(getNextButtonIndex(focusedButtonIndex));
+      }
+    };
+    window.addEventListener('keydown', tabulation);
+    return () => window.removeEventListener('keydown', tabulation);
+  }, [focusedButtonIndex]);
+
+  useEffect(() => {
+    if (buttons) {
+      buttons[focusedButtonIndex].focus();
+    }
+  }, [focusedButtonIndex, buttons])
 
   /* methods */
   const handleConfirm = () => {
@@ -48,12 +94,14 @@ export const ModalDelete: FC<PropsType> = (
     }
   };
 
+
   return (
     <Modal
       className={cn()}
       title={`Удаление ${taskOrCategoryWords[type][0]}`}
       onClose={onClose}
       open
+      reference={ref}
       {...modalProps}
     >
       <div className={cn('body')}>
