@@ -6,7 +6,6 @@ import { useAppDispatch } from '../../../store';
 import { useSelector } from 'react-redux';
 import { getCategories } from '../../../store/categoriesSlice/selectors';
 import { useInput } from '../../../shared/hooks/useInput';
-import { useSetters } from '../../../shared/hooks/useSetters';
 import { TasksThunk } from '../../../store/tasksSlice/thunk';
 import { ModalContext } from '../../HOCs/ModalProvider';
 import './style.css';
@@ -46,10 +45,6 @@ export const ModalTask: FC<PropsType> = (
   const categories = useSelector(getCategories);
   const nameInput = useInput(initialName, true, isSubmitted);
 
-  /* thunk */
-  const [getters, setters] = useSetters();
-  const thunk = TasksThunk(setters);
-
   /* methods */
   const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setDescription(e.target.value);
@@ -62,14 +57,13 @@ export const ModalTask: FC<PropsType> = (
     if (nameInput.value) {
       onClose();
       if (mode === ModalType.create) {
-        dispatch(thunk.add({
+        dispatch(TasksThunk.add({
           name: nameInput.value,
           description,
           categoryId,
         }));
-
       } else {
-        dispatch(thunk.edit({
+        dispatch(TasksThunk.edit({
           id: modalContext.editingId!,
           categoryId,
           description,
