@@ -106,7 +106,7 @@ export const ModalTask: FC<PropsType> = (
               label="Описание"
               placeholder="Введите описание задачи"
               value={description}
-              maxLength={512}
+              maxLength={1536}
               onChange={handleDescriptionChange}
             />
           </div>

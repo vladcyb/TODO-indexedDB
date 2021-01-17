@@ -79,6 +79,7 @@ export const ModalCategory: FC<PropsType> = (
           label="Имя"
           placeholder="Введите имя категории"
           autoFocus
+          maxLength={255}
           {...nameField}
         />
         <Textarea
@@ -87,6 +88,7 @@ export const ModalCategory: FC<PropsType> = (
           placeholder="Введите описание категории"
           onChange={handleDescriptionChange}
           value={description}
+          maxLength={512}
         />
         <div className={cn('controls')}>
           <Button className={cn('confirm')} type="submit">
