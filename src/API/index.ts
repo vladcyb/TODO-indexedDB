@@ -1,22 +1,8 @@
 import { Category, Task } from '../shared/types';
 import { createTransaction } from '../shared/methods';
 import { APIErrors } from '../shared/constants';
+import { LoadDataResponseType, LoadDataStateType } from './types';
 
-type LoadDataStateType = {
-  tasksLoaded: boolean
-  categoriesLoaded: boolean
-}
-
-type LoadDataResponseType = {
-  ok: true
-  data: {
-    categories: Category[]
-    tasks: Task[]
-  }
-} | {
-  ok: false
-  error?: string
-}
 
 export const API = {
   App: {
