@@ -10,6 +10,7 @@ import { getTasks } from '../../../store/tasksSlice/selectors';
 import { CategoriesThunk } from '../../../store/categoriesSlice/thunk';
 import { TasksThunk } from '../../../store/tasksSlice/thunk';
 import { useModal } from '../../../shared/hooks/useModal';
+import { listIndexMethods } from '../../../shared/methods';
 import './style.css';
 
 
@@ -20,19 +21,6 @@ type PropsType = {
 
 const cn = createCn('modalDelete');
 
-const getNextButtonIndex = (currIndex: number) => {
-  if (currIndex === 2) {
-    return 0;
-  }
-  return currIndex + 1;
-};
-
-const getPrevButtonIndex = (currIndex: number) => {
-  if (currIndex === 0) {
-    return 2;
-  }
-  return currIndex - 1;
-};
 
 export const ModalDelete: FC<PropsType> = (
   {
@@ -67,10 +55,10 @@ export const ModalDelete: FC<PropsType> = (
     const tabulation = (e: KeyboardEvent) => {
       if (e.key === 'Tab' && e.shiftKey) {
         e.preventDefault();
-        setFocusedButtonIndex(getPrevButtonIndex(focusedButtonIndex));
+        setFocusedButtonIndex(listIndexMethods.getPrev(focusedButtonIndex, 2));
       } else if (e.key === 'Tab') {
         e.preventDefault();
-        setFocusedButtonIndex(getNextButtonIndex(focusedButtonIndex));
+        setFocusedButtonIndex(listIndexMethods.getNext(focusedButtonIndex, 2));
       }
     };
     window.addEventListener('keydown', tabulation);
