@@ -1,11 +1,13 @@
-// TODO: enums
-type CurrentStateType = 'tasks' | 'categories'
+export enum CurrentList {
+  tasks = 'tasks',
+  categories = 'categories',
+}
 
 export type StateType = {
-  state: CurrentStateType
+  state: CurrentList
   loading: boolean
 }
 
 export type SetStatePayloadType = {
-  state: CurrentStateType
+  state: CurrentList
 }

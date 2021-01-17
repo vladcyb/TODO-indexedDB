@@ -6,6 +6,7 @@ import { useAppDispatch } from '../../store';
 import { actions as appActions } from '../../store/appSlice';
 import { ModalContext } from '../HOCs/ModalProvider';
 import './style.css';
+import { CurrentList } from '../../store/appSlice/types';
 
 
 const cn = createCn('header');
@@ -19,11 +20,11 @@ export const Header: FC = () => {
 
   /* methods */
   const openTasks = () => {
-    dispatch(appActions.setState({ state: 'tasks' }));
+    dispatch(appActions.setState({ state: CurrentList.tasks }));
   };
 
   const openCategories = () => {
-    dispatch(appActions.setState({ state: 'categories' }));
+    dispatch(appActions.setState({ state: CurrentList.categories }));
   };
 
   const handleAddClick = () => {
@@ -38,7 +39,7 @@ export const Header: FC = () => {
           <ul className={cn('ul')}>
             <li>
               <button
-                className={cn('navBtn', { opened: state === 'tasks' })}
+                className={cn('navBtn', { opened: state === CurrentList.tasks })}
                 onClick={openTasks}
               >
                 Задачи
@@ -46,7 +47,7 @@ export const Header: FC = () => {
             </li>
             <li>
               <button
-                className={cn('navBtn', { opened: state === 'categories' })}
+                className={cn('navBtn', { opened: state === CurrentList.categories })}
                 onClick={openCategories}
               >
                 Категории

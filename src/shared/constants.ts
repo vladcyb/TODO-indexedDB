@@ -1,4 +1,4 @@
-export const createOrEdit: { [key in Mode]: string[] } = {
+export const createOrEdit: { [key in ModalType]: string[] } = {
   create: ['Создание', 'Создать'],
   edit: ['Редактирование', 'Сохранить'],
 };
@@ -10,7 +10,7 @@ export const taskOrCategoryWords: { [key in ModalTargetType]: string[] } = {
 
 export const requiredFieldError = 'Поле должно быть обязательным';
 
-export enum Mode { create = 'create', edit = 'edit' }
+export enum ModalType { create = 'create', edit = 'edit' }
 
 export enum ModalTargetType { task = 'task', category = 'category' }
 

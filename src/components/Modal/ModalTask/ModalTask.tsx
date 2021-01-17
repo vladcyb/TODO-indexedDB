@@ -1,6 +1,6 @@
 import React, { FC, useContext, useState } from 'react';
 import { createCn } from 'bem-react-classname';
-import { createOrEdit, Mode } from '../../../shared/constants';
+import { createOrEdit, ModalType } from '../../../shared/constants';
 import { Button, Input, Modal, Select, Textarea } from '../../index';
 import { useAppDispatch } from '../../../store';
 import { useSelector } from 'react-redux';
@@ -15,7 +15,7 @@ import './style.css';
 const cn = createCn('modalTask');
 
 type PropsType = {
-  mode: Mode
+  mode: ModalType
   className?: string
   initialName?: string
   initialDescription?: string
@@ -61,7 +61,7 @@ export const ModalTask: FC<PropsType> = (
 
     if (nameInput.value) {
       onClose();
-      if (mode === Mode.create) {
+      if (mode === ModalType.create) {
         dispatch(thunk.add({
           name: nameInput.value,
           description,

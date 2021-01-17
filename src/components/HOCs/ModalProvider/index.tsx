@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { getAppState } from '../../../store/appSlice/selectors';
 import { getTasks } from '../../../store/tasksSlice/selectors';
 import { getCategories } from '../../../store/categoriesSlice/selectors';
-import { ModalTargetType, Mode } from '../../../shared/constants';
+import { ModalTargetType, ModalType } from '../../../shared/constants';
 import { ModalContextType } from '../../Modal/types';
 
 export const ModalContext = createContext<ModalContextType>(null as any);
@@ -57,19 +57,19 @@ export const ModalProvider: FC = ({ children }) => {
       )}
       {appState === 'tasks' && isCreating && (
         <ModalTask
-          mode={Mode.create}
+          mode={ModalType.create}
           onClose={cancelCreating}
         />
       )}
       {appState === 'categories' && isCreating && (
         <ModalCategory
-          mode={Mode.create}
+          mode={ModalType.create}
           onClose={cancelCreating}
         />
       )}
       {appState === 'tasks' && editingId && (
         <ModalTask
-          mode={Mode.edit}
+          mode={ModalType.edit}
           initialName={editingTask!.name}
           initialDescription={editingTask!.description}
           initialCategoryId={editingTask!.categoryId}
@@ -78,7 +78,7 @@ export const ModalProvider: FC = ({ children }) => {
       )}
       {appState === 'categories' && editingId && (
         <ModalCategory
-          mode={Mode.edit}
+          mode={ModalType.edit}
           onClose={cancelEditing}
           initialDescription={editingCategory!.description}
           initialName={editingCategory!.name}
