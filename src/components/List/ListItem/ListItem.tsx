@@ -28,7 +28,7 @@ export const ListItem: FC<TodoOrCategory> = (
 
   /* methods */
   const handleDelete = () => {
-    if (state === 'tasks') {
+    if (state === 'TASKS') {
       modalContext.setDeletingId(id);
     } else {
       modalContext.setDeletingId(id);
@@ -36,7 +36,7 @@ export const ListItem: FC<TodoOrCategory> = (
   };
 
   const handleEdit = () => {
-    if (state === 'tasks') {
+    if (state === 'TASKS') {
       modalContext.setEditingId(id);
     } else {
       modalContext.setEditingId(id);

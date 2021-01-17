@@ -20,11 +20,11 @@ export const Header: FC = () => {
 
   /* methods */
   const openTasks = () => {
-    dispatch(appActions.setState({ state: CurrentList.tasks }));
+    dispatch(appActions.setState({ state: CurrentList.TASKS }));
   };
 
   const openCategories = () => {
-    dispatch(appActions.setState({ state: CurrentList.categories }));
+    dispatch(appActions.setState({ state: CurrentList.CATEGORIES }));
   };
 
   const handleAddClick = () => {
@@ -39,7 +39,7 @@ export const Header: FC = () => {
           <ul className={cn('ul')}>
             <li>
               <button
-                className={cn('navBtn', { opened: state === CurrentList.tasks })}
+                className={cn('navBtn', { opened: state === CurrentList.TASKS })}
                 onClick={openTasks}
               >
                 Задачи
@@ -47,7 +47,7 @@ export const Header: FC = () => {
             </li>
             <li>
               <button
-                className={cn('navBtn', { opened: state === CurrentList.categories })}
+                className={cn('navBtn', { opened: state === CurrentList.CATEGORIES })}
                 onClick={openCategories}
               >
                 Категории
@@ -57,7 +57,7 @@ export const Header: FC = () => {
         </nav>
       </div>
       <button className={cn('addTask')} onClick={handleAddClick}>
-        Добавить {`${state === 'tasks' ? 'задачу' : 'категорию'}`}
+        Добавить {`${state === 'TASKS' ? 'задачу' : 'категорию'}`}
       </button>
     </div>
   );

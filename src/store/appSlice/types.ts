@@ -1,6 +1,6 @@
 export enum CurrentList {
-  tasks = 'tasks',
-  categories = 'categories',
+  TASKS = 'TASKS',
+  CATEGORIES = 'CATEGORIES',
 }
 
 export type StateType = {

@@ -3,7 +3,7 @@ import { CurrentList, SetStatePayloadType, StateType } from './types';
 import { AppThunk } from './thunk';
 
 const initialState: StateType = {
-  state: CurrentList.tasks,
+  state: CurrentList.TASKS,
   loading: false,
 };
 

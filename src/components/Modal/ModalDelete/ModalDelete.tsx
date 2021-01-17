@@ -39,7 +39,7 @@ export const ModalDelete: FC<PropsType> = (
 
   /* methods */
   const handleConfirm = () => {
-    if (state === 'tasks') {
+    if (state === 'TASKS') {
       dispatch(TasksThunk.delete(deletingId!));
       onClose();
     } else {

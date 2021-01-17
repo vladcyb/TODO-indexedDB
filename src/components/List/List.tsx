@@ -47,7 +47,7 @@ export const List: FC = () => {
           <Preloader />
         </div>
       ) : (
-        state === 'tasks' ? (
+        state === 'TASKS' ? (
           tasks.map((item) => (
             <ListItem {...item} key={item.id} />
           ))

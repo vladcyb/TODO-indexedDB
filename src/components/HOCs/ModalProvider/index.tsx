@@ -49,25 +49,25 @@ export const ModalProvider: FC = ({ children }) => {
         setEditingId,
       }}
     >
-      {appState === 'tasks' && deletingId && (
+      {appState === 'TASKS' && deletingId && (
         <ModalDelete type={ModalTargetType.TASK} onClose={cancelDeleting} />
       )}
-      {appState === 'categories' && deletingId && (
+      {appState === 'CATEGORIES' && deletingId && (
         <ModalDelete type={ModalTargetType.CATEGORY} onClose={cancelDeleting} />
       )}
-      {appState === 'tasks' && isCreating && (
+      {appState === 'TASKS' && isCreating && (
         <ModalTask
           mode={ModalActionType.CREATE}
           onClose={cancelCreating}
         />
       )}
-      {appState === 'categories' && isCreating && (
+      {appState === 'CATEGORIES' && isCreating && (
         <ModalCategory
           mode={ModalActionType.CREATE}
           onClose={cancelCreating}
         />
       )}
-      {appState === 'tasks' && editingId && (
+      {appState === 'TASKS' && editingId && (
         <ModalTask
           mode={ModalActionType.EDIT}
           initialName={editingTask!.name}
@@ -76,7 +76,7 @@ export const ModalProvider: FC = ({ children }) => {
           onClose={cancelEditing}
         />
       )}
-      {appState === 'categories' && editingId && (
+      {appState === 'CATEGORIES' && editingId && (
         <ModalCategory
           mode={ModalActionType.EDIT}
           onClose={cancelEditing}
