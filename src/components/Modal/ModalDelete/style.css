@@ -1,5 +1,9 @@
 .modalDelete__body {
     margin: 32px 0 24px 0;
+    max-width: 800px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-all;
 }
 
 .modalDelete__controls {
