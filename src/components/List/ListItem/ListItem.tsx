@@ -51,7 +51,7 @@ export const ListItem: FC<TodoOrCategory> = (
             {name}
           </div>
           {categoryId && (
-            <div className={cn('category')}>
+            <div className={cn('category')} title={category?.name}>
               {category?.name}
             </div>
           )}
