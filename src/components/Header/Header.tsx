@@ -1,12 +1,12 @@
-import { FC, useContext } from 'react';
+import { FC } from 'react';
 import { useSelector } from 'react-redux';
 import { getAppState } from '../../store/appSlice/selectors';
 import { createCn } from 'bem-react-classname';
 import { useAppDispatch } from '../../store';
 import { actions as appActions } from '../../store/appSlice';
-import { ModalContext } from '../HOCs/ModalProvider';
-import './style.css';
 import { CurrentList } from '../../store/appSlice/types';
+import { useModal } from '../../shared/hooks/useModal';
+import './style.css';
 
 
 const cn = createCn('header');
@@ -16,7 +16,7 @@ export const Header: FC = () => {
   /* hooks */
   const state = useSelector(getAppState);
   const dispatch = useAppDispatch();
-  const modalContext = useContext(ModalContext);
+  const modalContext = useModal();
 
   /* methods */
   const openTasks = () => {

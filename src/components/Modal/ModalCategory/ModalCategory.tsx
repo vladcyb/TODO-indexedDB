@@ -1,11 +1,11 @@
-import React, { FC, useContext, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { createCn } from 'bem-react-classname';
 import { Button, Input, Modal, Textarea } from '../../index';
 import { createOrEdit, ModalActionType } from '../../../shared/constants';
 import { useAppDispatch } from '../../../store';
 import { useInput } from '../../../shared/hooks/useInput';
 import { CategoriesThunk } from '../../../store/categoriesSlice/thunk';
-import { ModalContext } from '../../HOCs/ModalProvider';
+import { useModal } from '../../../shared/hooks/useModal';
 import './style.css';
 
 
@@ -33,7 +33,7 @@ export const ModalCategory: FC<PropsType> = (
 
   /* hooks */
   const dispatch = useAppDispatch();
-  const modalContext = useContext(ModalContext);
+  const modalContext = useModal();
   const nameField = useInput(initialName, true, isSubmitted);
 
   /* classes */

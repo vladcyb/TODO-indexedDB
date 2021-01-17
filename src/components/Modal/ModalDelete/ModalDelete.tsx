@@ -1,4 +1,4 @@
-import { FC, useContext } from 'react';
+import { FC } from 'react';
 import { createCn } from 'bem-react-classname';
 import { Button, Modal } from '../../index';
 import { ModalTargetType, taskOrCategoryWords } from '../../../shared/constants';
@@ -9,7 +9,7 @@ import { getCategories } from '../../../store/categoriesSlice/selectors';
 import { getTasks } from '../../../store/tasksSlice/selectors';
 import { CategoriesThunk } from '../../../store/categoriesSlice/thunk';
 import { TasksThunk } from '../../../store/tasksSlice/thunk';
-import { ModalContext } from '../../HOCs/ModalProvider';
+import { useModal } from '../../../shared/hooks/useModal';
 import './style.css';
 
 
@@ -28,7 +28,7 @@ export const ModalDelete: FC<PropsType> = (
   }) => {
 
   /* hooks */
-  const { deletingId } = useContext(ModalContext);
+  const { deletingId } = useModal();
   const state = useSelector(getAppState);
   const dispatch = useAppDispatch();
   const categories = useSelector(getCategories);
