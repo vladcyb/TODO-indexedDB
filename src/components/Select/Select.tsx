@@ -79,6 +79,7 @@ export const Select: FC<PropsType> = (
             <div
               className={cn('item', { selected: item.id === selectedId })}
               onClick={() => selectId(item.id)}
+              title={item.name}
               key={item.id}
             >
               {item.name}
