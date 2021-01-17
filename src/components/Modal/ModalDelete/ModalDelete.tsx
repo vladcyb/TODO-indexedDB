@@ -40,7 +40,6 @@ export const ModalDelete: FC<PropsType> = (
 
   /* thunk */
   const [getters, setters] = useSetters();
-  const categoriesThunk = CategoriesThunk(setters);
   const tasksThunk = TasksThunk(setters);
 
   /* methods */
@@ -49,7 +48,7 @@ export const ModalDelete: FC<PropsType> = (
       dispatch(tasksThunk.drop(deletingId!));
       onClose();
     } else {
-      dispatch(categoriesThunk.drop(deletingId!));
+      dispatch(CategoriesThunk.drop(deletingId!));
       onClose();
     }
   };
