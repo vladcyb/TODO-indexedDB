@@ -35,10 +35,10 @@ export const CategoriesThunk = {
       }
     },
   ),
-  drop: createAsyncThunk(
+  delete: createAsyncThunk(
     'categories/drop',
     async (id: number, { dispatch }) => {
-      const request = await API.Categories.drop(id);
+      const request = await API.Categories.delete(id);
       if (request.ok) {
         dispatch(actions.deleteCategory(id));
         // TODO

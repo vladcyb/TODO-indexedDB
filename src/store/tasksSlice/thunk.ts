@@ -37,10 +37,10 @@ export const TasksThunk = {
       }
     },
   ),
-  drop: createAsyncThunk(
+  delete: createAsyncThunk(
     'tasks/drop',
     async (id: number, { dispatch }) => {
-      const request = await API.Tasks.drop(id);
+      const request = await API.Tasks.delete(id);
       if (request.ok) {
         dispatch(actions.deleteTask(id));
       }

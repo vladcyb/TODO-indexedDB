@@ -76,7 +76,7 @@ export const API = {
         };
       });
     },
-    drop: (id: number) => {
+    delete: (id: number) => {
       return new Promise<SimpleResponseType>((resolve, reject) => {
         const deleteTask = createTransaction('Item', 'readwrite');
         const request = deleteTask.delete(id);
@@ -133,7 +133,7 @@ export const API = {
         };
       });
     },
-    drop: (id: number) => {
+    delete: (id: number) => {
       return new Promise<SimpleResponseType>((resolve) => {
         const db = window.db;
         const rootTransaction = db.transaction('Category', 'readwrite');
