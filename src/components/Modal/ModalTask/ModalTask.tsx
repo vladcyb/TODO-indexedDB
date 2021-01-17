@@ -54,11 +54,12 @@ export const ModalTask: FC<PropsType> = (
     e.preventDefault();
     setIsSubmitted(true);
 
-    if (nameInput.value) {
+    const {value: name} = nameInput
+    if (name) {
       onClose();
       if (mode === ModalActionType.CREATE) {
         dispatch(TasksThunk.add({
-          name: nameInput.value,
+          name,
           description,
           categoryId,
         }));
@@ -67,7 +68,7 @@ export const ModalTask: FC<PropsType> = (
           id: modalContext.editingId!,
           categoryId,
           description,
-          name: nameInput.value,
+          name,
         }));
       }
     }

@@ -57,7 +57,7 @@ export const ModalCategory: FC<PropsType> = (
       } else {
         dispatch(CategoriesThunk.edit({
           id: modalContext.editingId!,
-          name: nameField.value,
+          name,
           description,
         }));
       }
