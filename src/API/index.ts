@@ -1,7 +1,7 @@
 import { Category, Task } from '../shared/types';
 import { createTransaction } from '../shared/methods';
 import { APIErrors } from '../shared/constants';
-import { LoadDataResponseType, LoadDataStateType } from './types';
+import { ResponseWithId, LoadDataResponseType, LoadDataStateType, SimpleResponseType } from './types';
 
 
 export const API = {
@@ -78,12 +78,12 @@ export const API = {
   },
   Tasks: {
     add: (task: Task) => {
-      return new Promise((resolve, reject) => {
+      return new Promise<ResponseWithId>((resolve, reject) => {
         const tasks = createTransaction('Item', 'readwrite');
         const request = tasks.add(task);
 
         request.onsuccess = () => {
-          resolve({ ok: true, request });
+          resolve({ ok: true, id: request.result });
         };
 
         request.onerror = () => {
@@ -92,12 +92,12 @@ export const API = {
       });
     },
     edit: (task: Task) => {
-      return new Promise((resolve, reject) => {
+      return new Promise<SimpleResponseType>((resolve, reject) => {
         const editTask = createTransaction('Item', 'readwrite');
         const request = editTask.put(task);
 
         request.onsuccess = () => {
-          resolve({ ok: true, request });
+          resolve({ ok: true });
         };
 
         request.onerror = () => {
@@ -106,12 +106,12 @@ export const API = {
       });
     },
     drop: (id: number) => {
-      return new Promise((resolve, reject) => {
+      return new Promise<SimpleResponseType>((resolve, reject) => {
         const deleteTask = createTransaction('Item', 'readwrite');
         const request = deleteTask.delete(id);
 
         request.onsuccess = () => {
-          resolve({ ok: true, request });
+          resolve({ ok: true });
         };
 
         request.onerror = () => {
@@ -122,12 +122,12 @@ export const API = {
   },
   Categories: {
     add: (category: Category) => {
-      return new Promise((resolve) => {
+      return new Promise<ResponseWithId>((resolve) => {
         const categories = createTransaction('Category', 'readwrite');
         const request = categories.add(category);
 
         request.onsuccess = () => {
-          resolve({ ok: true, request });
+          resolve({ ok: true, id: request.result });
         };
 
         request.onerror = () => {
@@ -136,13 +136,13 @@ export const API = {
       });
     },
     edit: (category: Required<Category>) => {
-      return new Promise((resolve) => {
+      return new Promise<SimpleResponseType>((resolve) => {
 
         const categories = createTransaction('Category', 'readwrite');
         const request = categories.put(category);
 
         request.onsuccess = () => {
-          resolve({ ok: true, request });
+          resolve({ ok: true });
         };
 
         request.onerror = () => {
@@ -151,7 +151,7 @@ export const API = {
       });
     },
     drop: (id: number) => {
-      return new Promise((resolve) => {
+      return new Promise<SimpleResponseType>((resolve) => {
         const db = window.db;
         const rootTransaction = db.transaction('Category', 'readwrite');
         const categories = rootTransaction.objectStore('Category');
@@ -179,7 +179,7 @@ export const API = {
               }
               cursor.continue();
             } else {
-              resolve({ ok: true, request: rootRequest });
+              resolve({ ok: true });
             }
           };
 

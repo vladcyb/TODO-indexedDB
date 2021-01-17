@@ -5,6 +5,10 @@ export type LoadDataStateType = {
   categoriesLoaded: boolean
 }
 
+export type SimpleResponseType = {
+  ok: boolean
+}
+
 export type LoadDataResponseType = {
   ok: true
   data: {
@@ -14,4 +18,11 @@ export type LoadDataResponseType = {
 } | {
   ok: false
   error?: string
+}
+
+export type ResponseWithId = {
+  ok: true
+  id: IDBValidKey
+} | {
+  ok: false
 }
