@@ -7,7 +7,6 @@ import { getAppState } from '../../../store/appSlice/selectors';
 import { useAppDispatch } from '../../../store';
 import { getCategories } from '../../../store/categoriesSlice/selectors';
 import { getTasks } from '../../../store/tasksSlice/selectors';
-import { useSetters } from '../../../shared/hooks/useSetters';
 import { CategoriesThunk } from '../../../store/categoriesSlice/thunk';
 import { TasksThunk } from '../../../store/tasksSlice/thunk';
 import { ModalContext } from '../../HOCs/ModalProvider';
@@ -38,18 +37,13 @@ export const ModalDelete: FC<PropsType> = (
     categories.find((item) => item.id === deletingId)!.name :
     tasks.find((item) => item.id === deletingId)!.name;
 
-  /* thunk */
-  const [getters, setters] = useSetters();
-  const categoriesThunk = CategoriesThunk(setters);
-  const tasksThunk = TasksThunk(setters);
-
   /* methods */
   const handleConfirm = () => {
     if (state === 'tasks') {
-      dispatch(tasksThunk.drop(deletingId!));
+      dispatch(TasksThunk.drop(deletingId!));
       onClose();
     } else {
-      dispatch(categoriesThunk.drop(deletingId!));
+      dispatch(CategoriesThunk.drop(deletingId!));
       onClose();
     }
   };

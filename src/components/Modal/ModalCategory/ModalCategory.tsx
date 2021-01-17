@@ -4,7 +4,6 @@ import { Button, Input, Modal, Textarea } from '../../index';
 import { createOrEdit, ModalType } from '../../../shared/constants';
 import { useAppDispatch } from '../../../store';
 import { useInput } from '../../../shared/hooks/useInput';
-import { useSetters } from '../../../shared/hooks/useSetters';
 import { CategoriesThunk } from '../../../store/categoriesSlice/thunk';
 import { ModalContext } from '../../HOCs/ModalProvider';
 import './style.css';
@@ -37,10 +36,6 @@ export const ModalCategory: FC<PropsType> = (
   const modalContext = useContext(ModalContext);
   const nameField = useInput(initialName, true, isSubmitted);
 
-  /* thunk */
-  const [getters, setters] = useSetters();
-  const categoriesThunk = CategoriesThunk(setters);
-
   /* classes */
   const cn = createCn('modalCategory', className);
 
@@ -55,12 +50,12 @@ export const ModalCategory: FC<PropsType> = (
     const name = nameField.value;
     if (name) {
       if (mode === ModalType.create) {
-        dispatch(categoriesThunk.add({
+        dispatch(CategoriesThunk.add({
           name,
           description,
         }));
       } else {
-        dispatch(categoriesThunk.edit({
+        dispatch(CategoriesThunk.edit({
           id: modalContext.editingId!,
           name: nameField.value,
           description,
