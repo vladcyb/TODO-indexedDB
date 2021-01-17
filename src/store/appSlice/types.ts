@@ -1,3 +1,4 @@
+// TODO: enums
 type CurrentStateType = 'tasks' | 'categories'
 
 export type StateType = {

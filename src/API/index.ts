@@ -1,8 +1,91 @@
 import { Category, Task } from '../shared/types';
 import { createTransaction } from '../shared/methods';
+import { APIErrors } from '../shared/constants';
 
+type LoadDataStateType = {
+  tasksLoaded: boolean
+  categoriesLoaded: boolean
+}
+
+type LoadDataResponseType = {
+  ok: true
+  data: {
+    categories: Category[]
+    tasks: Task[]
+  }
+} | {
+  ok: false
+  error?: string
+}
 
 export const API = {
+  App: {
+    loadData: () => {
+      return new Promise<LoadDataResponseType>((resolve) => {
+        const state: LoadDataStateType = {
+          categoriesLoaded: false,
+          tasksLoaded: false,
+        };
+        const DBOpenRequest = window.indexedDB.open('toDoList', 1);
+
+        DBOpenRequest.onupgradeneeded = () => {
+          const db = DBOpenRequest.result;
+          if (!db.objectStoreNames.contains('Category')) {
+            db.createObjectStore('Category', { keyPath: 'id', autoIncrement: true });
+          }
+          if (!db.objectStoreNames.contains('Item')) {
+            db.createObjectStore('Item', { keyPath: 'id', autoIncrement: true });
+          }
+        };
+
+        DBOpenRequest.onsuccess = () => {
+          window.db = DBOpenRequest.result;
+          const categories = createTransaction('Category', 'readonly');
+          const tasks = createTransaction('Item', 'readonly');
+          const getCategoriesRequest = categories.getAll();
+          const getTasksRequest = tasks.getAll();
+
+          getCategoriesRequest.onsuccess = () => {
+            state.categoriesLoaded = true;
+            if (state.tasksLoaded) {
+              resolve({
+                ok: true,
+                data: {
+                  categories: getCategoriesRequest.result,
+                  tasks: getTasksRequest.result,
+                },
+              });
+            }
+          };
+
+          getCategoriesRequest.onerror = () => {
+            resolve({ ok: false, error: APIErrors.couldNotLoadIndexedDB });
+          };
+
+          getTasksRequest.onsuccess = () => {
+            state.tasksLoaded = true;
+            if (state.categoriesLoaded) {
+              resolve({
+                ok: true,
+                data: {
+                  categories: getCategoriesRequest.result,
+                  tasks: getTasksRequest.result,
+                },
+              });
+            }
+          };
+
+          getTasksRequest.onerror = () => {
+            resolve({ ok: false, error: APIErrors.couldNotLoadIndexedDB });
+          };
+        };
+
+        DBOpenRequest.onerror = () => {
+          resolve({ ok: false, error: APIErrors.couldNotLoadIndexedDB });
+        };
+      });
+    },
+  },
   Tasks: {
     add: (task: Task) => {
       return new Promise((resolve, reject) => {

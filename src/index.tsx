@@ -7,6 +7,12 @@ import { Provider } from 'react-redux';
 import { ModalProvider } from './components/HOCs/ModalProvider';
 import './index.css';
 
+declare global {
+  interface Window {
+    db: IDBDatabase
+  }
+}
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
