@@ -5,7 +5,7 @@ import { getAppState } from '../../../store/appSlice/selectors';
 import { getTasks } from '../../../store/tasksSlice/selectors';
 import { getCategories } from '../../../store/categoriesSlice/selectors';
 import { ModalTargetType, ModalActionType } from '../../../shared/constants';
-import { ModalContextType } from '../../Modal/types';
+import { ModalContextType } from './types';
 
 export const ModalContext = createContext<ModalContextType>(null as any);
 
