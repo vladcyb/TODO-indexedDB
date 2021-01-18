@@ -86,7 +86,6 @@ export const ModalTask: FC<PropsType> = (
       className={cn()}
       title={`${createOrEdit[mode][0]} задачи`}
       onClose={onClose}
-      open
       reference={ref}
       {...modalProps}
     >

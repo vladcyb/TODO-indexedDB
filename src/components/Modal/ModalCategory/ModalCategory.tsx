@@ -73,7 +73,6 @@ export const ModalCategory: FC<PropsType> = (
       className={cn()}
       title={`${createOrEdit[mode][0]} категории`}
       onClose={onClose}
-      open
       reference={ref}
       {...modalProps}
     >

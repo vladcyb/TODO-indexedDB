@@ -62,7 +62,6 @@ export const ModalDelete: FC<PropsType> = (
       className={cn()}
       title={`Удаление ${taskOrCategoryWords[currentState][0]}`}
       onClose={onClose}
-      open
       reference={ref}
       {...modalProps}
     >

@@ -8,13 +8,11 @@ type PropsType = {
   className?: string
   title: string
   onClose: () => void
-  open: boolean
   reference?: RefObject<HTMLDivElement>
 }
 
 export const Modal: FC<PropsType> = (
   {
-    open,
     onClose,
     title,
     children,
@@ -43,19 +41,17 @@ export const Modal: FC<PropsType> = (
 
   return (
     ReactDOM.createPortal(
-      open ? (
-        <div className={cn()} ref={reference}>
-          <div className={cn('content')}>
-            <button className={cn('close')} onClick={onClose} />
-            <div className={cn('title')}>
-              {title}
-            </div>
-            <div className={cn('body')}>
-              {children}
-            </div>
+      <div className={cn()} ref={reference}>
+        <div className={cn('content')}>
+          <button className={cn('close')} onClick={onClose} />
+          <div className={cn('title')}>
+            {title}
+          </div>
+          <div className={cn('body')}>
+            {children}
           </div>
         </div>
-      ) : null,
+      </div>,
       document.getElementById('modal')!,
     )
   );
