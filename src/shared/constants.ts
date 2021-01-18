@@ -7,8 +7,6 @@ export const createOrEdit: { [key in ModalActionType]: string[] } = {
   [ModalActionType.EDIT]: ['Редактирование', 'Сохранить'],
 };
 
-export enum ModalTargetType { TASK = 'TASK', CATEGORY = 'CATEGORY' }
-
 export enum CurrentState { TASKS, CATEGORIES }
 
 export const APIErrors = {
