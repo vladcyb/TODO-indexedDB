@@ -10,6 +10,7 @@ import { useTabulation } from '../useTabulation';
 
 
 type PropsType = {
+  id?: number
   mode: ModalActionType
   initialName?: string
   initialDescription?: string
@@ -24,6 +25,7 @@ export const ModalCategory: FC<PropsType> = (
     initialName = '',
     initialDescription = '',
     onClose,
+    id,
     ...modalProps
   }) => {
 
@@ -56,12 +58,11 @@ export const ModalCategory: FC<PropsType> = (
           description,
         }));
       } else {
-        // TODO
-        // dispatch(CategoriesThunk.edit({
-        //   id: modalContext.editingId!,
-        //   name,
-        //   description,
-        // }));
+        dispatch(CategoriesThunk.edit({
+          id: id!,
+          name,
+          description,
+        }));
       }
       onClose();
     }

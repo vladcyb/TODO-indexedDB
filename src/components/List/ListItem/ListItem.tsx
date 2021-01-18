@@ -3,7 +3,7 @@ import { createCn } from 'bem-react-classname';
 import { useSelector } from 'react-redux';
 import { getCategories } from '../../../store/categoriesSlice/selectors';
 import './style.css';
-import { ModalDelete, ModalTask } from '../../Modal';
+import { ModalCategory, ModalDelete, ModalTask } from '../../Modal';
 import { CurrentState, ModalActionType } from '../../../shared/constants';
 
 
@@ -142,6 +142,15 @@ export const ListItem: FC<PropsType> = (
           initialName={name}
           initialDescription={description}
           initialCategoryId={categoryId}
+        />
+      )}
+      {state.editingCategoryId && (
+        <ModalCategory
+          mode={ModalActionType.EDIT}
+          onClose={closeModal}
+          id={id}
+          initialName={name}
+          initialDescription={description}
         />
       )}
     </div>
