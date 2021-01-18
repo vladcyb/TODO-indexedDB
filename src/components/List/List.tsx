@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect } from 'react';
 import { createCn } from 'bem-react-classname';
 import { ListItem } from './ListItem';
 import { useSelector } from 'react-redux';
@@ -24,9 +24,6 @@ export const List: FC<PropsType> = (
     state,
   }) => {
 
-  /* state */
-  const [deletingId, setDeletingId] = useState<undefined | number>(undefined);
-
   /* hooks */
   const tasks = useSelector(getTasks);
   const categories = useSelector(getCategories);
@@ -49,12 +46,6 @@ export const List: FC<PropsType> = (
 
   /* vars */
   const isTasks = state === CurrentState.TASKS;
-  const isCategories = state === CurrentState.CATEGORIES;
-
-  /* methods */
-  const cancelDelete = () => {
-
-  };
 
   return (
     <div className={cn()}>
