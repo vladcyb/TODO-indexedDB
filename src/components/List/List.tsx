@@ -88,8 +88,8 @@ export const List: FC<PropsType> = (
           )
         )
       )}
-      {(tasks.status === StatusType.LOADING || categories.status === StatusType.LOADING) && (
-        <div className={cn('preloader')}>
+      {isLoading && (
+          <div className={cn('preloader')}>
           <Preloader />
         </div>
       )}
