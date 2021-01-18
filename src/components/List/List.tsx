@@ -3,7 +3,7 @@ import { createCn } from 'bem-react-classname';
 import { ListItem } from './ListItem';
 import { useSelector } from 'react-redux';
 import { getTasks } from '../../store/tasksSlice/selectors';
-import { getAppLoading, getAppState } from '../../store/appSlice/selectors';
+import { getAppState } from '../../store/appSlice/selectors';
 import { getCategories } from '../../store/categoriesSlice/selectors';
 import { Preloader } from '../../Preloader';
 import { useAppDispatch } from '../../store';
@@ -20,7 +20,6 @@ export const List: FC = () => {
 
   /* hooks */
   const state = useSelector(getAppState);
-  const isLoading = useSelector(getAppLoading);
   const tasks = useSelector(getTasks);
   const categories = useSelector(getCategories);
   const dispatch = useAppDispatch();
@@ -42,7 +41,7 @@ export const List: FC = () => {
 
   return (
     <div className={cn()}>
-      {isLoading ? (
+      {false ? (
         <div className={cn('preloader')}>
           <Preloader />
         </div>

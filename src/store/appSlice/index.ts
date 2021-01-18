@@ -1,10 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { CurrentList, SetStatePayloadType, StateType } from './types';
-import { AppThunk } from './thunk';
 
 const initialState: StateType = {
   state: CurrentList.TASKS,
-  loading: false,
 };
 
 export const appSlice = createSlice({
@@ -14,14 +12,6 @@ export const appSlice = createSlice({
     setState: (state, { payload }: PayloadAction<SetStatePayloadType>) => {
       state.state = payload.state;
     },
-  },
-  extraReducers: (builder) => {
-    builder.addCase(AppThunk.initialize.pending, (state) => {
-      state.loading = true;
-    });
-    builder.addCase(AppThunk.initialize.fulfilled, (state) => {
-      state.loading = false;
-    });
   },
 });
 

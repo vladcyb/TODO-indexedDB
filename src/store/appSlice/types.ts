@@ -5,7 +5,6 @@ export enum CurrentList {
 
 export type StateType = {
   state: CurrentList
-  loading: boolean
 }
 
 export type SetStatePayloadType = {
