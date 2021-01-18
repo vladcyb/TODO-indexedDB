@@ -5,7 +5,6 @@ import { createOrEdit, ModalActionType } from '../../../shared/constants';
 import { useAppDispatch } from '../../../store';
 import { useInput } from '../../../shared/hooks/useInput';
 import { CategoriesThunk } from '../../../store/categoriesSlice/thunk';
-import { useModal } from '../../../shared/hooks/useModal';
 import './style.css';
 import { useTabulation } from '../useTabulation';
 
@@ -34,7 +33,6 @@ export const ModalCategory: FC<PropsType> = (
 
   /* hooks */
   const dispatch = useAppDispatch();
-  const modalContext = useModal();
   const nameField = useInput(initialName, true, isSubmitted);
   const ref = useRef<HTMLDivElement>(null);
   useTabulation(ref, 'input, textarea, button', 1, 4);
@@ -58,11 +56,12 @@ export const ModalCategory: FC<PropsType> = (
           description,
         }));
       } else {
-        dispatch(CategoriesThunk.edit({
-          id: modalContext.editingId!,
-          name,
-          description,
-        }));
+        // TODO
+        // dispatch(CategoriesThunk.edit({
+        //   id: modalContext.editingId!,
+        //   name,
+        //   description,
+        // }));
       }
       onClose();
     }

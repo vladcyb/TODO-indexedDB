@@ -1,15 +1,20 @@
 import { FC } from 'react';
 import { createCn } from 'bem-react-classname';
-import { TodoOrCategory } from '../../../shared/types';
 import { useSelector } from 'react-redux';
 import { getCategories } from '../../../store/categoriesSlice/selectors';
-import { useModal } from '../../../shared/hooks/useModal';
 import './style.css';
 
 
 const cn = createCn('listItem');
 
-export const ListItem: FC<TodoOrCategory> = (
+type PropsType = {
+  id: number
+  name: string
+  description: string
+  categoryId?: number
+}
+
+export const ListItem: FC<PropsType> = (
   {
     id,
     name,
@@ -19,18 +24,15 @@ export const ListItem: FC<TodoOrCategory> = (
 
   /* hooks */
   const categories = useSelector(getCategories);
-  const modalContext = useModal();
 
   /* vars */
   const category = categories.list.find(item => item.id === categoryId);
 
   /* methods */
   const handleDelete = () => {
-    modalContext.setDeletingId(id);
   };
 
   const handleEdit = () => {
-    modalContext.setEditingId(id);
   };
 
   return (

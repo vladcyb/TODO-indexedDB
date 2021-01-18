@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { createCn } from 'bem-react-classname';
 import { ListItem } from './ListItem';
 import { useSelector } from 'react-redux';
@@ -8,9 +8,9 @@ import { useAppDispatch } from '../../store';
 import { AppThunk } from '../../store/appSlice/thunk';
 import { CategoriesThunk } from '../../store/categoriesSlice/thunk';
 import { TasksThunk } from '../../store/tasksSlice/thunk';
-import './style.css';
-import { CurrentList, StatusType } from '../../shared/constants';
+import { CurrentList, ModalTargetType, StatusType } from '../../shared/constants';
 import { Preloader } from '../../Preloader';
+import './style.css';
 
 
 const cn = createCn('list');
@@ -23,6 +23,9 @@ export const List: FC<PropsType> = (
   {
     state,
   }) => {
+
+  /* state */
+  const [deletingId, setDeletingId] = useState<undefined | number>(undefined);
 
   /* hooks */
   const tasks = useSelector(getTasks);
@@ -44,16 +47,35 @@ export const List: FC<PropsType> = (
     // eslint-disable-next-line
   }, []);
 
+  /* vars */
+  const isTasks = state === CurrentList.TASKS;
+  const isCategories = state === CurrentList.CATEGORIES;
+
+  /* methods */
+  const cancelDelete = () => {
+
+  };
 
   return (
     <div className={cn()}>
-      {state === CurrentList.TASKS ? (
+      {isTasks ? (
         tasks.list.map((item) => (
-          <ListItem {...item} key={item.id} />
+          <ListItem
+            key={item.id}
+            id={item.id!}
+            name={item.name}
+            description={item.description}
+            categoryId={item.categoryId}
+          />
         ))
       ) : (
         categories.list.map((item) => (
-          <ListItem {...item} key={item.id} />
+          <ListItem
+            key={item.id}
+            id={item.id!}
+            name={item.name}
+            description={item.description}
+          />
         ))
       )}
       {(tasks.status === StatusType.LOADING || categories.status === StatusType.LOADING) && (

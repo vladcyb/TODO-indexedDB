@@ -7,9 +7,8 @@ import { useSelector } from 'react-redux';
 import { getCategories } from '../../../store/categoriesSlice/selectors';
 import { useInput } from '../../../shared/hooks/useInput';
 import { TasksThunk } from '../../../store/tasksSlice/thunk';
-import { useModal } from '../../../shared/hooks/useModal';
-import './style.css';
 import { useTabulation } from '../useTabulation';
+import './style.css';
 
 
 const cn = createCn('modalTask');
@@ -34,7 +33,6 @@ export const ModalTask: FC<PropsType> = (
     ...modalProps
   }) => {
 
-
   /* state */
   const [categoryId, setCategoryId] = useState<number | undefined>(initialCategoryId);
   const [description, setDescription] = useState(initialDescription);
@@ -42,7 +40,6 @@ export const ModalTask: FC<PropsType> = (
 
   /* hooks */
   const dispatch = useAppDispatch();
-  const modalContext = useModal();
   const categories = useSelector(getCategories).list;
   const nameInput = useInput(initialName, true, isSubmitted);
   const ref = useRef<HTMLDivElement>(null);
@@ -72,12 +69,13 @@ export const ModalTask: FC<PropsType> = (
           categoryId,
         }));
       } else {
-        dispatch(TasksThunk.edit({
-          id: modalContext.editingId!,
-          categoryId,
-          description,
-          name,
-        }));
+        // TODO
+        // dispatch(TasksThunk.edit({
+        //   id: modalContext.editingId!,
+        //   categoryId,
+        //   description,
+        //   name,
+        // }));
       }
     }
   };

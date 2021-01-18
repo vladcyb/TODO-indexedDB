@@ -3,10 +3,8 @@ import { createCn } from 'bem-react-classname';
 import { Button, Modal } from '../../index';
 import { ModalTargetType, taskOrCategoryWords } from '../../../shared/constants';
 import { useSelector } from 'react-redux';
-import { useAppDispatch } from '../../../store';
 import { getCategories } from '../../../store/categoriesSlice/selectors';
 import { getTasks } from '../../../store/tasksSlice/selectors';
-import { useModal } from '../../../shared/hooks/useModal';
 import { useTabulation } from '../useTabulation';
 import './style.css';
 
@@ -14,6 +12,7 @@ import './style.css';
 type PropsType = {
   type: ModalTargetType
   onClose: () => void
+  targetId: number
 }
 
 const cn = createCn('modalDelete');
@@ -23,19 +22,18 @@ export const ModalDelete: FC<PropsType> = (
   {
     type,
     onClose,
+    targetId,
     ...modalProps
   }) => {
 
   /* hooks */
-  const { deletingId } = useModal();
-  const dispatch = useAppDispatch();
   const categories = useSelector(getCategories);
   const tasks = useSelector(getTasks);
   const targetName = useMemo<string | undefined>(
     () => {
       return type === ModalTargetType.CATEGORY ?
-        categories.list.find((item) => item.id === deletingId)?.name :
-        tasks.list.find((item) => item.id === deletingId)!.name;
+        categories.list.find((item) => item.id === targetId)?.name :
+        tasks.list.find((item) => item.id === targetId)!.name;
       // eslint-disable-next-line
     }, [],
   );

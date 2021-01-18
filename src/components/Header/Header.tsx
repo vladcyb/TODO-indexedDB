@@ -1,8 +1,8 @@
-import { Dispatch, FC, SetStateAction } from 'react';
+import { Dispatch, FC, SetStateAction, useState } from 'react';
 import { createCn } from 'bem-react-classname';
-import { useModal } from '../../shared/hooks/useModal';
+import { CurrentList, ModalActionType } from '../../shared/constants';
+import { ModalCategory, ModalTask } from '../Modal';
 import './style.css';
-import { CurrentList } from '../../shared/constants';
 
 
 const cn = createCn('header');
@@ -12,14 +12,22 @@ type PropsType = {
   setState: Dispatch<SetStateAction<CurrentList>>
 }
 
+type StateType = {
+  isCreatingTask: boolean
+  isCreatingCategory: boolean
+}
+
 export const Header: FC<PropsType> = (
   {
     state,
     setState,
   }) => {
 
-  /* hooks */
-  const modalContext = useModal();
+  /* state */
+  const [modalState, setModalState] = useState<StateType>({
+    isCreatingTask: false,
+    isCreatingCategory: false,
+  });
 
   /* methods */
   const openTasks = () => {
@@ -30,8 +38,18 @@ export const Header: FC<PropsType> = (
     setState(CurrentList.CATEGORIES);
   };
 
-  const handleAddClick = () => {
-    modalContext.setIsCreating(true);
+  const startCreatingTask = () => {
+    setModalState({
+      isCreatingTask: state === CurrentList.TASKS,
+      isCreatingCategory: state === CurrentList.CATEGORIES,
+    });
+  };
+
+  const stopCreating = () => {
+    setModalState({
+      isCreatingTask: false,
+      isCreatingCategory: false,
+    });
   };
 
   /* vars */
@@ -63,9 +81,18 @@ export const Header: FC<PropsType> = (
           </ul>
         </nav>
       </div>
-      <button className={cn('addTask')} onClick={handleAddClick}>
+      <button
+        className={cn('addTask')}
+        onClick={startCreatingTask}
+      >
         Добавить {`${isTasks ? 'задачу' : 'категорию'}`}
       </button>
+      {modalState.isCreatingTask && (
+        <ModalTask mode={ModalActionType.CREATE} onClose={stopCreating} />
+      )}
+      {modalState.isCreatingCategory && (
+        <ModalCategory mode={ModalActionType.CREATE} onClose={stopCreating} />
+      )}
     </div>
   );
 };

@@ -4,7 +4,6 @@ import reportWebVitals from './reportWebVitals';
 import store from './store';
 import { App } from './App';
 import { Provider } from 'react-redux';
-import { ModalProvider } from './components/HOCs/ModalProvider';
 import './index.css';
 
 declare global {
@@ -16,9 +15,7 @@ declare global {
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <ModalProvider>
-        <App />
-      </ModalProvider>
+      <App />
     </Provider>
   </React.StrictMode>,
   document.getElementById('root'),
