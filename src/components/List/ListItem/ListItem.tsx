@@ -105,6 +105,13 @@ export const ListItem: FC<PropsType> = (
           targetId={state.deletingCategoryId}
         />
       )}
+      {state.deletingTaskId && (
+        <ModalDelete
+          currentState={currentState}
+          onClose={closeDeleteModal}
+          targetId={state.deletingTaskId}
+        />
+      )}
     </div>
   );
 };
