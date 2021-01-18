@@ -7,8 +7,7 @@ import {
   UpdateCategoriesResponseType,
   UpdateTasksResponseType,
 } from './types';
-import { APIErrors } from '../shared/constants';
-
+import { APIErrors, timeout } from '../shared/constants';
 
 export const API = {
   App: {
@@ -27,7 +26,9 @@ export const API = {
 
         DBOpenRequest.onsuccess = () => {
           window.db = DBOpenRequest.result;
-          resolve({ ok: true });
+          setTimeout(() => {
+            resolve({ ok: true });
+          }, timeout);
         };
 
         DBOpenRequest.onerror = () => {
@@ -41,7 +42,9 @@ export const API = {
       return new Promise<UpdateTasksResponseType>((resolve) => {
         const tasks = createTransaction('Item', 'readonly').getAll();
         tasks.onsuccess = () => {
-          resolve({ ok: true, data: tasks.result });
+          setTimeout(() => {
+            resolve({ ok: true, data: tasks.result });
+          }, timeout);
         };
         tasks.onerror = (e) => {
           resolve({ ok: false, error: e });
@@ -54,7 +57,9 @@ export const API = {
         const request = tasks.add(task);
 
         request.onsuccess = () => {
-          resolve({ ok: true, id: request.result });
+          setTimeout(() => {
+            resolve({ ok: true, id: request.result });
+          }, timeout);
         };
 
         request.onerror = (e: any) => {
@@ -68,7 +73,9 @@ export const API = {
         const request = editTask.put(task);
 
         request.onsuccess = () => {
-          resolve({ ok: true });
+          setTimeout(() => {
+            resolve({ ok: true });
+          }, timeout);
         };
 
         request.onerror = () => {
@@ -82,7 +89,9 @@ export const API = {
         const request = deleteTask.delete(id);
 
         request.onsuccess = () => {
-          resolve({ ok: true });
+          setTimeout(() => {
+            resolve({ ok: true });
+          }, timeout);
         };
 
         request.onerror = () => {
@@ -97,7 +106,9 @@ export const API = {
         const categories = createTransaction('Category', 'readonly').getAll();
         categories.onsuccess = () => {
           const { result } = categories;
-          resolve({ ok: true, data: result });
+          setTimeout(() => {
+            resolve({ ok: true, data: result });
+          }, timeout);
         };
         categories.onerror = (e) => {
           resolve({ ok: false, error: e });
@@ -110,7 +121,9 @@ export const API = {
         const request = categories.add(category);
 
         request.onsuccess = () => {
-          resolve({ ok: true, id: request.result });
+          setTimeout(() => {
+            resolve({ ok: true, id: request.result });
+          }, timeout);
         };
 
         request.onerror = () => {
@@ -125,7 +138,9 @@ export const API = {
         const request = categories.put(category);
 
         request.onsuccess = () => {
-          resolve({ ok: true });
+          setTimeout(() => {
+            resolve({ ok: true });
+          }, timeout);
         };
 
         request.onerror = () => {
@@ -162,7 +177,9 @@ export const API = {
               }
               cursor.continue();
             } else {
-              resolve({ ok: true });
+              setTimeout(() => {
+                resolve({ ok: true });
+              }, timeout);
             }
           };
 

@@ -17,3 +17,5 @@ export const taskOrCategoryWords: { [key in ModalTargetType]: string[] } = {
   [ModalTargetType.TASK]: ['задачи', 'задачу'],
   [ModalTargetType.CATEGORY]: ['категории', 'категорию'],
 };
+
+export const timeout = 500;
