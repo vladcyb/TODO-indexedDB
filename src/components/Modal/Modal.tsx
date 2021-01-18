@@ -20,6 +20,8 @@ export const Modal: FC<PropsType> = (
     reference,
   }) => {
 
+  document.body.classList.add('noScroll');
+
   /* classname */
   const cn = createCn('modal', className);
 
@@ -35,6 +37,7 @@ export const Modal: FC<PropsType> = (
     window.addEventListener('keydown', onKeyDown);
     return () => {
       window.removeEventListener('keydown', onKeyDown);
+      document.body.classList.remove('noScroll');
     };
     // eslint-disable-next-line
   }, []);
