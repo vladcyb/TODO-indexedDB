@@ -3,8 +3,8 @@ import { createCn } from 'bem-react-classname';
 import { useSelector } from 'react-redux';
 import { getCategories } from '../../../store/categoriesSlice/selectors';
 import './style.css';
-import { ModalDelete } from '../../Modal';
-import { CurrentState, ModalTargetType } from '../../../shared/constants';
+import { ModalDelete, ModalTask } from '../../Modal';
+import { CurrentState, ModalActionType } from '../../../shared/constants';
 
 
 const cn = createCn('listItem');
@@ -20,6 +20,8 @@ type PropsType = {
 type StateType = {
   deletingCategoryId: number | undefined
   deletingTaskId: number | undefined
+  editingCategoryId: number | undefined
+  editingTaskId: number | undefined
 }
 
 export const ListItem: FC<PropsType> = (
@@ -33,8 +35,10 @@ export const ListItem: FC<PropsType> = (
 
   /* state */
   const [state, setState] = useState<StateType>({
-    deletingTaskId: undefined,
+    editingCategoryId: undefined,
+    editingTaskId: undefined,
     deletingCategoryId: undefined,
+    deletingTaskId: undefined,
   });
 
   /* hooks */
@@ -44,27 +48,45 @@ export const ListItem: FC<PropsType> = (
   const category = categories.list.find(item => item.id === categoryId);
 
   /* methods */
-  const closeDeleteModal = () => {
-    setState({
+  const closeModal = () => {
+    setState((state) => ({
+      editingTaskId: undefined,
+      editingCategoryId: undefined,
       deletingCategoryId: undefined,
       deletingTaskId: undefined,
-    });
+    }));
   };
+
   const handleDelete = () => {
     if (currentState === CurrentState.TASKS) {
-      setState({
+      setState((state) => ({
+        ...state,
         deletingTaskId: id,
         deletingCategoryId: undefined,
-      });
+      }));
     } else {
-      setState({
+      setState((state) => ({
+        ...state,
         deletingTaskId: undefined,
         deletingCategoryId: id,
-      });
+      }));
     }
   };
 
   const handleEdit = () => {
+    if (currentState === CurrentState.CATEGORIES) {
+      setState((state) => ({
+        ...state,
+        editingTaskId: undefined,
+        editingCategoryId: id,
+      }));
+    } else {
+      setState((state) => ({
+        ...state,
+        editingTaskId: id,
+        editingCategoryId: undefined,
+      }));
+    }
   };
 
   return (
@@ -101,15 +123,25 @@ export const ListItem: FC<PropsType> = (
       {state.deletingCategoryId && (
         <ModalDelete
           currentState={currentState}
-          onClose={closeDeleteModal}
+          onClose={closeModal}
           targetId={state.deletingCategoryId}
         />
       )}
       {state.deletingTaskId && (
         <ModalDelete
           currentState={currentState}
-          onClose={closeDeleteModal}
+          onClose={closeModal}
           targetId={state.deletingTaskId}
+        />
+      )}
+      {state.editingTaskId && (
+        <ModalTask
+          mode={ModalActionType.EDIT}
+          onClose={closeModal}
+          id={id}
+          initialName={name}
+          initialDescription={description}
+          initialCategoryId={categoryId}
         />
       )}
     </div>

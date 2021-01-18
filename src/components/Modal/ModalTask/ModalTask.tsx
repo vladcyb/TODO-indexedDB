@@ -16,6 +16,7 @@ const cn = createCn('modalTask');
 type PropsType = {
   mode: ModalActionType
   className?: string
+  id?: number
   initialName?: string
   initialDescription?: string
   initialCategoryId?: number
@@ -30,6 +31,7 @@ export const ModalTask: FC<PropsType> = (
     initialDescription = '',
     initialCategoryId,
     onClose,
+    id,
     ...modalProps
   }) => {
 
@@ -69,13 +71,12 @@ export const ModalTask: FC<PropsType> = (
           categoryId,
         }));
       } else {
-        // TODO
-        // dispatch(TasksThunk.edit({
-        //   id: modalContext.editingId!,
-        //   categoryId,
-        //   description,
-        //   name,
-        // }));
+        dispatch(TasksThunk.edit({
+          id: id!,
+          categoryId,
+          description,
+          name,
+        }));
       }
     }
   };
