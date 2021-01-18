@@ -2,7 +2,6 @@ import { Category } from '../../shared/types';
 import { API } from '../../API';
 import { actions } from '.';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { TasksThunk } from '../tasksSlice/thunk';
 
 
 export const CategoriesThunk = {
@@ -42,8 +41,6 @@ export const CategoriesThunk = {
       const request = await API.Categories.delete(id);
       if (request.ok) {
         await dispatch(actions.deleteCategory(id));
-        // dispatch(TasksThunk.update());
-        // TODO: раскомментировать
       }
     },
   ),
