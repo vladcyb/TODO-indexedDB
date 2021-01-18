@@ -49,44 +49,30 @@ export const ListItem: FC<PropsType> = (
 
   /* methods */
   const closeModal = () => {
-    setState((state) => ({
+    setState({
       editingTaskId: undefined,
       editingCategoryId: undefined,
       deletingCategoryId: undefined,
       deletingTaskId: undefined,
-    }));
+    });
   };
 
   const handleDelete = () => {
-    if (currentState === CurrentState.TASKS) {
-      setState((state) => ({
-        ...state,
-        deletingTaskId: id,
-        deletingCategoryId: undefined,
-      }));
-    } else {
-      setState((state) => ({
-        ...state,
-        deletingTaskId: undefined,
-        deletingCategoryId: id,
-      }));
-    }
+    const isCategories = currentState === CurrentState.CATEGORIES;
+    setState((state) => ({
+      ...state,
+      deletingTaskId: isCategories ? undefined : id,
+      deletingCategoryId: isCategories ? id : undefined,
+    }));
   };
 
   const handleEdit = () => {
-    if (currentState === CurrentState.CATEGORIES) {
-      setState((state) => ({
-        ...state,
-        editingTaskId: undefined,
-        editingCategoryId: id,
-      }));
-    } else {
-      setState((state) => ({
-        ...state,
-        editingTaskId: id,
-        editingCategoryId: undefined,
-      }));
-    }
+    const isCategories = currentState === CurrentState.CATEGORIES;
+    setState((state) => ({
+      ...state,
+      editingTaskId: isCategories ? undefined : id,
+      editingCategoryId: isCategories ? id : undefined,
+    }));
   };
 
   return (
