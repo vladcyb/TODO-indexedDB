@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { getAppState } from '../../../store/appSlice/selectors';
 import { getTasks } from '../../../store/tasksSlice/selectors';
 import { getCategories } from '../../../store/categoriesSlice/selectors';
-import { ModalTargetType, ModalActionType } from '../../../shared/constants';
+import { ModalActionType, ModalTargetType } from '../../../shared/constants';
 import { ModalContextType } from './types';
 
 export const ModalContext = createContext<ModalContextType>(null as any);
@@ -37,6 +37,8 @@ export const ModalProvider: FC = ({ children }) => {
   /* vars */
   const editingTask = tasks.list.find((task) => task.id === editingId);
   const editingCategory = categories.list.find((category) => category.id === editingId);
+  const isTasks = appState === 'TASKS';
+  const isCategories = appState === 'CATEGORIES';
 
   return (
     <ModalContext.Provider
@@ -49,25 +51,25 @@ export const ModalProvider: FC = ({ children }) => {
         setEditingId,
       }}
     >
-      {appState === 'TASKS' && deletingId && (
+      {isTasks && deletingId && (
         <ModalDelete type={ModalTargetType.TASK} onClose={cancelDeleting} />
       )}
-      {appState === 'CATEGORIES' && deletingId && (
+      {isCategories && deletingId && (
         <ModalDelete type={ModalTargetType.CATEGORY} onClose={cancelDeleting} />
       )}
-      {appState === 'TASKS' && isCreating && (
+      {isTasks && isCreating && (
         <ModalTask
           mode={ModalActionType.CREATE}
           onClose={cancelCreating}
         />
       )}
-      {appState === 'CATEGORIES' && isCreating && (
+      {isCategories && isCreating && (
         <ModalCategory
           mode={ModalActionType.CREATE}
           onClose={cancelCreating}
         />
       )}
-      {appState === 'TASKS' && editingId && (
+      {isTasks && editingId && (
         <ModalTask
           mode={ModalActionType.EDIT}
           initialName={editingTask!.name}
@@ -76,7 +78,7 @@ export const ModalProvider: FC = ({ children }) => {
           onClose={cancelEditing}
         />
       )}
-      {appState === 'CATEGORIES' && editingId && (
+      {isCategories && editingId && (
         <ModalCategory
           mode={ModalActionType.EDIT}
           onClose={cancelEditing}
