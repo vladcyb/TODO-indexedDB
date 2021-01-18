@@ -18,6 +18,6 @@ export const taskOrCategoryWords: { [key in ModalTargetType]: string[] } = {
   [ModalTargetType.CATEGORY]: ['категории', 'категорию'],
 };
 
-export const timeout = 0;
+export const timeout = 500;
 
 export enum StatusType { IDLE, LOADING }

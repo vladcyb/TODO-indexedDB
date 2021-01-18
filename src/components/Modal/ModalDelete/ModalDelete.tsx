@@ -1,4 +1,4 @@
-import { FC, useRef } from 'react';
+import { FC, useMemo, useRef } from 'react';
 import { createCn } from 'bem-react-classname';
 import { Button, Modal } from '../../index';
 import { ModalTargetType, taskOrCategoryWords } from '../../../shared/constants';
@@ -35,9 +35,14 @@ export const ModalDelete: FC<PropsType> = (
   const dispatch = useAppDispatch();
   const categories = useSelector(getCategories);
   const tasks = useSelector(getTasks);
-  const target = type === ModalTargetType.CATEGORY ?
-    categories.list.find((item) => item.id === deletingId)?.name :
-    tasks.list.find((item) => item.id === deletingId)!.name;
+  const targetName = useMemo<string | undefined>(
+    () => {
+      return type === ModalTargetType.CATEGORY ?
+        categories.list.find((item) => item.id === deletingId)?.name :
+        tasks.list.find((item) => item.id === deletingId)!.name;
+      // eslint-disable-next-line
+    }, [],
+  );
   const ref = useRef<HTMLDivElement>(null);
   useTabulation(ref, 'button', 1, 2);
 
@@ -64,7 +69,7 @@ export const ModalDelete: FC<PropsType> = (
       {...modalProps}
     >
       <div className={cn('body')}>
-        Вы действительно хотите удалить {taskOrCategoryWords[type][1]} {target}?
+        Вы действительно хотите удалить {taskOrCategoryWords[type][1]} {targetName}?
       </div>
       <div className={cn('controls')}>
         <Button
