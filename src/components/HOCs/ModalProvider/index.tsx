@@ -35,7 +35,7 @@ export const ModalProvider: FC = ({ children }) => {
   };
 
   /* vars */
-  const editingTask = tasks.find((task) => task.id === editingId);
+  const editingTask = tasks.list.find((task) => task.id === editingId);
   const editingCategory = categories.find((category) => category.id === editingId);
 
   return (

@@ -11,6 +11,7 @@ import { AppThunk } from '../../store/appSlice/thunk';
 import { CategoriesThunk } from '../../store/categoriesSlice/thunk';
 import { TasksThunk } from '../../store/tasksSlice/thunk';
 import './style.css';
+import { StatusType } from '../../shared/constants';
 
 
 const cn = createCn('list');
@@ -41,13 +42,13 @@ export const List: FC = () => {
 
   return (
     <div className={cn()}>
-      {false ? (
+      {tasks.status === StatusType.LOADING ? (
         <div className={cn('preloader')}>
           <Preloader />
         </div>
       ) : (
         state === 'TASKS' ? (
-          tasks.map((item) => (
+          tasks.list.map((item) => (
             <ListItem {...item} key={item.id} />
           ))
         ) : (

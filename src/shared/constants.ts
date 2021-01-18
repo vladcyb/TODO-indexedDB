@@ -19,3 +19,5 @@ export const taskOrCategoryWords: { [key in ModalTargetType]: string[] } = {
 };
 
 export const timeout = 500;
+
+export enum StatusType { IDLE, LOADING }
