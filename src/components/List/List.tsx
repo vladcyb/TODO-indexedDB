@@ -8,7 +8,7 @@ import { useAppDispatch } from '../../store';
 import { AppThunk } from '../../store/appSlice/thunk';
 import { CategoriesThunk } from '../../store/categoriesSlice/thunk';
 import { TasksThunk } from '../../store/tasksSlice/thunk';
-import { CurrentList, ModalTargetType, StatusType } from '../../shared/constants';
+import { CurrentState, StatusType } from '../../shared/constants';
 import { Preloader } from '../../Preloader';
 import './style.css';
 
@@ -16,7 +16,7 @@ import './style.css';
 const cn = createCn('list');
 
 type PropsType = {
-  state: CurrentList
+  state: CurrentState
 }
 
 export const List: FC<PropsType> = (
@@ -48,8 +48,8 @@ export const List: FC<PropsType> = (
   }, []);
 
   /* vars */
-  const isTasks = state === CurrentList.TASKS;
-  const isCategories = state === CurrentList.CATEGORIES;
+  const isTasks = state === CurrentState.TASKS;
+  const isCategories = state === CurrentState.CATEGORIES;
 
   /* methods */
   const cancelDelete = () => {
@@ -66,6 +66,7 @@ export const List: FC<PropsType> = (
             name={item.name}
             description={item.description}
             categoryId={item.categoryId}
+            currentState={CurrentState.TASKS}
           />
         ))
       ) : (
@@ -75,6 +76,7 @@ export const List: FC<PropsType> = (
             id={item.id!}
             name={item.name}
             description={item.description}
+            currentState={CurrentState.CATEGORIES}
           />
         ))
       )}

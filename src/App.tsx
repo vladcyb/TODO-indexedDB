@@ -1,12 +1,12 @@
 import React, { FC, useState } from 'react';
 import { Header, List } from './components';
 import './App.css';
-import { CurrentList } from './shared/constants';
+import { CurrentState } from './shared/constants';
 
 export const App: FC = () => {
 
   /* state */
-  const [state, setState] = useState<CurrentList>(CurrentList.TASKS);
+  const [state, setState] = useState<CurrentState>(CurrentState.TASKS);
 
   return (
     <div className="app">

@@ -1,6 +1,6 @@
 import { Dispatch, FC, SetStateAction, useState } from 'react';
 import { createCn } from 'bem-react-classname';
-import { CurrentList, ModalActionType } from '../../shared/constants';
+import { CurrentState, ModalActionType } from '../../shared/constants';
 import { ModalCategory, ModalTask } from '../Modal';
 import './style.css';
 
@@ -8,8 +8,8 @@ import './style.css';
 const cn = createCn('header');
 
 type PropsType = {
-  state: CurrentList
-  setState: Dispatch<SetStateAction<CurrentList>>
+  state: CurrentState
+  setState: Dispatch<SetStateAction<CurrentState>>
 }
 
 type StateType = {
@@ -31,17 +31,17 @@ export const Header: FC<PropsType> = (
 
   /* methods */
   const openTasks = () => {
-    setState(CurrentList.TASKS);
+    setState(CurrentState.TASKS);
   };
 
   const openCategories = () => {
-    setState(CurrentList.CATEGORIES);
+    setState(CurrentState.CATEGORIES);
   };
 
   const startCreatingTask = () => {
     setModalState({
-      isCreatingTask: state === CurrentList.TASKS,
-      isCreatingCategory: state === CurrentList.CATEGORIES,
+      isCreatingTask: state === CurrentState.TASKS,
+      isCreatingCategory: state === CurrentState.CATEGORIES,
     });
   };
 
@@ -53,8 +53,8 @@ export const Header: FC<PropsType> = (
   };
 
   /* vars */
-  const isTasks = state === CurrentList.TASKS;
-  const isCategories = state === CurrentList.CATEGORIES;
+  const isTasks = state === CurrentState.TASKS;
+  const isCategories = state === CurrentState.CATEGORIES;
 
   return (
     <div className={cn()}>

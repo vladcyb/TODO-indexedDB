@@ -1,8 +1,10 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { createCn } from 'bem-react-classname';
 import { useSelector } from 'react-redux';
 import { getCategories } from '../../../store/categoriesSlice/selectors';
 import './style.css';
+import { ModalDelete } from '../../Modal';
+import { CurrentState, ModalTargetType } from '../../../shared/constants';
 
 
 const cn = createCn('listItem');
@@ -12,6 +14,12 @@ type PropsType = {
   name: string
   description: string
   categoryId?: number
+  currentState: CurrentState
+}
+
+type StateType = {
+  deletingCategoryId: number | undefined
+  deletingTaskId: number | undefined
 }
 
 export const ListItem: FC<PropsType> = (
@@ -20,7 +28,14 @@ export const ListItem: FC<PropsType> = (
     name,
     description,
     categoryId,
+    currentState,
   }) => {
+
+  /* state */
+  const [state, setState] = useState<StateType>({
+    deletingTaskId: undefined,
+    deletingCategoryId: undefined,
+  });
 
   /* hooks */
   const categories = useSelector(getCategories);
@@ -29,7 +44,24 @@ export const ListItem: FC<PropsType> = (
   const category = categories.list.find(item => item.id === categoryId);
 
   /* methods */
+  const closeDeleteModal = () => {
+    setState({
+      deletingCategoryId: undefined,
+      deletingTaskId: undefined,
+    });
+  };
   const handleDelete = () => {
+    if (currentState === CurrentState.TASKS) {
+      setState({
+        deletingTaskId: id,
+        deletingCategoryId: undefined,
+      });
+    } else {
+      setState({
+        deletingTaskId: undefined,
+        deletingCategoryId: id,
+      });
+    }
   };
 
   const handleEdit = () => {
@@ -66,6 +98,13 @@ export const ListItem: FC<PropsType> = (
           />
         </button>
       </div>
+      {state.deletingCategoryId && (
+        <ModalDelete
+          currentState={currentState}
+          onClose={closeDeleteModal}
+          targetId={state.deletingCategoryId}
+        />
+      )}
     </div>
   );
 };

@@ -1,16 +1,19 @@
 import { FC, useMemo, useRef } from 'react';
 import { createCn } from 'bem-react-classname';
 import { Button, Modal } from '../../index';
-import { ModalTargetType, taskOrCategoryWords } from '../../../shared/constants';
+import { CurrentState, taskOrCategoryWords } from '../../../shared/constants';
 import { useSelector } from 'react-redux';
 import { getCategories } from '../../../store/categoriesSlice/selectors';
 import { getTasks } from '../../../store/tasksSlice/selectors';
 import { useTabulation } from '../useTabulation';
 import './style.css';
+import { useAppDispatch } from '../../../store';
+import { CategoriesThunk } from '../../../store/categoriesSlice/thunk';
+import { TasksThunk } from '../../../store/tasksSlice/thunk';
 
 
 type PropsType = {
-  type: ModalTargetType
+  currentState: CurrentState
   onClose: () => void
   targetId: number
 }
@@ -20,18 +23,19 @@ const cn = createCn('modalDelete');
 
 export const ModalDelete: FC<PropsType> = (
   {
-    type,
+    currentState,
     onClose,
     targetId,
     ...modalProps
   }) => {
 
   /* hooks */
+  const dispatch = useAppDispatch();
   const categories = useSelector(getCategories);
   const tasks = useSelector(getTasks);
   const targetName = useMemo<string | undefined>(
     () => {
-      return type === ModalTargetType.CATEGORY ?
+      return currentState === CurrentState.CATEGORIES ?
         categories.list.find((item) => item.id === targetId)?.name :
         tasks.list.find((item) => item.id === targetId)!.name;
       // eslint-disable-next-line
@@ -42,28 +46,28 @@ export const ModalDelete: FC<PropsType> = (
 
   /* methods */
   const handleConfirm = async () => {
-    // if (state === CurrentList.TASKS) {
-    //   dispatch(TasksThunk.delete(deletingId!));
-    //   onClose();
-    // } else {
-    //   await dispatch(CategoriesThunk.delete(deletingId!));
-    //   await dispatch(TasksThunk.update());
-    //   onClose();
-    // }
+    if (currentState === CurrentState.CATEGORIES) {
+      await dispatch(CategoriesThunk.delete(targetId!));
+      await dispatch(TasksThunk.update());
+      onClose();
+    } else {
+      dispatch(TasksThunk.delete(targetId));
+      onClose();
+    }
   };
 
 
   return (
     <Modal
       className={cn()}
-      title={`Удаление ${taskOrCategoryWords[type][0]}`}
+      title={`Удаление ${taskOrCategoryWords[currentState][0]}`}
       onClose={onClose}
       open
       reference={ref}
       {...modalProps}
     >
       <div className={cn('body')}>
-        Вы действительно хотите удалить {taskOrCategoryWords[type][1]} {targetName}?
+        Вы действительно хотите удалить {taskOrCategoryWords[currentState][1]} {targetName}?
       </div>
       <div className={cn('controls')}>
         <Button
