@@ -7,17 +7,17 @@ export const createOrEdit: { [key in ModalActionType]: string[] } = {
   [ModalActionType.EDIT]: ['Редактирование', 'Сохранить'],
 };
 
-export enum ModalTargetType { TASK = 'TASK', CATEGORY = 'CATEGORY' }
+export enum CurrentState { TASKS, CATEGORIES }
 
 export const APIErrors = {
   couldNotLoadIndexedDB: 'Не удалось загрузить хранилище данные из IndexedDB',
 };
 
-export const taskOrCategoryWords: { [key in ModalTargetType]: string[] } = {
-  [ModalTargetType.TASK]: ['задачи', 'задачу'],
-  [ModalTargetType.CATEGORY]: ['категории', 'категорию'],
+export const taskOrCategoryWords: { [key in CurrentState]: string[] } = {
+  [CurrentState.TASKS]: ['задачи', 'задачу'],
+  [CurrentState.CATEGORIES]: ['категории', 'категорию'],
 };
 
-export const timeout = 500;
+export const timeout = 0;
 
 export enum StatusType { IDLE, LOADING }

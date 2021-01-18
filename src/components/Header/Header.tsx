@@ -1,35 +1,60 @@
-import { FC } from 'react';
-import { useSelector } from 'react-redux';
-import { getAppState } from '../../store/appSlice/selectors';
+import { Dispatch, FC, SetStateAction, useState } from 'react';
 import { createCn } from 'bem-react-classname';
-import { useAppDispatch } from '../../store';
-import { actions as appActions } from '../../store/appSlice';
-import { CurrentList } from '../../store/appSlice/types';
-import { useModal } from '../../shared/hooks/useModal';
+import { CurrentState, ModalActionType } from '../../shared/constants';
+import { ModalCategory, ModalTask } from '../Modal';
 import './style.css';
 
 
 const cn = createCn('header');
 
-export const Header: FC = () => {
+type PropsType = {
+  state: CurrentState
+  setState: Dispatch<SetStateAction<CurrentState>>
+}
 
-  /* hooks */
-  const state = useSelector(getAppState);
-  const dispatch = useAppDispatch();
-  const modalContext = useModal();
+type StateType = {
+  isCreatingTask: boolean
+  isCreatingCategory: boolean
+}
+
+export const Header: FC<PropsType> = (
+  {
+    state,
+    setState,
+  }) => {
+
+  /* state */
+  const [modalState, setModalState] = useState<StateType>({
+    isCreatingTask: false,
+    isCreatingCategory: false,
+  });
 
   /* methods */
   const openTasks = () => {
-    dispatch(appActions.setState({ state: CurrentList.TASKS }));
+    setState(CurrentState.TASKS);
   };
 
   const openCategories = () => {
-    dispatch(appActions.setState({ state: CurrentList.CATEGORIES }));
+    setState(CurrentState.CATEGORIES);
   };
 
-  const handleAddClick = () => {
-    modalContext.setIsCreating(true);
+  const startCreatingTask = () => {
+    setModalState({
+      isCreatingTask: state === CurrentState.TASKS,
+      isCreatingCategory: state === CurrentState.CATEGORIES,
+    });
   };
+
+  const stopCreating = () => {
+    setModalState({
+      isCreatingTask: false,
+      isCreatingCategory: false,
+    });
+  };
+
+  /* vars */
+  const isTasks = state === CurrentState.TASKS;
+  const isCategories = state === CurrentState.CATEGORIES;
 
   return (
     <div className={cn()}>
@@ -39,7 +64,7 @@ export const Header: FC = () => {
           <ul className={cn('ul')}>
             <li>
               <button
-                className={cn('navBtn', { opened: state === CurrentList.TASKS })}
+                className={cn('navBtn', { opened: isTasks })}
                 onClick={openTasks}
               >
                 Задачи
@@ -47,7 +72,7 @@ export const Header: FC = () => {
             </li>
             <li>
               <button
-                className={cn('navBtn', { opened: state === CurrentList.CATEGORIES })}
+                className={cn('navBtn', { opened: isCategories })}
                 onClick={openCategories}
               >
                 Категории
@@ -56,9 +81,18 @@ export const Header: FC = () => {
           </ul>
         </nav>
       </div>
-      <button className={cn('addTask')} onClick={handleAddClick}>
-        Добавить {`${state === 'TASKS' ? 'задачу' : 'категорию'}`}
+      <button
+        className={cn('addTask')}
+        onClick={startCreatingTask}
+      >
+        Добавить {`${isTasks ? 'задачу' : 'категорию'}`}
       </button>
+      {modalState.isCreatingTask && (
+        <ModalTask mode={ModalActionType.CREATE} onClose={stopCreating} />
+      )}
+      {modalState.isCreatingCategory && (
+        <ModalCategory mode={ModalActionType.CREATE} onClose={stopCreating} />
+      )}
     </div>
   );
 };

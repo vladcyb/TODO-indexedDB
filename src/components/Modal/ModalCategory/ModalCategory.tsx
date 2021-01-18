@@ -5,12 +5,12 @@ import { createOrEdit, ModalActionType } from '../../../shared/constants';
 import { useAppDispatch } from '../../../store';
 import { useInput } from '../../../shared/hooks/useInput';
 import { CategoriesThunk } from '../../../store/categoriesSlice/thunk';
-import { useModal } from '../../../shared/hooks/useModal';
 import './style.css';
 import { useTabulation } from '../useTabulation';
 
 
 type PropsType = {
+  id?: number
   mode: ModalActionType
   initialName?: string
   initialDescription?: string
@@ -25,6 +25,7 @@ export const ModalCategory: FC<PropsType> = (
     initialName = '',
     initialDescription = '',
     onClose,
+    id,
     ...modalProps
   }) => {
 
@@ -34,7 +35,6 @@ export const ModalCategory: FC<PropsType> = (
 
   /* hooks */
   const dispatch = useAppDispatch();
-  const modalContext = useModal();
   const nameField = useInput(initialName, true, isSubmitted);
   const ref = useRef<HTMLDivElement>(null);
   useTabulation(ref, 'input, textarea, button', 1, 4);
@@ -59,7 +59,7 @@ export const ModalCategory: FC<PropsType> = (
         }));
       } else {
         dispatch(CategoriesThunk.edit({
-          id: modalContext.editingId!,
+          id: id!,
           name,
           description,
         }));

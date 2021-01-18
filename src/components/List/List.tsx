@@ -3,24 +3,28 @@ import { createCn } from 'bem-react-classname';
 import { ListItem } from './ListItem';
 import { useSelector } from 'react-redux';
 import { getTasks } from '../../store/tasksSlice/selectors';
-import { getAppState } from '../../store/appSlice/selectors';
 import { getCategories } from '../../store/categoriesSlice/selectors';
 import { useAppDispatch } from '../../store';
 import { AppThunk } from '../../store/appSlice/thunk';
 import { CategoriesThunk } from '../../store/categoriesSlice/thunk';
 import { TasksThunk } from '../../store/tasksSlice/thunk';
-import './style.css';
-import { StatusType } from '../../shared/constants';
+import { CurrentState, StatusType } from '../../shared/constants';
 import { Preloader } from '../../Preloader';
+import './style.css';
 
 
 const cn = createCn('list');
 
+type PropsType = {
+  state: CurrentState
+}
 
-export const List: FC = () => {
+export const List: FC<PropsType> = (
+  {
+    state,
+  }) => {
 
   /* hooks */
-  const state = useSelector(getAppState);
   const tasks = useSelector(getTasks);
   const categories = useSelector(getCategories);
   const dispatch = useAppDispatch();
@@ -40,16 +44,31 @@ export const List: FC = () => {
     // eslint-disable-next-line
   }, []);
 
+  /* vars */
+  const isTasks = state === CurrentState.TASKS;
 
   return (
     <div className={cn()}>
-      {state === 'TASKS' ? (
+      {isTasks ? (
         tasks.list.map((item) => (
-          <ListItem {...item} key={item.id} />
+          <ListItem
+            key={item.id}
+            id={item.id!}
+            name={item.name}
+            description={item.description}
+            categoryId={item.categoryId}
+            currentState={CurrentState.TASKS}
+          />
         ))
       ) : (
         categories.list.map((item) => (
-          <ListItem {...item} key={item.id} />
+          <ListItem
+            key={item.id}
+            id={item.id!}
+            name={item.name}
+            description={item.description}
+            currentState={CurrentState.CATEGORIES}
+          />
         ))
       )}
       {(tasks.status === StatusType.LOADING || categories.status === StatusType.LOADING) && (

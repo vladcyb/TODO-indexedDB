@@ -1,45 +1,91 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { createCn } from 'bem-react-classname';
-import { TodoOrCategory } from '../../../shared/types';
 import { useSelector } from 'react-redux';
 import { getCategories } from '../../../store/categoriesSlice/selectors';
-import { getAppState } from '../../../store/appSlice/selectors';
-import { useModal } from '../../../shared/hooks/useModal';
 import './style.css';
+import { ModalCategory, ModalDelete, ModalTask } from '../../Modal';
+import { CurrentState, ModalActionType } from '../../../shared/constants';
 
 
 const cn = createCn('listItem');
 
-export const ListItem: FC<TodoOrCategory> = (
+type PropsType = {
+  id: number
+  name: string
+  description: string
+  categoryId?: number
+  currentState: CurrentState
+}
+
+type StateType = {
+  deletingCategoryId: number | undefined
+  deletingTaskId: number | undefined
+  editingCategoryId: number | undefined
+  editingTaskId: number | undefined
+}
+
+export const ListItem: FC<PropsType> = (
   {
     id,
     name,
     description,
     categoryId,
+    currentState,
   }) => {
+
+  /* state */
+  const [state, setState] = useState<StateType>({
+    editingCategoryId: undefined,
+    editingTaskId: undefined,
+    deletingCategoryId: undefined,
+    deletingTaskId: undefined,
+  });
 
   /* hooks */
   const categories = useSelector(getCategories);
-  const modalContext = useModal();
-  const state = useSelector(getAppState);
 
   /* vars */
   const category = categories.list.find(item => item.id === categoryId);
 
   /* methods */
+  const closeModal = () => {
+    setState((state) => ({
+      editingTaskId: undefined,
+      editingCategoryId: undefined,
+      deletingCategoryId: undefined,
+      deletingTaskId: undefined,
+    }));
+  };
+
   const handleDelete = () => {
-    if (state === 'TASKS') {
-      modalContext.setDeletingId(id);
+    if (currentState === CurrentState.TASKS) {
+      setState((state) => ({
+        ...state,
+        deletingTaskId: id,
+        deletingCategoryId: undefined,
+      }));
     } else {
-      modalContext.setDeletingId(id);
+      setState((state) => ({
+        ...state,
+        deletingTaskId: undefined,
+        deletingCategoryId: id,
+      }));
     }
   };
 
   const handleEdit = () => {
-    if (state === 'TASKS') {
-      modalContext.setEditingId(id);
+    if (currentState === CurrentState.CATEGORIES) {
+      setState((state) => ({
+        ...state,
+        editingTaskId: undefined,
+        editingCategoryId: id,
+      }));
     } else {
-      modalContext.setEditingId(id);
+      setState((state) => ({
+        ...state,
+        editingTaskId: id,
+        editingCategoryId: undefined,
+      }));
     }
   };
 
@@ -74,6 +120,39 @@ export const ListItem: FC<TodoOrCategory> = (
           />
         </button>
       </div>
+      {state.deletingCategoryId && (
+        <ModalDelete
+          currentState={currentState}
+          onClose={closeModal}
+          targetId={state.deletingCategoryId}
+        />
+      )}
+      {state.deletingTaskId && (
+        <ModalDelete
+          currentState={currentState}
+          onClose={closeModal}
+          targetId={state.deletingTaskId}
+        />
+      )}
+      {state.editingTaskId && (
+        <ModalTask
+          mode={ModalActionType.EDIT}
+          onClose={closeModal}
+          id={id}
+          initialName={name}
+          initialDescription={description}
+          initialCategoryId={categoryId}
+        />
+      )}
+      {state.editingCategoryId && (
+        <ModalCategory
+          mode={ModalActionType.EDIT}
+          onClose={closeModal}
+          id={id}
+          initialName={name}
+          initialDescription={description}
+        />
+      )}
     </div>
   );
 };
