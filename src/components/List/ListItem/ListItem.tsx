@@ -3,7 +3,6 @@ import { createCn } from 'bem-react-classname';
 import { TodoOrCategory } from '../../../shared/types';
 import { useSelector } from 'react-redux';
 import { getCategories } from '../../../store/categoriesSlice/selectors';
-import { getAppState } from '../../../store/appSlice/selectors';
 import { useModal } from '../../../shared/hooks/useModal';
 import './style.css';
 
@@ -21,26 +20,17 @@ export const ListItem: FC<TodoOrCategory> = (
   /* hooks */
   const categories = useSelector(getCategories);
   const modalContext = useModal();
-  const state = useSelector(getAppState);
 
   /* vars */
   const category = categories.list.find(item => item.id === categoryId);
 
   /* methods */
   const handleDelete = () => {
-    if (state === 'TASKS') {
-      modalContext.setDeletingId(id);
-    } else {
-      modalContext.setDeletingId(id);
-    }
+    modalContext.setDeletingId(id);
   };
 
   const handleEdit = () => {
-    if (state === 'TASKS') {
-      modalContext.setEditingId(id);
-    } else {
-      modalContext.setEditingId(id);
-    }
+    modalContext.setEditingId(id);
   };
 
   return (

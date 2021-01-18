@@ -1,35 +1,42 @@
-import { FC } from 'react';
-import { useSelector } from 'react-redux';
-import { getAppState } from '../../store/appSlice/selectors';
+import { Dispatch, FC, SetStateAction } from 'react';
 import { createCn } from 'bem-react-classname';
-import { useAppDispatch } from '../../store';
-import { actions as appActions } from '../../store/appSlice';
-import { CurrentList } from '../../store/appSlice/types';
 import { useModal } from '../../shared/hooks/useModal';
 import './style.css';
+import { CurrentList } from '../../shared/constants';
 
 
 const cn = createCn('header');
 
-export const Header: FC = () => {
+type PropsType = {
+  state: CurrentList
+  setState: Dispatch<SetStateAction<CurrentList>>
+}
+
+export const Header: FC<PropsType> = (
+  {
+    state,
+    setState,
+  }) => {
 
   /* hooks */
-  const state = useSelector(getAppState);
-  const dispatch = useAppDispatch();
   const modalContext = useModal();
 
   /* methods */
   const openTasks = () => {
-    dispatch(appActions.setState({ state: CurrentList.TASKS }));
+    setState(CurrentList.TASKS);
   };
 
   const openCategories = () => {
-    dispatch(appActions.setState({ state: CurrentList.CATEGORIES }));
+    setState(CurrentList.CATEGORIES);
   };
 
   const handleAddClick = () => {
     modalContext.setIsCreating(true);
   };
+
+  /* vars */
+  const isTasks = state === CurrentList.TASKS;
+  const isCategories = state === CurrentList.CATEGORIES;
 
   return (
     <div className={cn()}>
@@ -39,7 +46,7 @@ export const Header: FC = () => {
           <ul className={cn('ul')}>
             <li>
               <button
-                className={cn('navBtn', { opened: state === CurrentList.TASKS })}
+                className={cn('navBtn', { opened: isTasks })}
                 onClick={openTasks}
               >
                 Задачи
@@ -47,7 +54,7 @@ export const Header: FC = () => {
             </li>
             <li>
               <button
-                className={cn('navBtn', { opened: state === CurrentList.CATEGORIES })}
+                className={cn('navBtn', { opened: isCategories })}
                 onClick={openCategories}
               >
                 Категории
@@ -57,7 +64,7 @@ export const Header: FC = () => {
         </nav>
       </div>
       <button className={cn('addTask')} onClick={handleAddClick}>
-        Добавить {`${state === 'TASKS' ? 'задачу' : 'категорию'}`}
+        Добавить {`${isTasks ? 'задачу' : 'категорию'}`}
       </button>
     </div>
   );

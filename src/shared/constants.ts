@@ -9,6 +9,8 @@ export const createOrEdit: { [key in ModalActionType]: string[] } = {
 
 export enum ModalTargetType { TASK = 'TASK', CATEGORY = 'CATEGORY' }
 
+export enum CurrentList { TASKS, CATEGORIES }
+
 export const APIErrors = {
   couldNotLoadIndexedDB: 'Не удалось загрузить хранилище данные из IndexedDB',
 };

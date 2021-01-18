@@ -3,12 +3,9 @@ import { createCn } from 'bem-react-classname';
 import { Button, Modal } from '../../index';
 import { ModalTargetType, taskOrCategoryWords } from '../../../shared/constants';
 import { useSelector } from 'react-redux';
-import { getAppState } from '../../../store/appSlice/selectors';
 import { useAppDispatch } from '../../../store';
 import { getCategories } from '../../../store/categoriesSlice/selectors';
 import { getTasks } from '../../../store/tasksSlice/selectors';
-import { CategoriesThunk } from '../../../store/categoriesSlice/thunk';
-import { TasksThunk } from '../../../store/tasksSlice/thunk';
 import { useModal } from '../../../shared/hooks/useModal';
 import { useTabulation } from '../useTabulation';
 import './style.css';
@@ -31,7 +28,6 @@ export const ModalDelete: FC<PropsType> = (
 
   /* hooks */
   const { deletingId } = useModal();
-  const state = useSelector(getAppState);
   const dispatch = useAppDispatch();
   const categories = useSelector(getCategories);
   const tasks = useSelector(getTasks);
@@ -48,14 +44,14 @@ export const ModalDelete: FC<PropsType> = (
 
   /* methods */
   const handleConfirm = async () => {
-    if (state === 'TASKS') {
-      dispatch(TasksThunk.delete(deletingId!));
-      onClose();
-    } else {
-      await dispatch(CategoriesThunk.delete(deletingId!));
-      await dispatch(TasksThunk.update());
-      onClose();
-    }
+    // if (state === CurrentList.TASKS) {
+    //   dispatch(TasksThunk.delete(deletingId!));
+    //   onClose();
+    // } else {
+    //   await dispatch(CategoriesThunk.delete(deletingId!));
+    //   await dispatch(TasksThunk.update());
+    //   onClose();
+    // }
   };
 
 
