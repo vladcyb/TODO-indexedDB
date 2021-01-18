@@ -42,7 +42,8 @@ export const CategoriesThunk = {
       const request = await API.Categories.delete(id);
       if (request.ok) {
         await dispatch(actions.deleteCategory(id));
-        dispatch(TasksThunk.update());
+        // dispatch(TasksThunk.update());
+        // TODO: раскомментировать
       }
     },
   ),

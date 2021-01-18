@@ -36,7 +36,7 @@ export const ModalDelete: FC<PropsType> = (
   const categories = useSelector(getCategories);
   const tasks = useSelector(getTasks);
   const target = type === ModalTargetType.CATEGORY ?
-    categories.find((item) => item.id === deletingId)!.name :
+    categories.list.find((item) => item.id === deletingId)!.name :
     tasks.list.find((item) => item.id === deletingId)!.name;
   const ref = useRef<HTMLDivElement>(null);
   useTabulation(ref, 'button', 1, 2);

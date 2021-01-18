@@ -42,7 +42,7 @@ export const List: FC = () => {
 
   return (
     <div className={cn()}>
-      {tasks.status === StatusType.LOADING ? (
+      {tasks.status === StatusType.LOADING || categories.status === StatusType.LOADING ? (
         <div className={cn('preloader')}>
           <Preloader />
         </div>
@@ -52,7 +52,7 @@ export const List: FC = () => {
             <ListItem {...item} key={item.id} />
           ))
         ) : (
-          categories.map((item) => (
+          categories.list.map((item) => (
             <ListItem {...item} key={item.id} />
           ))
         ))}

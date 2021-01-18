@@ -24,7 +24,7 @@ export const ListItem: FC<TodoOrCategory> = (
   const state = useSelector(getAppState);
 
   /* vars */
-  const category = categories.find(item => item.id === categoryId);
+  const category = categories.list.find(item => item.id === categoryId);
 
   /* methods */
   const handleDelete = () => {

@@ -43,7 +43,7 @@ export const ModalTask: FC<PropsType> = (
   /* hooks */
   const dispatch = useAppDispatch();
   const modalContext = useModal();
-  const categories = useSelector(getCategories);
+  const categories = useSelector(getCategories).list;
   const nameInput = useInput(initialName, true, isSubmitted);
   const ref = useRef<HTMLDivElement>(null);
   useTabulation(
