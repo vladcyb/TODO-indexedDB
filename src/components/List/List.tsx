@@ -46,30 +46,47 @@ export const List: FC<PropsType> = (
 
   /* vars */
   const isTasks = state === CurrentState.TASKS;
+  const isLoading = tasks.status === StatusType.LOADING || categories.status === StatusType.LOADING;
 
   return (
     <div className={cn()}>
       {isTasks ? (
-        tasks.list.map((item) => (
-          <ListItem
-            key={item.id}
-            id={item.id!}
-            name={item.name}
-            description={item.description}
-            categoryId={item.categoryId}
-            currentState={CurrentState.TASKS}
-          />
-        ))
+        tasks.list.length ? (
+          tasks.list.map((item) => (
+            <ListItem
+              key={item.id}
+              id={item.id!}
+              name={item.name}
+              description={item.description}
+              categoryId={item.categoryId}
+              currentState={CurrentState.TASKS}
+            />
+          ))
+        ) : (
+          !isLoading && (
+            <div className={cn('empty')}>
+              (Пусто)
+            </div>
+          )
+        )
       ) : (
-        categories.list.map((item) => (
-          <ListItem
-            key={item.id}
-            id={item.id!}
-            name={item.name}
-            description={item.description}
-            currentState={CurrentState.CATEGORIES}
-          />
-        ))
+        categories.list.length ? (
+          categories.list.map((item) => (
+            <ListItem
+              key={item.id}
+              id={item.id!}
+              name={item.name}
+              description={item.description}
+              currentState={CurrentState.CATEGORIES}
+            />
+          ))
+        ) : (
+          !isLoading && (
+            <div className={cn('empty')}>
+              (Пусто)
+            </div>
+          )
+        )
       )}
       {(tasks.status === StatusType.LOADING || categories.status === StatusType.LOADING) && (
         <div className={cn('preloader')}>

@@ -6,7 +6,7 @@ import { StatusType } from '../../shared/constants';
 
 
 const initialState: StateType = {
-  status: StatusType.IDLE,
+  status: StatusType.LOADING,
   list: [],
 };
 
