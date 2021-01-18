@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef, useState } from 'react';
+import { FC, useRef } from 'react';
 import { createCn } from 'bem-react-classname';
 import { Button, Modal } from '../../index';
 import { ModalTargetType, taskOrCategoryWords } from '../../../shared/constants';
@@ -10,7 +10,7 @@ import { getTasks } from '../../../store/tasksSlice/selectors';
 import { CategoriesThunk } from '../../../store/categoriesSlice/thunk';
 import { TasksThunk } from '../../../store/tasksSlice/thunk';
 import { useModal } from '../../../shared/hooks/useModal';
-import { listIndexMethods } from '../../../shared/methods';
+import { useTabulation } from '../useTabulation';
 import './style.css';
 
 
@@ -29,11 +29,6 @@ export const ModalDelete: FC<PropsType> = (
     ...modalProps
   }) => {
 
-  /* state */
-  const [focusableElements, setFocusableElements] =
-    useState<NodeListOf<HTMLButtonElement> | undefined>(undefined);
-  const [focusedButtonIndex, setFocusedButtonIndex] = useState(1);
-
   /* hooks */
   const { deletingId } = useModal();
   const state = useSelector(getAppState);
@@ -43,34 +38,8 @@ export const ModalDelete: FC<PropsType> = (
   const target = type === ModalTargetType.CATEGORY ?
     categories.find((item) => item.id === deletingId)!.name :
     tasks.find((item) => item.id === deletingId)!.name;
-
   const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (ref.current) {
-      setFocusableElements(ref.current.querySelectorAll('button'));
-    }
-  }, []);
-
-  useEffect(() => {
-    const tabulation = (e: KeyboardEvent) => {
-      if (e.key === 'Tab' && e.shiftKey) {
-        e.preventDefault();
-        setFocusedButtonIndex(listIndexMethods.getPrev(focusedButtonIndex, 2));
-      } else if (e.key === 'Tab') {
-        e.preventDefault();
-        setFocusedButtonIndex(listIndexMethods.getNext(focusedButtonIndex, 2));
-      }
-    };
-    window.addEventListener('keydown', tabulation);
-    return () => window.removeEventListener('keydown', tabulation);
-  }, [focusedButtonIndex]);
-
-  useEffect(() => {
-    if (focusableElements) {
-      focusableElements[focusedButtonIndex].focus();
-    }
-  }, [focusedButtonIndex, focusableElements]);
+  useTabulation(ref, 'button', 1, 2);
 
   /* methods */
   const handleConfirm = () => {

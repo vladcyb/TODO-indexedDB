@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useRef, useState } from 'react';
 import { createCn } from 'bem-react-classname';
 import { Button, Input, Modal, Textarea } from '../../index';
 import { createOrEdit, ModalActionType } from '../../../shared/constants';
@@ -7,6 +7,7 @@ import { useInput } from '../../../shared/hooks/useInput';
 import { CategoriesThunk } from '../../../store/categoriesSlice/thunk';
 import { useModal } from '../../../shared/hooks/useModal';
 import './style.css';
+import { useTabulation } from '../useTabulation';
 
 
 type PropsType = {
@@ -35,6 +36,8 @@ export const ModalCategory: FC<PropsType> = (
   const dispatch = useAppDispatch();
   const modalContext = useModal();
   const nameField = useInput(initialName, true, isSubmitted);
+  const ref = useRef<HTMLDivElement>(null);
+  useTabulation(ref, 'input, textarea, button', 1, 4);
 
   /* classes */
   const cn = createCn('modalCategory', className);
@@ -71,6 +74,7 @@ export const ModalCategory: FC<PropsType> = (
       title={`${createOrEdit[mode][0]} категории`}
       onClose={onClose}
       open
+      reference={ref}
       {...modalProps}
     >
       <form onSubmit={handleConfirm}>

@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef, useState } from 'react';
+import React, { FC, useRef, useState } from 'react';
 import { createCn } from 'bem-react-classname';
 import { createOrEdit, ModalActionType } from '../../../shared/constants';
 import { Button, Input, Modal, Select, Textarea } from '../../index';
@@ -9,7 +9,7 @@ import { useInput } from '../../../shared/hooks/useInput';
 import { TasksThunk } from '../../../store/tasksSlice/thunk';
 import { useModal } from '../../../shared/hooks/useModal';
 import './style.css';
-import { listIndexMethods } from '../../../shared/methods';
+import { useTabulation } from '../useTabulation';
 
 
 const cn = createCn('modalTask');
@@ -39,10 +39,6 @@ export const ModalTask: FC<PropsType> = (
   const [categoryId, setCategoryId] = useState<number | undefined>(initialCategoryId);
   const [description, setDescription] = useState(initialDescription);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [focusableElements, setFocusableElements] =
-    useState<NodeListOf<HTMLElement> | undefined>(undefined);
-  const [focusedButtonIndex, setFocusedButtonIndex] = useState(1);
-
 
   /* hooks */
   const dispatch = useAppDispatch();
@@ -50,33 +46,12 @@ export const ModalTask: FC<PropsType> = (
   const categories = useSelector(getCategories);
   const nameInput = useInput(initialName, true, isSubmitted);
   const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (ref.current) {
-      setFocusableElements(
-        ref.current.querySelectorAll(
-          '.input__input, .select, textarea, .modalTask__createControl, .modalTask__closeControl, .modal__close',
-        ),
-      );
-    }
-    const tabulation = (e: KeyboardEvent) => {
-      if (e.key === 'Tab' && e.shiftKey) {
-        e.preventDefault();
-        setFocusedButtonIndex(listIndexMethods.getPrev(focusedButtonIndex, 5));
-      } else if (e.key === 'Tab') {
-        e.preventDefault();
-        setFocusedButtonIndex(listIndexMethods.getNext(focusedButtonIndex, 5));
-      }
-    };
-    window.addEventListener('keydown', tabulation);
-    return () => window.removeEventListener('keydown', tabulation);
-  }, [focusedButtonIndex]);
-
-  useEffect(() => {
-    if (focusableElements) {
-      focusableElements[focusedButtonIndex].focus();
-    }
-  }, [focusedButtonIndex, focusableElements]);
+  useTabulation(
+    ref,
+    '.input__input, .select, textarea, .modalTask__createControl, .modalTask__closeControl, .modal__close',
+    1,
+    5,
+  );
 
   /* methods */
   const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
