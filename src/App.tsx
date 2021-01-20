@@ -126,6 +126,8 @@ export const App: FC = () => {
           currentState={sectionType}
           onClose={closeModal}
           targetId={modalState.deletingCategoryId}
+          categories={categories.list}
+          tasks={tasks.list}
         />
       )}
       {modalState.deletingTaskId && (
@@ -133,6 +135,8 @@ export const App: FC = () => {
           currentState={sectionType}
           onClose={closeModal}
           targetId={modalState.deletingTaskId}
+          categories={categories.list}
+          tasks={tasks.list}
         />
       )}
       {modalState.editingTaskId && (

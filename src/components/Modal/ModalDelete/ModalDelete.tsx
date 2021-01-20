@@ -2,20 +2,20 @@ import { FC, useMemo, useRef } from 'react';
 import { createCn } from 'bem-react-classname';
 import { Button, Modal } from '../../index';
 import { SectionType, taskOrCategoryWords } from '../../../shared/constants';
-import { useSelector } from 'react-redux';
-import { getCategories } from '../../../store/categoriesSlice/selectors';
-import { getTasks } from '../../../store/tasksSlice/selectors';
 import { useTabulation } from '../useTabulation';
-import './style.css';
 import { useAppDispatch } from '../../../store';
 import { CategoriesThunk } from '../../../store/categoriesSlice/thunk';
 import { TasksThunk } from '../../../store/tasksSlice/thunk';
+import { Category, Task } from '../../../shared/types';
+import './style.css';
 
 
 type PropsType = {
   currentState: SectionType
   onClose: () => void
   targetId: number
+  tasks: Task[]
+  categories: Category[]
 }
 
 const cn = createCn('modalDelete');
@@ -26,18 +26,18 @@ export const ModalDelete: FC<PropsType> = (
     currentState,
     onClose,
     targetId,
+    categories,
+    tasks,
     ...modalProps
   }) => {
 
   /* hooks */
   const dispatch = useAppDispatch();
-  const categories = useSelector(getCategories);
-  const tasks = useSelector(getTasks);
   const targetName = useMemo<string | undefined>(
     () => {
       return currentState === SectionType.CATEGORIES ?
-        categories.list.find((item) => item.id === targetId)?.name :
-        tasks.list.find((item) => item.id === targetId)!.name;
+        categories.find((item) => item.id === targetId)?.name :
+        tasks.find((item) => item.id === targetId)!.name;
       // eslint-disable-next-line
     }, [],
   );
