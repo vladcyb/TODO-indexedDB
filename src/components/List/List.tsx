@@ -16,8 +16,8 @@ const cn = createCn('list');
 
 type PropsType = {
   sectionType: SectionType
-  handleDelete: (id: number) => void
-  handleEdit: (id: number) => void
+  onItemDelete: (id: number) => void
+  onItemEdit: (id: number) => void
   categories: Categories
   tasks: Tasks
 }
@@ -25,8 +25,8 @@ type PropsType = {
 export const List: FC<PropsType> = (
   {
     sectionType,
-    handleDelete,
-    handleEdit,
+    onItemDelete,
+    onItemEdit,
     categories,
     tasks,
   }) => {
@@ -72,8 +72,8 @@ export const List: FC<PropsType> = (
               name={item.name}
               description={item.description}
               categoryName={getCategoryName(item.categoryId)}
-              onEdit={handleEdit}
-              onDelete={handleDelete}
+              onEdit={onItemEdit}
+              onDelete={onItemDelete}
             />
           ))
         ) : (
@@ -91,8 +91,8 @@ export const List: FC<PropsType> = (
               id={item.id!}
               name={item.name}
               description={item.description}
-              onDelete={handleDelete}
-              onEdit={handleEdit}
+              onDelete={onItemDelete}
+              onEdit={onItemEdit}
             />
           ))
         ) : (

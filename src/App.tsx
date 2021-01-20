@@ -52,7 +52,7 @@ export const App: FC = () => {
     setModalState(defaultModalState);
   };
 
-  const handleDelete = (id: number) => {
+  const handleDeleteItem = (id: number) => {
     const isCategories = sectionType === SectionType.CATEGORIES;
     setModalState(() => ({
       ...defaultModalState,
@@ -61,7 +61,7 @@ export const App: FC = () => {
     }));
   };
 
-  const handleEdit = (id: number) => {
+  const handleEditItem = (id: number) => {
     const isCategories = sectionType === SectionType.CATEGORIES;
     setModalState(() => ({
       ...defaultModalState,
@@ -105,8 +105,8 @@ export const App: FC = () => {
       <div className="app__listWrapper">
         <List
           sectionType={sectionType}
-          handleDelete={handleDelete}
-          handleEdit={handleEdit}
+          onItemDelete={handleDeleteItem}
+          onItemEdit={handleEditItem}
           tasks={tasks}
           categories={categories}
         />
