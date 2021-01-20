@@ -8,7 +8,7 @@ import { useAppDispatch } from '../../store';
 import { AppThunk } from '../../store/appSlice/thunk';
 import { CategoriesThunk } from '../../store/categoriesSlice/thunk';
 import { TasksThunk } from '../../store/tasksSlice/thunk';
-import { CurrentState, StatusType } from '../../shared/constants';
+import { SectionType, LoadingStatusType } from '../../shared/constants';
 import { Preloader } from '../../Preloader';
 import './style.css';
 
@@ -16,12 +16,12 @@ import './style.css';
 const cn = createCn('list');
 
 type PropsType = {
-  state: CurrentState
+  sectionType: SectionType
 }
 
 export const List: FC<PropsType> = (
   {
-    state,
+    sectionType,
   }) => {
 
   /* hooks */
@@ -45,8 +45,8 @@ export const List: FC<PropsType> = (
   }, []);
 
   /* vars */
-  const isTasks = state === CurrentState.TASKS;
-  const isLoading = tasks.status === StatusType.LOADING || categories.status === StatusType.LOADING;
+  const isTasks = sectionType === SectionType.TASKS;
+  const isLoading = tasks.status === LoadingStatusType.LOADING || categories.status === LoadingStatusType.LOADING;
 
   return (
     <div className={cn()}>
@@ -59,7 +59,7 @@ export const List: FC<PropsType> = (
               name={item.name}
               description={item.description}
               categoryId={item.categoryId}
-              currentState={CurrentState.TASKS}
+              currentState={SectionType.TASKS}
             />
           ))
         ) : (
@@ -77,7 +77,7 @@ export const List: FC<PropsType> = (
               id={item.id!}
               name={item.name}
               description={item.description}
-              currentState={CurrentState.CATEGORIES}
+              currentState={SectionType.CATEGORIES}
             />
           ))
         ) : (

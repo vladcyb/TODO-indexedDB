@@ -1,7 +1,7 @@
 import { Category } from '../../shared/types';
-import { StatusType } from '../../shared/constants';
+import { LoadingStatusType } from '../../shared/constants';
 
 export type StateType = {
   list: Category[]
-  status: StatusType
+  status: LoadingStatusType
 }

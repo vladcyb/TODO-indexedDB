@@ -2,11 +2,11 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Task } from '../../shared/types';
 import { TasksThunk } from './thunk';
 import { StateType } from './types';
-import { StatusType } from '../../shared/constants';
+import { LoadingStatusType } from '../../shared/constants';
 
 
 const initialState: StateType = {
-  status: StatusType.LOADING,
+  status: LoadingStatusType.LOADING,
   list: [],
 };
 
@@ -36,28 +36,28 @@ export const tasksSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(TasksThunk.update.pending, (state) => {
-        state.status = StatusType.LOADING;
+        state.status = LoadingStatusType.LOADING;
       })
       .addCase(TasksThunk.update.fulfilled, (state) => {
-        state.status = StatusType.IDLE;
+        state.status = LoadingStatusType.IDLE;
       })
       .addCase(TasksThunk.add.pending, (state) => {
-        state.status = StatusType.LOADING;
+        state.status = LoadingStatusType.LOADING;
       })
       .addCase(TasksThunk.add.fulfilled, (state) => {
-        state.status = StatusType.IDLE;
+        state.status = LoadingStatusType.IDLE;
       })
       .addCase(TasksThunk.delete.pending, (state) => {
-        state.status = StatusType.LOADING;
+        state.status = LoadingStatusType.LOADING;
       })
       .addCase(TasksThunk.delete.fulfilled, (state) => {
-        state.status = StatusType.IDLE;
+        state.status = LoadingStatusType.IDLE;
       })
       .addCase(TasksThunk.edit.pending, (state) => {
-        state.status = StatusType.LOADING;
+        state.status = LoadingStatusType.LOADING;
       })
       .addCase(TasksThunk.edit.fulfilled, (state) => {
-        state.status = StatusType.IDLE;
+        state.status = LoadingStatusType.IDLE;
       });
   },
 });

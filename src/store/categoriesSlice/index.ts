@@ -2,11 +2,11 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Category } from '../../shared/types';
 import { CategoriesThunk } from './thunk';
 import { StateType } from './types';
-import { StatusType } from '../../shared/constants';
+import { LoadingStatusType } from '../../shared/constants';
 
 
 const initialState: StateType = {
-  status: StatusType.LOADING,
+  status: LoadingStatusType.LOADING,
   list: [],
 };
 
@@ -36,28 +36,28 @@ export const categoriesSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(CategoriesThunk.update.pending, (state) => {
-        state.status = StatusType.LOADING;
+        state.status = LoadingStatusType.LOADING;
       })
       .addCase(CategoriesThunk.update.fulfilled, (state) => {
-        state.status = StatusType.IDLE;
+        state.status = LoadingStatusType.IDLE;
       })
       .addCase(CategoriesThunk.add.pending, (state) => {
-        state.status = StatusType.LOADING;
+        state.status = LoadingStatusType.LOADING;
       })
       .addCase(CategoriesThunk.add.fulfilled, (state) => {
-        state.status = StatusType.IDLE;
+        state.status = LoadingStatusType.IDLE;
       })
       .addCase(CategoriesThunk.edit.pending, (state) => {
-        state.status = StatusType.LOADING;
+        state.status = LoadingStatusType.LOADING;
       })
       .addCase(CategoriesThunk.edit.fulfilled, (state) => {
-        state.status = StatusType.IDLE;
+        state.status = LoadingStatusType.IDLE;
       })
       .addCase(CategoriesThunk.delete.pending, (state) => {
-        state.status = StatusType.LOADING;
+        state.status = LoadingStatusType.LOADING;
       })
       .addCase(CategoriesThunk.delete.fulfilled, (state) => {
-        state.status = StatusType.IDLE;
+        state.status = LoadingStatusType.IDLE;
       });
   },
 });

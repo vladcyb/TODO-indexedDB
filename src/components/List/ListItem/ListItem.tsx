@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { getCategories } from '../../../store/categoriesSlice/selectors';
 import './style.css';
 import { ModalCategory, ModalDelete, ModalTask } from '../../Modal';
-import { CurrentState, ModalActionType } from '../../../shared/constants';
+import { SectionType, ModalActionType } from '../../../shared/constants';
 
 
 const cn = createCn('listItem');
@@ -14,7 +14,7 @@ type PropsType = {
   name: string
   description: string
   categoryId?: number
-  currentState: CurrentState
+  currentState: SectionType
 }
 
 type StateType = {
@@ -58,7 +58,7 @@ export const ListItem: FC<PropsType> = (
   };
 
   const handleDelete = () => {
-    const isCategories = currentState === CurrentState.CATEGORIES;
+    const isCategories = currentState === SectionType.CATEGORIES;
     setState((state) => ({
       ...state,
       deletingTaskId: isCategories ? undefined : id,
@@ -67,7 +67,7 @@ export const ListItem: FC<PropsType> = (
   };
 
   const handleEdit = () => {
-    const isCategories = currentState === CurrentState.CATEGORIES;
+    const isCategories = currentState === SectionType.CATEGORIES;
     setState((state) => ({
       ...state,
       editingTaskId: isCategories ? undefined : id,

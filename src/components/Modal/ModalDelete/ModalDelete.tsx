@@ -1,7 +1,7 @@
 import { FC, useMemo, useRef } from 'react';
 import { createCn } from 'bem-react-classname';
 import { Button, Modal } from '../../index';
-import { CurrentState, taskOrCategoryWords } from '../../../shared/constants';
+import { SectionType, taskOrCategoryWords } from '../../../shared/constants';
 import { useSelector } from 'react-redux';
 import { getCategories } from '../../../store/categoriesSlice/selectors';
 import { getTasks } from '../../../store/tasksSlice/selectors';
@@ -13,7 +13,7 @@ import { TasksThunk } from '../../../store/tasksSlice/thunk';
 
 
 type PropsType = {
-  currentState: CurrentState
+  currentState: SectionType
   onClose: () => void
   targetId: number
 }
@@ -35,7 +35,7 @@ export const ModalDelete: FC<PropsType> = (
   const tasks = useSelector(getTasks);
   const targetName = useMemo<string | undefined>(
     () => {
-      return currentState === CurrentState.CATEGORIES ?
+      return currentState === SectionType.CATEGORIES ?
         categories.list.find((item) => item.id === targetId)?.name :
         tasks.list.find((item) => item.id === targetId)!.name;
       // eslint-disable-next-line
@@ -46,7 +46,7 @@ export const ModalDelete: FC<PropsType> = (
 
   /* methods */
   const handleConfirm = async () => {
-    if (currentState === CurrentState.CATEGORIES) {
+    if (currentState === SectionType.CATEGORIES) {
       await dispatch(CategoriesThunk.delete(targetId!));
       await dispatch(TasksThunk.update());
       onClose();
