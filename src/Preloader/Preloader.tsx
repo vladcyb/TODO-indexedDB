@@ -11,12 +11,12 @@ const getNext = (x: number) => {
 export const Preloader: FC = () => {
 
   /* state */
-  const [state, setState] = useState(1);
+  const [spriteNumber, setSpriteNumber] = useState(1);
 
   /* hooks */
   useEffect(() => {
     const interval = window.setInterval(() => {
-      setState(value => {
+      setSpriteNumber(value => {
         return getNext(value);
       });
     }, 500);
@@ -27,6 +27,6 @@ export const Preloader: FC = () => {
 
 
   return (
-    <div className={`Preloader Preloader_${state}`}/>
+    <div className={`Preloader Preloader_${spriteNumber}`}/>
   );
 };
