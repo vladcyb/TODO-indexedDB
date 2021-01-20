@@ -20,7 +20,9 @@ export const Modal: FC<PropsType> = (
     reference,
   }) => {
 
-  document.body.classList.add('noScroll');
+  if (document.body.scrollHeight > window.innerHeight) {
+    document.body.classList.add('noScroll');
+  }
 
   /* classname */
   const cn = createCn('modal', className);
