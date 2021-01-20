@@ -8,7 +8,7 @@ import { useAppDispatch } from '../../store';
 import { AppThunk } from '../../store/appSlice/thunk';
 import { CategoriesThunk } from '../../store/categoriesSlice/thunk';
 import { TasksThunk } from '../../store/tasksSlice/thunk';
-import { SectionType, LoadingStatusType } from '../../shared/constants';
+import { LoadingStatusType, SectionType } from '../../shared/constants';
 import { Preloader } from '../../Preloader';
 import './style.css';
 
@@ -17,11 +17,15 @@ const cn = createCn('list');
 
 type PropsType = {
   sectionType: SectionType
+  handleDelete: (id: number) => void
+  handleEdit: (id: number) => void
 }
 
 export const List: FC<PropsType> = (
   {
     sectionType,
+    handleDelete,
+    handleEdit,
   }) => {
 
   /* hooks */
@@ -48,6 +52,14 @@ export const List: FC<PropsType> = (
   const isTasks = sectionType === SectionType.TASKS;
   const isLoading = tasks.status === LoadingStatusType.LOADING || categories.status === LoadingStatusType.LOADING;
 
+  /* methods */
+  const getCategoryName = (id: number | undefined) => {
+    if (!id) {
+      return '';
+    }
+    return categories.list.find((category) => category.id === id)?.name;
+  };
+
   return (
     <div className={cn()}>
       {isTasks ? (
@@ -58,8 +70,9 @@ export const List: FC<PropsType> = (
               id={item.id!}
               name={item.name}
               description={item.description}
-              categoryId={item.categoryId}
-              currentState={SectionType.TASKS}
+              categoryName={getCategoryName(item.categoryId)}
+              handleEdit={handleEdit}
+              handleDelete={handleDelete}
             />
           ))
         ) : (
@@ -77,7 +90,8 @@ export const List: FC<PropsType> = (
               id={item.id!}
               name={item.name}
               description={item.description}
-              currentState={SectionType.CATEGORIES}
+              handleDelete={handleDelete}
+              handleEdit={handleEdit}
             />
           ))
         ) : (
@@ -89,7 +103,7 @@ export const List: FC<PropsType> = (
         )
       )}
       {isLoading && (
-          <div className={cn('preloader')}>
+        <div className={cn('preloader')}>
           <Preloader />
         </div>
       )}

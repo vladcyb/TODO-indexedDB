@@ -36,8 +36,8 @@ export const ModalTask: FC<PropsType> = (
   }) => {
 
   /* state */
-  const [categoryId, setCategoryId] = useState<number | undefined>(initialCategoryId);
-  const [description, setDescription] = useState(initialDescription);
+  const [categoryId, setCategoryId] = useState<number | undefined>(undefined);
+  const [description, setDescription] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   /* hooks */

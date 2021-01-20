@@ -25,4 +25,8 @@ export enum LoadingStatusType { IDLE, LOADING }
 export type ModalStateType = {
   isCreatingTask: boolean
   isCreatingCategory: boolean
+  editingCategoryId: undefined | number
+  editingTaskId: undefined | number
+  deletingCategoryId: undefined | number
+  deletingTaskId: undefined | number
 }

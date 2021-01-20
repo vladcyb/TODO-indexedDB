@@ -1,17 +1,22 @@
 import React, { FC, useState } from 'react';
-import { Header, List, ModalCategory, ModalTask } from './components';
-import './App.css';
+import { Header, List, ModalCategory, ModalDelete, ModalTask } from './components';
 import { ModalActionType, ModalStateType, SectionType } from './shared/constants';
+import './App.css';
 
+const defaultModalState: ModalStateType = {
+  isCreatingTask: false,
+  isCreatingCategory: false,
+  editingCategoryId: undefined,
+  editingTaskId: undefined,
+  deletingCategoryId: undefined,
+  deletingTaskId: undefined,
+};
 
 export const App: FC = () => {
 
   /* state */
   const [sectionType, setSectionType] = useState<SectionType>(SectionType.TASKS);
-  const [modalState, setModalState] = useState<ModalStateType>({
-    isCreatingTask: false,
-    isCreatingCategory: false,
-  });
+  const [modalState, setModalState] = useState<ModalStateType>(defaultModalState);
 
   /* methods */
   const openTasks = () => {
@@ -23,18 +28,35 @@ export const App: FC = () => {
   };
 
   const handleCreateTask = () => {
-    setModalState({
+    setModalState(() => ({
+      ...defaultModalState,
       isCreatingTask: sectionType === SectionType.TASKS,
       isCreatingCategory: sectionType === SectionType.CATEGORIES,
-    });
+    }));
   };
 
-  const stopCreating = () => {
-    setModalState({
-      isCreatingTask: false,
-      isCreatingCategory: false,
-    });
+  const closeModal = () => {
+    setModalState(defaultModalState)
+  }
+
+  const handleDelete = (id: number) => {
+    const isCategories = sectionType === SectionType.CATEGORIES;
+    setModalState(() => ({
+      ...defaultModalState,
+      deletingTaskId: isCategories ? undefined : id,
+      deletingCategoryId: isCategories ? id : undefined,
+    }));
   };
+
+  const handleEdit = (id: number) => {
+    const isCategories = sectionType === SectionType.CATEGORIES;
+    setModalState(() => ({
+      ...defaultModalState,
+      editingTaskId: isCategories ? undefined : id,
+      editingCategoryId: isCategories ? id : undefined,
+    }));
+  };
+
 
   return (
     <div className="app">
@@ -45,13 +67,50 @@ export const App: FC = () => {
         handleCreateTask={handleCreateTask}
       />
       <div className="app__listWrapper">
-        <List sectionType={sectionType} />
+        <List
+          sectionType={sectionType}
+          handleDelete={handleDelete}
+          handleEdit={handleEdit}
+        />
       </div>
       {modalState.isCreatingTask && (
-        <ModalTask mode={ModalActionType.CREATE} onClose={stopCreating} />
+        <ModalTask mode={ModalActionType.CREATE} onClose={closeModal} />
       )}
       {modalState.isCreatingCategory && (
-        <ModalCategory mode={ModalActionType.CREATE} onClose={stopCreating} />
+        <ModalCategory mode={ModalActionType.CREATE} onClose={closeModal} />
+      )}
+      {modalState.deletingCategoryId && (
+        <ModalDelete
+          currentState={sectionType}
+          onClose={closeModal}
+          targetId={modalState.deletingCategoryId}
+        />
+      )}
+      {modalState.deletingTaskId && (
+        <ModalDelete
+          currentState={sectionType}
+          onClose={closeModal}
+          targetId={modalState.deletingTaskId}
+        />
+      )}
+      {modalState.editingTaskId && (
+        <ModalTask
+          mode={ModalActionType.EDIT}
+          onClose={closeModal}
+          id={modalState.editingTaskId}
+          // initialName="" // TODO
+          // initialCategoryId={undefined}
+          // initialDescription=""
+        />
+      )}
+      {modalState.editingCategoryId && (
+        <ModalCategory
+          mode={ModalActionType.EDIT}
+          onClose={closeModal}
+          // id={modalState.editingCategoryId} // TODO
+          // initialName=""
+          // initialDescription=""
+        />
       )}
     </div>
   );
