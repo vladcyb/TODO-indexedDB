@@ -14,7 +14,6 @@ const cn = createCn('modalTask');
 
 type PropsType = {
   mode: ModalActionType
-  className?: string
   id?: number
   onClose: () => void
   categories: Category[]
@@ -29,7 +28,6 @@ export const ModalTask: FC<PropsType> = (
     id,
     initialState,
     categories,
-    ...modalProps
   }) => {
 
   /* state */
@@ -83,7 +81,6 @@ export const ModalTask: FC<PropsType> = (
       title={`${createOrEdit[mode][0]} задачи`}
       onClose={onClose}
       reference={ref}
-      {...modalProps}
     >
       <form onSubmit={handleConfirm}>
         <div className={cn('body')}>

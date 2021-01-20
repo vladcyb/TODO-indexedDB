@@ -28,7 +28,6 @@ export const ModalDelete: FC<PropsType> = (
     targetId,
     categories,
     tasks,
-    ...modalProps
   }) => {
 
   /* hooks */
@@ -63,7 +62,6 @@ export const ModalDelete: FC<PropsType> = (
       title={`Удаление ${taskOrCategoryWords[currentState][0]}`}
       onClose={onClose}
       reference={ref}
-      {...modalProps}
     >
       <div className={cn('body')}>
         Вы действительно хотите удалить {taskOrCategoryWords[currentState][1]} {targetName}?

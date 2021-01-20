@@ -13,18 +13,17 @@ type PropsType = {
   id?: number
   mode: ModalActionType
   onClose: () => void
-  className?: string
   initialState?: EditCategoryModalStateType
 }
+
+const cn = createCn('modalCategory');
 
 export const ModalCategory: FC<PropsType> = (
   {
     mode,
-    className,
     onClose,
     id,
     initialState,
-    ...modalProps
   }) => {
 
   /* state */
@@ -36,9 +35,6 @@ export const ModalCategory: FC<PropsType> = (
   const nameField = useInput(initialState?.name || '', true, isSubmitted);
   const ref = useRef<HTMLDivElement>(null);
   useTabulation(ref, 'input, textarea, button', 1, 4);
-
-  /* classes */
-  const cn = createCn('modalCategory', className);
 
   /* methods */
   const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -72,7 +68,6 @@ export const ModalCategory: FC<PropsType> = (
       title={`${createOrEdit[mode][0]} категории`}
       onClose={onClose}
       reference={ref}
-      {...modalProps}
     >
       <form onSubmit={handleConfirm}>
         <Input
