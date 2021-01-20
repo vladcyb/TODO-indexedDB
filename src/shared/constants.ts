@@ -30,3 +30,9 @@ export type ModalStateType = {
   deletingCategoryId: undefined | number
   deletingTaskId: undefined | number
 }
+
+export type EditTaskModalStateType = {
+  categoryId: undefined | number
+  name: string
+  description: string
+}

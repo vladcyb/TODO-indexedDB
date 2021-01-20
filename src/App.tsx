@@ -1,6 +1,9 @@
 import React, { FC, useState } from 'react';
 import { Header, List, ModalCategory, ModalDelete, ModalTask } from './components';
-import { ModalActionType, ModalStateType, SectionType } from './shared/constants';
+import { EditTaskModalStateType, ModalActionType, ModalStateType, SectionType } from './shared/constants';
+import { useSelector } from 'react-redux';
+import { getTasks } from './store/tasksSlice/selectors';
+import { getCategories } from './store/categoriesSlice/selectors';
 import './App.css';
 
 const defaultModalState: ModalStateType = {
@@ -17,6 +20,10 @@ export const App: FC = () => {
   /* state */
   const [sectionType, setSectionType] = useState<SectionType>(SectionType.TASKS);
   const [modalState, setModalState] = useState<ModalStateType>(defaultModalState);
+
+  /* selectors */
+  const tasks = useSelector(getTasks);
+  const categories = useSelector(getCategories);
 
   /* methods */
   const openTasks = () => {
@@ -36,8 +43,8 @@ export const App: FC = () => {
   };
 
   const closeModal = () => {
-    setModalState(defaultModalState)
-  }
+    setModalState(defaultModalState);
+  };
 
   const handleDelete = (id: number) => {
     const isCategories = sectionType === SectionType.CATEGORIES;
@@ -57,6 +64,21 @@ export const App: FC = () => {
     }));
   };
 
+  const getInitialModalTaskState = (id: number): EditTaskModalStateType => {
+
+    const task = tasks.list.find((task) => task.id === id);
+
+    return task ? {
+      categoryId: task.categoryId,
+      name: task.name,
+      description: task.description,
+    } : {
+      categoryId: undefined,
+      name: '',
+      description: '',
+    };
+  };
+
 
   return (
     <div className="app">
@@ -71,10 +93,16 @@ export const App: FC = () => {
           sectionType={sectionType}
           handleDelete={handleDelete}
           handleEdit={handleEdit}
+          tasks={tasks}
+          categories={categories}
         />
       </div>
       {modalState.isCreatingTask && (
-        <ModalTask mode={ModalActionType.CREATE} onClose={closeModal} />
+        <ModalTask
+          mode={ModalActionType.CREATE}
+          onClose={closeModal}
+          categories={categories.list}
+        />
       )}
       {modalState.isCreatingCategory && (
         <ModalCategory mode={ModalActionType.CREATE} onClose={closeModal} />
@@ -98,18 +126,15 @@ export const App: FC = () => {
           mode={ModalActionType.EDIT}
           onClose={closeModal}
           id={modalState.editingTaskId}
-          // initialName="" // TODO
-          // initialCategoryId={undefined}
-          // initialDescription=""
+          categories={categories.list}
+          initialState={getInitialModalTaskState(modalState.editingTaskId)}
         />
       )}
       {modalState.editingCategoryId && (
         <ModalCategory
           mode={ModalActionType.EDIT}
           onClose={closeModal}
-          // id={modalState.editingCategoryId} // TODO
-          // initialName=""
-          // initialDescription=""
+          // TODO
         />
       )}
     </div>

@@ -1,15 +1,14 @@
 import { FC, useEffect } from 'react';
 import { createCn } from 'bem-react-classname';
 import { ListItem } from './ListItem';
-import { useSelector } from 'react-redux';
-import { getTasks } from '../../store/tasksSlice/selectors';
-import { getCategories } from '../../store/categoriesSlice/selectors';
 import { useAppDispatch } from '../../store';
 import { AppThunk } from '../../store/appSlice/thunk';
 import { CategoriesThunk } from '../../store/categoriesSlice/thunk';
 import { TasksThunk } from '../../store/tasksSlice/thunk';
 import { LoadingStatusType, SectionType } from '../../shared/constants';
 import { Preloader } from '../../Preloader';
+import { StateType as Tasks } from '../../store/tasksSlice/types';
+import { StateType as Categories } from '../../store/categoriesSlice/types';
 import './style.css';
 
 
@@ -19,6 +18,8 @@ type PropsType = {
   sectionType: SectionType
   handleDelete: (id: number) => void
   handleEdit: (id: number) => void
+  categories: Categories
+  tasks: Tasks
 }
 
 export const List: FC<PropsType> = (
@@ -26,11 +27,11 @@ export const List: FC<PropsType> = (
     sectionType,
     handleDelete,
     handleEdit,
+    categories,
+    tasks,
   }) => {
 
   /* hooks */
-  const tasks = useSelector(getTasks);
-  const categories = useSelector(getCategories);
   const dispatch = useAppDispatch();
 
   useEffect(() => {

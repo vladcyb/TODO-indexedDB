@@ -1,13 +1,12 @@
 import React, { FC, useRef, useState } from 'react';
 import { createCn } from 'bem-react-classname';
-import { createOrEdit, ModalActionType } from '../../../shared/constants';
+import { createOrEdit, EditTaskModalStateType, ModalActionType } from '../../../shared/constants';
 import { Button, Input, Modal, Select, Textarea } from '../../index';
 import { useAppDispatch } from '../../../store';
-import { useSelector } from 'react-redux';
-import { getCategories } from '../../../store/categoriesSlice/selectors';
 import { useInput } from '../../../shared/hooks/useInput';
 import { TasksThunk } from '../../../store/tasksSlice/thunk';
 import { useTabulation } from '../useTabulation';
+import { Category } from '../../../shared/types';
 import './style.css';
 
 
@@ -17,33 +16,30 @@ type PropsType = {
   mode: ModalActionType
   className?: string
   id?: number
-  initialName?: string
-  initialDescription?: string
-  initialCategoryId?: number
   onClose: () => void
+  categories: Category[]
+  initialState?: EditTaskModalStateType
 }
 
 
 export const ModalTask: FC<PropsType> = (
   {
     mode,
-    initialName = '',
-    initialDescription = '',
-    initialCategoryId,
     onClose,
     id,
+    initialState,
+    categories,
     ...modalProps
   }) => {
 
   /* state */
-  const [categoryId, setCategoryId] = useState<number | undefined>(undefined);
-  const [description, setDescription] = useState('');
+  const [categoryId, setCategoryId] = useState<number | undefined>(initialState?.categoryId);
+  const [description, setDescription] = useState<string>(initialState?.description || '');
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   /* hooks */
   const dispatch = useAppDispatch();
-  const categories = useSelector(getCategories).list;
-  const nameInput = useInput(initialName, true, isSubmitted);
+  const nameInput = useInput(initialState?.name, true, isSubmitted);
   const ref = useRef<HTMLDivElement>(null);
   useTabulation(
     ref,
