@@ -72,8 +72,8 @@ export const List: FC<PropsType> = (
               name={item.name}
               description={item.description}
               categoryName={getCategoryName(item.categoryId)}
-              handleEdit={handleEdit}
-              handleDelete={handleDelete}
+              onEdit={handleEdit}
+              onDelete={handleDelete}
             />
           ))
         ) : (
@@ -91,8 +91,8 @@ export const List: FC<PropsType> = (
               id={item.id!}
               name={item.name}
               description={item.description}
-              handleDelete={handleDelete}
-              handleEdit={handleEdit}
+              onDelete={handleDelete}
+              onEdit={handleEdit}
             />
           ))
         ) : (
