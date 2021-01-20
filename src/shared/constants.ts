@@ -36,3 +36,8 @@ export type EditTaskModalStateType = {
   name: string
   description: string
 }
+
+export type EditCategoryModalStateType = {
+  name: string
+  description: string
+}

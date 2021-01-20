@@ -1,6 +1,12 @@
 import React, { FC, useState } from 'react';
 import { Header, List, ModalCategory, ModalDelete, ModalTask } from './components';
-import { EditTaskModalStateType, ModalActionType, ModalStateType, SectionType } from './shared/constants';
+import {
+  EditCategoryModalStateType,
+  EditTaskModalStateType,
+  ModalActionType,
+  ModalStateType,
+  SectionType,
+} from './shared/constants';
 import { useSelector } from 'react-redux';
 import { getTasks } from './store/tasksSlice/selectors';
 import { getCategories } from './store/categoriesSlice/selectors';
@@ -79,6 +85,14 @@ export const App: FC = () => {
     };
   };
 
+  const getInitialModalCategoryState = (id: number): EditCategoryModalStateType => {
+    const category = categories.list.find((category) => category.id === id)!;
+    return {
+      name: category.name,
+      description: category.description,
+    };
+  };
+
 
   return (
     <div className="app">
@@ -134,7 +148,8 @@ export const App: FC = () => {
         <ModalCategory
           mode={ModalActionType.EDIT}
           onClose={closeModal}
-          // TODO
+          id={modalState.editingCategoryId}
+          initialState={getInitialModalCategoryState(modalState.editingCategoryId)}
         />
       )}
     </div>

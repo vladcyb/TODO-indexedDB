@@ -1,41 +1,39 @@
 import React, { FC, useRef, useState } from 'react';
 import { createCn } from 'bem-react-classname';
 import { Button, Input, Modal, Textarea } from '../../index';
-import { createOrEdit, ModalActionType } from '../../../shared/constants';
+import { createOrEdit, EditCategoryModalStateType, ModalActionType } from '../../../shared/constants';
 import { useAppDispatch } from '../../../store';
 import { useInput } from '../../../shared/hooks/useInput';
 import { CategoriesThunk } from '../../../store/categoriesSlice/thunk';
-import './style.css';
 import { useTabulation } from '../useTabulation';
+import './style.css';
 
 
 type PropsType = {
   id?: number
   mode: ModalActionType
-  initialName?: string
-  initialDescription?: string
   onClose: () => void
   className?: string
+  initialState?: EditCategoryModalStateType
 }
 
 export const ModalCategory: FC<PropsType> = (
   {
     mode,
     className,
-    initialName = '',
-    initialDescription = '',
     onClose,
     id,
+    initialState,
     ...modalProps
   }) => {
 
   /* state */
-  const [description, setDescription] = useState(initialDescription);
+  const [description, setDescription] = useState<string>(initialState?.description || '');
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   /* hooks */
   const dispatch = useAppDispatch();
-  const nameField = useInput(initialName, true, isSubmitted);
+  const nameField = useInput(initialState?.name || '', true, isSubmitted);
   const ref = useRef<HTMLDivElement>(null);
   useTabulation(ref, 'input, textarea, button', 1, 4);
 
