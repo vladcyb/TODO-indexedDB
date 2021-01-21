@@ -10,7 +10,7 @@ export const createOrEdit: { [key in ModalActionType]: string[] } = {
 export enum SectionType { TASKS, CATEGORIES }
 
 export const APIErrors = {
-  couldNotLoadIndexedDB: 'Не удалось загрузить хранилище данные из IndexedDB',
+  couldNotLoadIndexedDB: 'Не удалось загрузить данные из IndexedDB',
 };
 
 export const taskOrCategoryWords: { [key in SectionType]: string[] } = {
