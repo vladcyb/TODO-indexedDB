@@ -1,14 +1,15 @@
-import React, { FC, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { createCn } from 'bem-react-classname';
 import { createOrEdit, EditTaskModalStateType, ModalActionType } from '../../../shared/constants';
-import { Button, Input, Modal, Select, Textarea } from '../../index';
+import {
+  Button, Input, Modal, Select, Textarea,
+} from '../../index';
 import { useAppDispatch } from '../../../store';
 import { useInput } from '../../../shared/hooks/useInput';
 import { TasksThunk } from '../../../store/tasksSlice/thunk';
 import { useTabulation } from '../useTabulation';
 import { Category } from '../../../shared/types';
 import './style.css';
-
 
 const cn = createCn('modalTask');
 
@@ -18,18 +19,15 @@ type PropsType = {
   onClose: () => void
   categories: Category[]
   initialState?: EditTaskModalStateType
-}
+};
 
-
-export const ModalTask: FC<PropsType> = (
-  {
-    mode,
-    onClose,
-    id,
-    initialState,
-    categories,
-  }) => {
-
+export const ModalTask = ({
+  mode,
+  onClose,
+  id,
+  initialState,
+  categories,
+}: PropsType) => {
   /* state */
   const [categoryId, setCategoryId] = useState<number | undefined>(initialState?.categoryId);
   const [description, setDescription] = useState<string>(initialState?.description || '');

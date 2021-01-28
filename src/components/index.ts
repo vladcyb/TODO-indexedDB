@@ -3,8 +3,5 @@ export * from './Button';
 export * from './Header';
 export * from './Input';
 export * from './Modal';
-export * from './Modal/ModalCategory';
-export * from './Modal/ModalDelete';
-export * from './Modal/ModalTask';
 export * from './Select';
 export * from './Textarea';

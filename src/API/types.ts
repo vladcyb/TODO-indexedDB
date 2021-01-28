@@ -1,20 +1,15 @@
 import { Category, Task } from '../shared/types';
 
-export type LoadDataStateType = {
-  tasksLoaded: boolean
-  categoriesLoaded: boolean
-}
-
 export type SimpleResponseType = {
   ok: boolean
-}
+};
 
 export type InitializeResponseType = {
   ok: true
 } | {
   ok: false
   error: string
-}
+};
 
 export type ResponseWithId = {
   ok: true
@@ -22,7 +17,7 @@ export type ResponseWithId = {
 } | {
   ok: false
   error: string
-}
+};
 
 export type UpdateCategoriesResponseType = {
   ok: true
@@ -30,7 +25,7 @@ export type UpdateCategoriesResponseType = {
 } | {
   ok: false
   error: Event
-}
+};
 
 export type UpdateTasksResponseType = {
   ok: true
@@ -38,4 +33,4 @@ export type UpdateTasksResponseType = {
 } | {
   ok: false
   error: Event
-}
+};

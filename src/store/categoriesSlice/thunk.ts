@@ -1,8 +1,7 @@
+import { createAsyncThunk } from '@reduxjs/toolkit';
 import { Category } from '../../shared/types';
 import { API } from '../../API';
 import { actions } from '.';
-import { createAsyncThunk } from '@reduxjs/toolkit';
-
 
 export const CategoriesThunk = {
   update: createAsyncThunk(

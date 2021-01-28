@@ -4,4 +4,4 @@ import { LoadingStatusType } from '../../shared/constants';
 export type StateType = {
   list: Category[]
   status: LoadingStatusType
-}
+};

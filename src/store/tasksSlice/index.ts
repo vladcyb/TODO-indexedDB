@@ -4,7 +4,6 @@ import { TasksThunk } from './thunk';
 import { StateType } from './types';
 import { LoadingStatusType } from '../../shared/constants';
 
-
 const initialState: StateType = {
   status: LoadingStatusType.LOADING,
   list: [],
@@ -62,4 +61,4 @@ export const tasksSlice = createSlice({
   },
 });
 
-export const actions = tasksSlice.actions;
+export const { actions } = tasksSlice;

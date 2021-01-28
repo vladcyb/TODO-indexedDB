@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { createCn } from 'bem-react-classname';
 import { ListItem } from './ListItem';
 import { useAppDispatch } from '../../store';
@@ -11,7 +11,6 @@ import { StateType as Tasks } from '../../store/tasksSlice/types';
 import { StateType as Categories } from '../../store/categoriesSlice/types';
 import './style.css';
 
-
 const cn = createCn('list');
 
 type PropsType = {
@@ -20,17 +19,15 @@ type PropsType = {
   onItemEdit: (id: number) => void
   categories: Categories
   tasks: Tasks
-}
+};
 
-export const List: FC<PropsType> = (
-  {
-    sectionType,
-    onItemDelete,
-    onItemEdit,
-    categories,
-    tasks,
-  }) => {
-
+export const List = ({
+  sectionType,
+  onItemDelete,
+  onItemEdit,
+  categories,
+  tasks,
+}: PropsType) => {
   /* hooks */
   const dispatch = useAppDispatch();
 
@@ -51,7 +48,8 @@ export const List: FC<PropsType> = (
 
   /* vars */
   const isTasks = sectionType === SectionType.TASKS;
-  const isLoading = tasks.status === LoadingStatusType.LOADING || categories.status === LoadingStatusType.LOADING;
+  const isLoading = tasks.status === LoadingStatusType.LOADING
+    || categories.status === LoadingStatusType.LOADING;
 
   /* methods */
   const getCategoryName = (id: number | undefined) => {

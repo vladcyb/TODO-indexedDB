@@ -1,22 +1,19 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { createCn } from 'bem-react-classname';
 import './style.css';
 
-
 type PropsType = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: 'primary' | 'secondary'
-}
+};
 
-export const Button: FC<PropsType> = (
-  {
-    onClick,
-    type = 'button',
-    children,
-    variant = 'primary',
-    className,
-    ...buttonProps
-  }) => {
-
+export const Button = ({
+  onClick,
+  type = 'button',
+  children,
+  variant = 'primary',
+  className,
+  ...buttonProps
+}: PropsType) => {
   /* classes */
   const cn = createCn('button', className);
 

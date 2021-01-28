@@ -29,15 +29,15 @@ export type ModalStateType = {
   editingTaskId: undefined | number
   deletingCategoryId: undefined | number
   deletingTaskId: undefined | number
-}
+};
 
 export type EditTaskModalStateType = {
   categoryId: undefined | number
   name: string
   description: string
-}
+};
 
 export type EditCategoryModalStateType = {
   name: string
   description: string
-}
+};

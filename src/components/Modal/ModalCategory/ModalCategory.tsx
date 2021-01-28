@@ -1,6 +1,8 @@
-import React, { FC, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { createCn } from 'bem-react-classname';
-import { Button, Input, Modal, Textarea } from '../../index';
+import {
+  Button, Input, Modal, Textarea,
+} from '../../index';
 import { createOrEdit, EditCategoryModalStateType, ModalActionType } from '../../../shared/constants';
 import { useAppDispatch } from '../../../store';
 import { useInput } from '../../../shared/hooks/useInput';
@@ -8,24 +10,21 @@ import { CategoriesThunk } from '../../../store/categoriesSlice/thunk';
 import { useTabulation } from '../useTabulation';
 import './style.css';
 
-
 type PropsType = {
   id?: number
   mode: ModalActionType
   onClose: () => void
   initialState?: EditCategoryModalStateType
-}
+};
 
 const cn = createCn('modalCategory');
 
-export const ModalCategory: FC<PropsType> = (
-  {
-    mode,
-    onClose,
-    id,
-    initialState,
-  }) => {
-
+export const ModalCategory = ({
+  mode,
+  onClose,
+  id,
+  initialState,
+}: PropsType) => {
   /* state */
   const [description, setDescription] = useState<string>(initialState?.description || '');
   const [isSubmitted, setIsSubmitted] = useState(false);

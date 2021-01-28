@@ -1,8 +1,7 @@
+import { createAsyncThunk } from '@reduxjs/toolkit';
 import { Task } from '../../shared/types';
 import { actions } from './index';
 import { API } from '../../API';
-import { createAsyncThunk } from '@reduxjs/toolkit';
-
 
 export const TasksThunk = {
   update: createAsyncThunk(

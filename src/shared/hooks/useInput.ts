@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { requiredFieldError } from '../constants';
 
-type ChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => void
+type ChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => void;
 
 type ReturnedType = {
   value: string
@@ -9,10 +9,9 @@ type ReturnedType = {
   required: boolean
   error: string
   onBlur: () => void
-}
+};
 
 export const useInput = (initialValue = '', required?: boolean, submitted?: boolean): ReturnedType => {
-
   /* state */
   const [value, setValue] = useState(initialValue);
   const [error, setError] = useState(required && !initialValue ? requiredFieldError : '');
