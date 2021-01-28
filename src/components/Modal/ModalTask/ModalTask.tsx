@@ -1,9 +1,10 @@
 import React, { useRef, useState } from 'react';
 import { createCn } from 'bem-react-classname';
 import { createOrEdit, EditTaskModalStateType, ModalActionType } from '../../../shared/constants';
-import {
-  Button, Input, Modal, Select, Textarea,
-} from '../../index';
+import { Button } from '../../Button';
+import { Input } from '../../Input';
+import { Modal } from '../Modal';
+import { Textarea } from '../../Textarea';
 import { useAppDispatch } from '../../../store';
 import { useInput } from '../../../shared/hooks/useInput';
 import { TasksThunk } from '../../../store/tasksSlice/thunk';

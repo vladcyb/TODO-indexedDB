@@ -1,8 +1,9 @@
 import React, { useRef, useState } from 'react';
 import { createCn } from 'bem-react-classname';
-import {
-  Button, Input, Modal, Textarea,
-} from '../../index';
+import { Button } from '../../Button';
+import { Input } from '../../Input';
+import { Modal } from '../Modal';
+import { Textarea } from '../../Textarea';
 import { createOrEdit, EditCategoryModalStateType, ModalActionType } from '../../../shared/constants';
 import { useAppDispatch } from '../../../store';
 import { useInput } from '../../../shared/hooks/useInput';

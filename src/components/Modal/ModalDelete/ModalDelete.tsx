@@ -1,6 +1,7 @@
 import React, { useMemo, useRef } from 'react';
 import { createCn } from 'bem-react-classname';
-import { Button, Modal } from '../../index';
+import { Button } from '../../Button';
+import { Modal } from '../Modal';
 import { SectionType, taskOrCategoryWords } from '../../../shared/constants';
 import { useTabulation } from '../useTabulation';
 import { useAppDispatch } from '../../../store';
