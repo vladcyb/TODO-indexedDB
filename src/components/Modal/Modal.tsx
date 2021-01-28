@@ -41,7 +41,7 @@ export const Modal: FC<PropsType> = (
       window.removeEventListener('keydown', onKeyDown);
       document.body.classList.remove('noScroll');
     };
-    // eslint-disable-next-line
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

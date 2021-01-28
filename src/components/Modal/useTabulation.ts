@@ -28,7 +28,7 @@ export const useTabulation = (
   useEffect(() => {
     window.addEventListener('keydown', tabulate);
     return () => window.removeEventListener('keydown', tabulate);
-    // eslint-disable-next-line
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [focusedButtonIndex]);
 
   useEffect(() => {

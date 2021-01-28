@@ -21,10 +21,10 @@ export const ListItem = ({
   onDelete,
   onEdit,
 }: PropsType) => {
-  // eslint-disable-next-line
-  const handleEdit = useCallback(() => onEdit(id), [])
-  // eslint-disable-next-line
-  const handleDelete = useCallback(() => onDelete(id), [])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const handleEdit = useCallback(() => onEdit(id), []);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const handleDelete = useCallback(() => onDelete(id), []);
 
   return (
     <div className={cn()}>

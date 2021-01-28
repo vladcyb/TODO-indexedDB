@@ -31,9 +31,9 @@ export const ModalDelete = ({
   const targetName = useMemo<string | undefined>(
     () => (currentState === SectionType.CATEGORIES
       ? categories.find((item) => item.id === targetId)?.name
-      : tasks.find((item) => item.id === targetId)!.name)
-    // eslint-disable-next-line
-    , [],
+      : tasks.find((item) => item.id === targetId)!.name),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
   );
   const ref = useRef<HTMLDivElement>(null);
   useTabulation(ref, 'button', 1, 2);
