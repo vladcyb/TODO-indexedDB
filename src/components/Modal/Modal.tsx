@@ -48,7 +48,12 @@ export const Modal: FC<PropsType> = (
     ReactDOM.createPortal(
       <div className={cn()} ref={reference}>
         <div className={cn('content')}>
-          <button className={cn('close')} onClick={onClose} type="button" />
+          <button
+            className={cn('close')}
+            onClick={onClose}
+            type="button"
+            aria-label="Закрыть"
+          />
           <div className={cn('title')}>
             {title}
           </div>

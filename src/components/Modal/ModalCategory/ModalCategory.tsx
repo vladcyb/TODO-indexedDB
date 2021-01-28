@@ -75,6 +75,7 @@ export const ModalCategory = ({
           placeholder="Введите имя категории"
           autoFocus
           maxLength={255}
+          name="name"
           {...nameField}
         />
         <Textarea

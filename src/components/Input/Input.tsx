@@ -5,6 +5,7 @@ import './style.css';
 type PropsType = React.InputHTMLAttributes<HTMLInputElement> & {
   label?: string
   error?: string
+  name: string
 };
 
 export const Input = ({
@@ -15,6 +16,7 @@ export const Input = ({
   className,
   onFocus,
   onBlur,
+  name,
   ...inputProps
 }: PropsType) => {
   /* classes */
@@ -40,7 +42,7 @@ export const Input = ({
 
   return (
     <div className={cn({ error: !!error, focused })}>
-      <label className={cn('label')}>
+      <label className={cn('label')} htmlFor={name}>
         {label}
         {required && <span className={cn('ast')}>*</span>}
       </label>
@@ -50,6 +52,7 @@ export const Input = ({
           type={type}
           onFocus={handleFocus}
           onBlur={handleBlur}
+          name={name}
           {...inputProps}
         />
         <fieldset className={cn('fieldset')}>
