@@ -12,6 +12,7 @@
     "import/prefer-default-export": "off",
     "react/require-default-props": "off",
     "no-param-reassign": ["off", { "props": false }],
-    "react/jsx-props-no-spreading": "off"
+    "react/jsx-props-no-spreading": "off",
+    "linebreak-style": "off"
   }
 }
