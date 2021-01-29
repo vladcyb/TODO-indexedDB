@@ -11,7 +11,11 @@ type ReturnedType = {
   onBlur: () => void
 };
 
-export const useInput = (initialValue = '', required?: boolean, submitted?: boolean): ReturnedType => {
+export const useInput = (
+  initialValue = '',
+  required?: boolean,
+  submitted?: boolean,
+): ReturnedType => {
   /* state */
   const [value, setValue] = useState(initialValue);
   const [error, setError] = useState(required && !initialValue ? requiredFieldError : '');

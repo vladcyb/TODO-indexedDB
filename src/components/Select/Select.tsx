@@ -46,6 +46,7 @@ export const Select = ({
       role="button"
       onKeyDown={handleKeyDown}
     >
+      {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
       <label className={cn('label')}>
         {label}
       </label>
@@ -64,25 +65,36 @@ export const Select = ({
           </div>
         )}
         <div className={cn('img')}>
-          <svg width="16" height="8" viewBox="0 0 16 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg
+            width="16"
+            height="8"
+            viewBox="0 0 16 8"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
             <path d="M0 0L8 8L16 0H0Z" fill="currentColor" />
           </svg>
         </div>
       </div>
       {isOpened && (
         <div className={cn('list')}>
+          {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
           <div
             className={cn('item', { selected: !selectedId })}
             onClick={() => selectId(undefined)}
+            role="button"
+            tabIndex={0}
           >
             Не выбрано
           </div>
           {list.map((item) => (
+            // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/interactive-supports-focus
             <div
               className={cn('item', { selected: item.id === selectedId })}
               onClick={() => selectId(item.id)}
               title={item.name}
               key={item.id}
+              role="button"
             >
               {item.name}
             </div>

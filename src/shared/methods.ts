@@ -1,4 +1,7 @@
-export const createTransaction = (storeNames: 'Item' | 'Category', mode: 'readwrite' | 'readonly') => window.db.transaction(storeNames, mode).objectStore(storeNames);
+export const createTransaction = (
+  storeNames: 'Item' | 'Category',
+  mode: 'readwrite' | 'readonly',
+) => window.db.transaction(storeNames, mode).objectStore(storeNames);
 
 export const listIndexMethods = {
   getNext: (currIndex: number, lastIndex: number) => {

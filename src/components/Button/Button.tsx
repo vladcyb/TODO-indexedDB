@@ -20,7 +20,7 @@ export const Button = ({
   return (
     <button
       className={cn({ [variant]: true })}
-      // eslint-disable-next-line
+      // eslint-disable-next-line react/button-has-type
       type={type}
       onClick={onClick}
       {...buttonProps}

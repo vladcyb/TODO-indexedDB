@@ -5,6 +5,7 @@ import { Button } from '../../Button';
 import { Input } from '../../Input';
 import { Modal } from '../Modal';
 import { Textarea } from '../../Textarea';
+import { Select } from '../../Select';
 import { useAppDispatch } from '../../../store';
 import { useInput } from '../../../shared/hooks/useInput';
 import { TasksThunk } from '../../../store/tasksSlice/thunk';
@@ -40,6 +41,7 @@ export const ModalTask = ({
   const ref = useRef<HTMLDivElement>(null);
   useTabulation(
     ref,
+    // eslint-disable-next-line max-len
     '.input__input, .select, textarea, .modalTask__createControl, .modalTask__closeControl, .modal__close',
     1,
     5,
@@ -88,6 +90,7 @@ export const ModalTask = ({
               className={cn('name')}
               label="Имя"
               placeholder="Введите имя задачи"
+              name="name"
               autoFocus
               maxLength={255}
               {...nameInput}

@@ -39,7 +39,7 @@ export const Textarea = ({
 
   return (
     <div className={cn({ error: !!error, focused })}>
-      <label className={cn('label')}>
+      <label className={cn('label')} htmlFor={textareaProps.name}>
         {label}
         {required ? <span className={cn('ast')}>*</span> : null}
       </label>
