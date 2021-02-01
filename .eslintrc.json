@@ -28,6 +28,8 @@
         "code": 100,
         "comments": 200
       }
-    ]
+    ],
+    "no-multiple-empty-lines": "warn",
+    "@typescript-eslint/semi": ["warn"]
   }
 }
