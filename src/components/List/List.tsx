@@ -6,7 +6,7 @@ import { AppThunk } from '../../store/appSlice/thunk';
 import { CategoriesThunk } from '../../store/categoriesSlice/thunk';
 import { TasksThunk } from '../../store/tasksSlice/thunk';
 import { LoadingStatusType, SectionType } from '../../shared/constants';
-import { Preloader } from '../../Preloader';
+// import { Preloader } from '../../Preloader';
 import { StateType as Tasks } from '../../store/tasksSlice/types';
 import { StateType as Categories } from '../../store/categoriesSlice/types';
 import './style.css';
@@ -60,13 +60,6 @@ export const List = ({
   };
 
   const getList = () => {
-    if (isLoading) {
-      return (
-        <div className={cn('preloader')}>
-          <Preloader />
-        </div>
-      );
-    }
     if (isTasks) {
       if (!isLoading && !tasks.list.length) {
         return (

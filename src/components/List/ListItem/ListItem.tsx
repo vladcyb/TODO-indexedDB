@@ -13,7 +13,7 @@ type PropsType = {
   onEdit: (id: number) => void
 };
 
-export const ListItem = ({
+export const ListItem = React.memo(({
   id,
   name,
   description,
@@ -25,6 +25,8 @@ export const ListItem = ({
   const handleEdit = useCallback(() => onEdit(id), []);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleDelete = useCallback(() => onDelete(id), []);
+
+  console.log(name, 'render');
 
   return (
     <div className={cn()}>
@@ -61,4 +63,8 @@ export const ListItem = ({
       </div>
     </div>
   );
-};
+}, (prevProps, nextProps) => (
+  prevProps.name === nextProps.name
+  && prevProps.description === nextProps.description
+  && prevProps.categoryName === nextProps.categoryName
+));
