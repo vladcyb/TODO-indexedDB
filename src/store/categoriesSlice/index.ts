@@ -13,22 +13,22 @@ export const categoriesSlice = createSlice({
   name: 'categories',
   initialState,
   reducers: {
-    addCategory: (state, { payload }: PayloadAction<Required<Category>>) => {
+    add: (state, { payload }: PayloadAction<Required<Category>>) => {
       state.list.push(payload);
     },
-    deleteCategory: (state, { payload }: PayloadAction<number>) => {
+    delete: (state, { payload }: PayloadAction<number>) => {
       const index = state.list.findIndex((item) => item.id === payload);
       if (index >= 0) {
         state.list.splice(index, 1);
       }
     },
-    editCategory: (state, { payload }: PayloadAction<Required<Category>>) => {
+    edit: (state, { payload }: PayloadAction<Required<Category>>) => {
       const index = state.list.findIndex((item) => item.id === payload.id);
       if (index >= 0) {
         state.list[index] = payload;
       }
     },
-    setCategories: (state, { payload }: PayloadAction<Category[]>) => {
+    set: (state, { payload }: PayloadAction<Category[]>) => {
       state.list = payload;
     },
   },
@@ -60,5 +60,3 @@ export const categoriesSlice = createSlice({
       });
   },
 });
-
-export const { actions } = categoriesSlice;

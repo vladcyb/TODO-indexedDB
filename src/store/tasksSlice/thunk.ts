@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { Task } from '../../shared/types';
-import { actions } from './index';
+import { actions } from './actions';
 import { API } from '../../API';
 
 export const TasksThunk = {
@@ -9,7 +9,7 @@ export const TasksThunk = {
     async (arg, { dispatch }) => {
       const result = await API.Tasks.update();
       if (result.ok) {
-        dispatch(actions.setTasks(result.data));
+        dispatch(actions.set(result.data));
       }
     },
   ),
@@ -39,7 +39,7 @@ export const TasksThunk = {
     async (id: number, { dispatch }) => {
       const request = await API.Tasks.delete(id);
       if (request.ok) {
-        dispatch(actions.deleteTask(id));
+        dispatch(actions.delete(id));
       }
     },
   ),

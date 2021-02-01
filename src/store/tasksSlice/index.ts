@@ -16,7 +16,7 @@ export const tasksSlice = createSlice({
     add: (state, { payload }: PayloadAction<Required<Task>>) => {
       state.list.push(payload);
     },
-    deleteTask: (state, { payload }: PayloadAction<number>) => {
+    delete: (state, { payload }: PayloadAction<number>) => {
       const index = state.list.findIndex((item) => item.id === payload);
       if (index >= 0) {
         state.list.splice(index, 1);
@@ -28,7 +28,7 @@ export const tasksSlice = createSlice({
         state.list[index] = payload;
       }
     },
-    setTasks: (state, { payload }: PayloadAction<Task[]>) => {
+    set: (state, { payload }: PayloadAction<Task[]>) => {
       state.list = payload;
     },
   },
