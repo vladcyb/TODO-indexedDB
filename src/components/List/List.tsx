@@ -59,53 +59,60 @@ export const List = ({
     return categories.list.find((category) => category.id === id)?.name;
   };
 
-  return (
-    <div className={cn()}>
-      {isTasks ? (
-        tasks.list.length ? (
-          tasks.list.map((item) => (
-            <ListItem
-              key={item.id}
-              id={item.id!}
-              name={item.name}
-              description={item.description}
-              categoryName={getCategoryName(item.categoryId)}
-              onEdit={onItemEdit}
-              onDelete={onItemDelete}
-            />
-          ))
-        ) : (
-          !isLoading && (
-            <div className={cn('empty')}>
-              (Пусто)
-            </div>
-          )
-        )
-      ) : (
-        categories.list.length ? (
-          categories.list.map((item) => (
-            <ListItem
-              key={item.id}
-              id={item.id!}
-              name={item.name}
-              description={item.description}
-              onDelete={onItemDelete}
-              onEdit={onItemEdit}
-            />
-          ))
-        ) : (
-          !isLoading && (
-            <div className={cn('empty')}>
-              (Пусто)
-            </div>
-          )
-        )
-      )}
-      {isLoading && (
+  const getList = () => {
+    if (isLoading) {
+      return (
         <div className={cn('preloader')}>
           <Preloader />
         </div>
-      )}
+      );
+    }
+    if (isTasks) {
+      if (!isLoading && !tasks.list.length) {
+        return (
+          <div className={cn('empty')}>
+            (Пусто)
+          </div>
+        );
+      }
+      return (
+        tasks.list.map((item) => (
+          <ListItem
+            key={item.id}
+            id={item.id!}
+            name={item.name}
+            description={item.description}
+            categoryName={getCategoryName(item.categoryId)}
+            onEdit={onItemEdit}
+            onDelete={onItemDelete}
+          />
+        ))
+      );
+    }
+    if (!isLoading && !categories.list.length) {
+      return (
+        <div className={cn('empty')}>
+          (Пусто)
+        </div>
+      );
+    }
+    return (
+      categories.list.map((item) => (
+        <ListItem
+          key={item.id}
+          id={item.id!}
+          name={item.name}
+          description={item.description}
+          onDelete={onItemDelete}
+          onEdit={onItemEdit}
+        />
+      ))
+    );
+  };
+
+  return (
+    <div className={cn()}>
+      {getList()}
     </div>
   );
 };

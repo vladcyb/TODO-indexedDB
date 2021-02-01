@@ -18,7 +18,7 @@ export const taskOrCategoryWords: { [key in SectionType]: string[] } = {
   [SectionType.CATEGORIES]: ['категории', 'категорию'],
 };
 
-export const timeout = 0;
+export const timeout = 200;
 
 export enum LoadingStatusType { IDLE, LOADING }
 
