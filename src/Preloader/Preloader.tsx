@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import './style.css';
 
 const getNext = (x: number) => {
@@ -9,24 +9,20 @@ const getNext = (x: number) => {
 };
 
 export const Preloader: FC = () => {
-
   /* state */
   const [spriteNumber, setSpriteNumber] = useState(1);
 
   /* hooks */
   useEffect(() => {
     const interval = window.setInterval(() => {
-      setSpriteNumber(value => {
-        return getNext(value);
-      });
+      setSpriteNumber((value) => getNext(value));
     }, 500);
     return () => {
       window.clearInterval(interval);
     };
   }, []);
 
-
   return (
-    <div className={`Preloader Preloader_${spriteNumber}`}/>
+    <div className={`Preloader Preloader_${spriteNumber}`} />
   );
 };

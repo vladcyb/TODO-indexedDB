@@ -1,15 +1,15 @@
+import React, { FC, RefObject, useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import { FC, RefObject, useEffect } from 'react';
+
 import { createCn } from 'bem-react-classname';
 import './style.css';
-
 
 type PropsType = {
   className?: string
   title: string
   onClose: () => void
   reference?: RefObject<HTMLDivElement>
-}
+};
 
 export const Modal: FC<PropsType> = (
   {
@@ -18,8 +18,8 @@ export const Modal: FC<PropsType> = (
     children,
     className,
     reference,
-  }) => {
-
+  },
+) => {
   if (document.body.scrollHeight > window.innerHeight) {
     document.body.classList.add('noScroll');
   }
@@ -41,14 +41,19 @@ export const Modal: FC<PropsType> = (
       window.removeEventListener('keydown', onKeyDown);
       document.body.classList.remove('noScroll');
     };
-    // eslint-disable-next-line
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     ReactDOM.createPortal(
       <div className={cn()} ref={reference}>
         <div className={cn('content')}>
-          <button className={cn('close')} onClick={onClose} />
+          <button
+            className={cn('close')}
+            onClick={onClose}
+            type="button"
+            aria-label="Закрыть"
+          />
           <div className={cn('title')}>
             {title}
           </div>

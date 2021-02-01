@@ -1,0 +1,33 @@
+{
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "project": "./tsconfig.json"
+  },
+  "extends": [
+    "airbnb-typescript",
+    "airbnb/hooks"
+  ],
+  "rules": {
+    "import/prefer-default-export": "off",
+    "react/require-default-props": "off",
+    "no-param-reassign": [
+      "off",
+      {
+        "props": false
+      }
+    ],
+    "react/jsx-props-no-spreading": "off",
+    "linebreak-style": "off",
+    "max-len": [
+      "error",
+      {
+        "code": 100,
+        "comments": 200
+      }
+    ]
+  }
+}

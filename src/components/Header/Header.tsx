@@ -1,7 +1,6 @@
-import { FC } from 'react';
+import React from 'react';
 import { createCn } from 'bem-react-classname';
 import './style.css';
-
 
 const cn = createCn('header');
 
@@ -10,15 +9,14 @@ type PropsType = {
   openTasks: () => void
   openCategories: () => void
   handleCreateTask: () => void
-}
+};
 
-export const Header: FC<PropsType> = (
-  {
-    isTasks,
-    openTasks,
-    openCategories,
-    handleCreateTask,
-  }) => (
+export const Header = ({
+  isTasks,
+  openTasks,
+  openCategories,
+  handleCreateTask,
+}: PropsType) => (
   <div className={cn()}>
     <div className={cn('left')}>
       <span className={cn('title')}>ToDo List</span>
@@ -28,6 +26,7 @@ export const Header: FC<PropsType> = (
             <button
               className={cn('navBtn', { opened: isTasks })}
               onClick={openTasks}
+              type="button"
             >
               Задачи
             </button>
@@ -36,6 +35,7 @@ export const Header: FC<PropsType> = (
             <button
               className={cn('navBtn', { opened: !isTasks })}
               onClick={openCategories}
+              type="button"
             >
               Категории
             </button>
@@ -46,8 +46,11 @@ export const Header: FC<PropsType> = (
     <button
       className={cn('addTask')}
       onClick={handleCreateTask}
+      type="button"
     >
-      Добавить {`${isTasks ? 'задачу' : 'категорию'}`}
+      Добавить
+      {' '}
+      {`${isTasks ? 'задачу' : 'категорию'}`}
     </button>
   </div>
 );

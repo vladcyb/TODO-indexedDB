@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { createCn } from 'bem-react-classname';
 import { ListItem } from './ListItem';
 import { useAppDispatch } from '../../store';
@@ -11,7 +11,6 @@ import { StateType as Tasks } from '../../store/tasksSlice/types';
 import { StateType as Categories } from '../../store/categoriesSlice/types';
 import './style.css';
 
-
 const cn = createCn('list');
 
 type PropsType = {
@@ -20,17 +19,15 @@ type PropsType = {
   onItemEdit: (id: number) => void
   categories: Categories
   tasks: Tasks
-}
+};
 
-export const List: FC<PropsType> = (
-  {
-    sectionType,
-    onItemDelete,
-    onItemEdit,
-    categories,
-    tasks,
-  }) => {
-
+export const List = ({
+  sectionType,
+  onItemDelete,
+  onItemEdit,
+  categories,
+  tasks,
+}: PropsType) => {
   /* hooks */
   const dispatch = useAppDispatch();
 
@@ -46,12 +43,13 @@ export const List: FC<PropsType> = (
     }
 
     load();
-    // eslint-disable-next-line
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   /* vars */
   const isTasks = sectionType === SectionType.TASKS;
-  const isLoading = tasks.status === LoadingStatusType.LOADING || categories.status === LoadingStatusType.LOADING;
+  const isLoading = tasks.status === LoadingStatusType.LOADING
+    || categories.status === LoadingStatusType.LOADING;
 
   /* methods */
   const getCategoryName = (id: number | undefined) => {
@@ -61,53 +59,60 @@ export const List: FC<PropsType> = (
     return categories.list.find((category) => category.id === id)?.name;
   };
 
-  return (
-    <div className={cn()}>
-      {isTasks ? (
-        tasks.list.length ? (
-          tasks.list.map((item) => (
-            <ListItem
-              key={item.id}
-              id={item.id!}
-              name={item.name}
-              description={item.description}
-              categoryName={getCategoryName(item.categoryId)}
-              onEdit={onItemEdit}
-              onDelete={onItemDelete}
-            />
-          ))
-        ) : (
-          !isLoading && (
-            <div className={cn('empty')}>
-              (Пусто)
-            </div>
-          )
-        )
-      ) : (
-        categories.list.length ? (
-          categories.list.map((item) => (
-            <ListItem
-              key={item.id}
-              id={item.id!}
-              name={item.name}
-              description={item.description}
-              onDelete={onItemDelete}
-              onEdit={onItemEdit}
-            />
-          ))
-        ) : (
-          !isLoading && (
-            <div className={cn('empty')}>
-              (Пусто)
-            </div>
-          )
-        )
-      )}
-      {isLoading && (
+  const getList = () => {
+    if (isLoading) {
+      return (
         <div className={cn('preloader')}>
           <Preloader />
         </div>
-      )}
+      );
+    }
+    if (isTasks) {
+      if (!isLoading && !tasks.list.length) {
+        return (
+          <div className={cn('empty')}>
+            (Пусто)
+          </div>
+        );
+      }
+      return (
+        tasks.list.map((item) => (
+          <ListItem
+            key={item.id}
+            id={item.id!}
+            name={item.name}
+            description={item.description}
+            categoryName={getCategoryName(item.categoryId)}
+            onEdit={onItemEdit}
+            onDelete={onItemDelete}
+          />
+        ))
+      );
+    }
+    if (!isLoading && !categories.list.length) {
+      return (
+        <div className={cn('empty')}>
+          (Пусто)
+        </div>
+      );
+    }
+    return (
+      categories.list.map((item) => (
+        <ListItem
+          key={item.id}
+          id={item.id!}
+          name={item.name}
+          description={item.description}
+          onDelete={onItemDelete}
+          onEdit={onItemEdit}
+        />
+      ))
+    );
+  };
+
+  return (
+    <div className={cn()}>
+      {getList()}
     </div>
   );
 };

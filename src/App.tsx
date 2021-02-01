@@ -1,5 +1,8 @@
 import React, { FC, useState } from 'react';
-import { Header, List, ModalCategory, ModalDelete, ModalTask } from './components';
+import { useSelector } from 'react-redux';
+import {
+  Header, List, ModalCategory, ModalDelete, ModalTask,
+} from './components';
 import {
   EditCategoryModalStateType,
   EditTaskModalStateType,
@@ -7,7 +10,6 @@ import {
   ModalStateType,
   SectionType,
 } from './shared/constants';
-import { useSelector } from 'react-redux';
 import { getTasks } from './store/tasksSlice/selectors';
 import { getCategories } from './store/categoriesSlice/selectors';
 import './App.css';
@@ -22,7 +24,6 @@ const defaultModalState: ModalStateType = {
 };
 
 export const App: FC = () => {
-
   /* state */
   const [sectionType, setSectionType] = useState<SectionType>(SectionType.TASKS);
   const [modalState, setModalState] = useState<ModalStateType>(defaultModalState);
@@ -71,8 +72,7 @@ export const App: FC = () => {
   };
 
   const getInitialModalTaskState = (id: number): EditTaskModalStateType => {
-
-    const task = tasks.list.find((task) => task.id === id);
+    const task = tasks.list.find((item) => item.id === id);
 
     return task ? {
       categoryId: task.categoryId,
@@ -86,13 +86,12 @@ export const App: FC = () => {
   };
 
   const getInitialModalCategoryState = (id: number): EditCategoryModalStateType => {
-    const category = categories.list.find((category) => category.id === id)!;
+    const category = categories.list.find((item) => item.id === id)!;
     return {
       name: category.name,
       description: category.description,
     };
   };
-
 
   return (
     <div className="app">

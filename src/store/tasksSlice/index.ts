@@ -4,7 +4,6 @@ import { TasksThunk } from './thunk';
 import { StateType } from './types';
 import { LoadingStatusType } from '../../shared/constants';
 
-
 const initialState: StateType = {
   status: LoadingStatusType.LOADING,
   list: [],
@@ -17,7 +16,7 @@ export const tasksSlice = createSlice({
     add: (state, { payload }: PayloadAction<Required<Task>>) => {
       state.list.push(payload);
     },
-    deleteTask: (state, { payload }: PayloadAction<number>) => {
+    delete: (state, { payload }: PayloadAction<number>) => {
       const index = state.list.findIndex((item) => item.id === payload);
       if (index >= 0) {
         state.list.splice(index, 1);
@@ -29,7 +28,7 @@ export const tasksSlice = createSlice({
         state.list[index] = payload;
       }
     },
-    setTasks: (state, { payload }: PayloadAction<Task[]>) => {
+    set: (state, { payload }: PayloadAction<Task[]>) => {
       state.list = payload;
     },
   },
@@ -62,4 +61,4 @@ export const tasksSlice = createSlice({
   },
 });
 
-export const actions = tasksSlice.actions;
+export const { actions } = tasksSlice;

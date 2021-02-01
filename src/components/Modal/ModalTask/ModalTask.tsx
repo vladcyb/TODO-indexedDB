@@ -1,14 +1,17 @@
-import React, { FC, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { createCn } from 'bem-react-classname';
 import { createOrEdit, EditTaskModalStateType, ModalActionType } from '../../../shared/constants';
-import { Button, Input, Modal, Select, Textarea } from '../../index';
+import { Button } from '../../Button';
+import { Input } from '../../Input';
+import { Modal } from '../Modal';
+import { Textarea } from '../../Textarea';
+import { Select } from '../../Select';
 import { useAppDispatch } from '../../../store';
 import { useInput } from '../../../shared/hooks/useInput';
 import { TasksThunk } from '../../../store/tasksSlice/thunk';
 import { useTabulation } from '../useTabulation';
 import { Category } from '../../../shared/types';
 import './style.css';
-
 
 const cn = createCn('modalTask');
 
@@ -18,18 +21,15 @@ type PropsType = {
   onClose: () => void
   categories: Category[]
   initialState?: EditTaskModalStateType
-}
+};
 
-
-export const ModalTask: FC<PropsType> = (
-  {
-    mode,
-    onClose,
-    id,
-    initialState,
-    categories,
-  }) => {
-
+export const ModalTask = ({
+  mode,
+  onClose,
+  id,
+  initialState,
+  categories,
+}: PropsType) => {
   /* state */
   const [categoryId, setCategoryId] = useState<number | undefined>(initialState?.categoryId);
   const [description, setDescription] = useState<string>(initialState?.description || '');
@@ -41,6 +41,7 @@ export const ModalTask: FC<PropsType> = (
   const ref = useRef<HTMLDivElement>(null);
   useTabulation(
     ref,
+    // eslint-disable-next-line max-len
     '.input__input, .select, textarea, .modalTask__createControl, .modalTask__closeControl, .modal__close',
     1,
     5,
@@ -89,6 +90,7 @@ export const ModalTask: FC<PropsType> = (
               className={cn('name')}
               label="Имя"
               placeholder="Введите имя задачи"
+              name="name"
               autoFocus
               maxLength={255}
               {...nameInput}

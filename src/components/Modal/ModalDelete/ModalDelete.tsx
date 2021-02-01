@@ -1,6 +1,7 @@
-import { FC, useMemo, useRef } from 'react';
+import React, { useMemo, useRef } from 'react';
 import { createCn } from 'bem-react-classname';
-import { Button, Modal } from '../../index';
+import { Button } from '../../Button';
+import { Modal } from '../Modal';
 import { SectionType, taskOrCategoryWords } from '../../../shared/constants';
 import { useTabulation } from '../useTabulation';
 import { useAppDispatch } from '../../../store';
@@ -9,36 +10,31 @@ import { TasksThunk } from '../../../store/tasksSlice/thunk';
 import { Category, Task } from '../../../shared/types';
 import './style.css';
 
-
 type PropsType = {
   currentState: SectionType
   onClose: () => void
   targetId: number
   tasks: Task[]
   categories: Category[]
-}
+};
 
 const cn = createCn('modalDelete');
 
-
-export const ModalDelete: FC<PropsType> = (
-  {
-    currentState,
-    onClose,
-    targetId,
-    categories,
-    tasks,
-  }) => {
-
+export const ModalDelete = ({
+  currentState,
+  onClose,
+  targetId,
+  categories,
+  tasks,
+}: PropsType) => {
   /* hooks */
   const dispatch = useAppDispatch();
   const targetName = useMemo<string | undefined>(
-    () => {
-      return currentState === SectionType.CATEGORIES ?
-        categories.find((item) => item.id === targetId)?.name :
-        tasks.find((item) => item.id === targetId)!.name;
-      // eslint-disable-next-line
-    }, [],
+    () => (currentState === SectionType.CATEGORIES
+      ? categories.find((item) => item.id === targetId)?.name
+      : tasks.find((item) => item.id === targetId)!.name),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
   );
   const ref = useRef<HTMLDivElement>(null);
   useTabulation(ref, 'button', 1, 2);
@@ -55,7 +51,6 @@ export const ModalDelete: FC<PropsType> = (
     }
   };
 
-
   return (
     <Modal
       className={cn()}
@@ -64,7 +59,12 @@ export const ModalDelete: FC<PropsType> = (
       reference={ref}
     >
       <div className={cn('body')}>
-        Вы действительно хотите удалить {taskOrCategoryWords[currentState][1]} {targetName}?
+        Вы действительно хотите удалить
+        {' '}
+        {taskOrCategoryWords[currentState][1]}
+        {' '}
+        {targetName}
+        ?
       </div>
       <div className={cn('controls')}>
         <Button

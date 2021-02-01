@@ -7,10 +7,10 @@ export const useTabulation = (
   initialIndex: number,
   lastIndex: number,
 ) => {
-
   /* state */
-  const [focusableElements, setFocusableElements] =
-    useState<NodeListOf<HTMLButtonElement> | undefined>(undefined);
+  const [focusableElements, setFocusableElements] = useState<
+  NodeListOf<HTMLButtonElement> | undefined
+  >(undefined);
   const [focusedButtonIndex, setFocusedButtonIndex] = useState(initialIndex);
 
   /* methods */
@@ -28,7 +28,7 @@ export const useTabulation = (
   useEffect(() => {
     window.addEventListener('keydown', tabulate);
     return () => window.removeEventListener('keydown', tabulate);
-    // eslint-disable-next-line
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [focusedButtonIndex]);
 
   useEffect(() => {
@@ -41,7 +41,7 @@ export const useTabulation = (
     if (focusableElements) {
       try {
         focusableElements[focusedButtonIndex].focus();
-      }catch(e: any) {
+      } catch (e: any) {
         console.log(`ERROR! focusedButtonIndex: ${focusedButtonIndex}`);
       }
     }
