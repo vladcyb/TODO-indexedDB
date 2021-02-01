@@ -73,7 +73,7 @@ export const ModalCategory = ({
       onClose={onClose}
       reference={ref}
     >
-      <form onSubmit={handleConfirm}>
+      <form onSubmit={handleConfirm} autoComplete="off">
         <Input
           className={cn('name')}
           label="Имя"

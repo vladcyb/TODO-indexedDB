@@ -6,7 +6,7 @@ import { AppThunk } from '../../store/appSlice/thunk';
 import { CategoriesThunk } from '../../store/categoriesSlice/thunk';
 import { TasksThunk } from '../../store/tasksSlice/thunk';
 import { LoadingStatusType, SectionType } from '../../shared/constants';
-// import { Preloader } from '../../Preloader';
+import { Preloader } from '../../Preloader';
 import { StateType as Tasks } from '../../store/tasksSlice/types';
 import { StateType as Categories } from '../../store/categoriesSlice/types';
 import './style.css';
@@ -69,17 +69,24 @@ export const List = ({
         );
       }
       return (
-        tasks.list.map((item) => (
-          <ListItem
-            key={item.id}
-            id={item.id!}
-            name={item.name}
-            description={item.description}
-            categoryName={getCategoryName(item.categoryId)}
-            onEdit={onItemEdit}
-            onDelete={onItemDelete}
-          />
-        ))
+        <>
+          {tasks.list.map((item) => (
+            <ListItem
+              key={item.id}
+              id={item.id!}
+              name={item.name}
+              description={item.description}
+              categoryName={getCategoryName(item.categoryId)}
+              onEdit={onItemEdit}
+              onDelete={onItemDelete}
+            />
+          ))}
+          {isLoading && (
+            <div className={cn('preloader')}>
+              <Preloader />
+            </div>
+          )}
+        </>
       );
     }
     if (!isLoading && !categories.list.length) {
@@ -90,16 +97,23 @@ export const List = ({
       );
     }
     return (
-      categories.list.map((item) => (
-        <ListItem
-          key={item.id}
-          id={item.id!}
-          name={item.name}
-          description={item.description}
-          onDelete={onItemDelete}
-          onEdit={onItemEdit}
-        />
-      ))
+      <>
+        {categories.list.map((item) => (
+          <ListItem
+            key={item.id}
+            id={item.id!}
+            name={item.name}
+            description={item.description}
+            onDelete={onItemDelete}
+            onEdit={onItemEdit}
+          />
+        ))}
+        {isLoading && (
+          <div className={cn('preloader')}>
+            <Preloader />
+          </div>
+        )}
+      </>
     );
   };
 

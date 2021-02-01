@@ -83,7 +83,7 @@ export const ModalTask = ({
       onClose={onClose}
       reference={ref}
     >
-      <form onSubmit={handleConfirm}>
+      <form onSubmit={handleConfirm} autoComplete="off">
         <div className={cn('body')}>
           <div className={cn('grid')}>
             <Input
