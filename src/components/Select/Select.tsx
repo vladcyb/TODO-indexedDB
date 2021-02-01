@@ -31,8 +31,10 @@ export const Select = ({
   const toggle = () => {
     setIsOpened((value) => !value);
   };
-  const handleKeyDown = () => {
-    // TODO
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === 'Enter') {
+      toggle();
+    }
   };
 
   /* classes */
