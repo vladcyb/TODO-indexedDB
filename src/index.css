@@ -6,6 +6,15 @@
     box-sizing: border-box;
 }
 
+body {
+    background: #DBE2EF;
+}
+
+body.noScroll {
+    overflow: hidden;
+    padding-right: 17px;
+}
+
 button {
     cursor: pointer;
     background: none;

@@ -1,0 +1,16 @@
+.list {
+    width: 1000px;
+}
+
+.list__preloader {
+    margin-top: 100px;
+}
+
+.list__empty {
+    font-family: Roboto, serif;
+    font-size: 20px;
+    margin-top: 50px;
+    text-align: center;
+    color: #3F72AF;
+    font-style: italic;
+}

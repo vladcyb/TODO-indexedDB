@@ -1,12 +1,8 @@
 .select {
-    border: 2px solid #3F72AF;
-    border-radius: 4px;
-    height: 46px;
+    height: 55px;
     font-size: 20px;
     line-height: 46px;
     font-family: Roboto, serif;
-    display: grid;
-    grid-template-columns: 1fr 44px;
     cursor: pointer;
     position: relative;
     outline: none;
@@ -17,9 +13,20 @@
     user-select: none;
 }
 
-.select:hover,
-.select:focus {
+.select__grid {
+    display: grid;
+    grid-template-columns: 1fr 44px;
+    margin-top: 11px;
+}
+
+.select:hover .select__fieldset,
+.select:focus .select__fieldset {
     border-color: #257FEA;
+}
+
+.select:hover .select__label,
+.select:focus .select__label {
+    color: #257FEA;
 }
 
 .select__title {
@@ -42,7 +49,7 @@
 .select__list {
     background: #DBE2EF;
     position: absolute;
-    top: 50px;
+    top: 62px;
     left: -2px;
     right: -2px;
     border: 2px solid #257FEA;
@@ -54,6 +61,8 @@
 .select__item {
     height: 46px;
     padding: 0 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .select__item:hover {
@@ -88,4 +97,35 @@
 
 .select__title_default {
     color: #808080;
+}
+
+.select__fieldset {
+    position: absolute;
+    top: 9px;
+    left: 0;
+    right: 0;
+    height: 46px;
+    border: 2px solid #3F72AF;
+    border-radius: 4px;
+}
+
+.select__legend {
+    font-family: Roboto, serif;
+    font-size: 18px;
+    height: 5px;
+    color: #3F72AF;
+    margin-left: 8px;
+    padding: 0 6px;
+    visibility: hidden;
+}
+
+.select__label {
+    font-family: Roboto, serif;
+    font-size: 18px;
+    line-height: 20px;
+    color: #3F72AF;
+    position: absolute;
+    left: 8px;
+    padding: 0 6px;
+    pointer-events: none;
 }

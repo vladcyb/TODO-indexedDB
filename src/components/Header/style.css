@@ -1,26 +1,27 @@
-.Header {
+.header {
     background: #3F72AF;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 20px 30px 20px 24px;
+    position: relative;
 }
 
-.Header__left {
+.header__left {
     display: flex;
     justify-content: flex-start;
     align-items: center;
 }
 
-.Header__title {
+.header__title {
     font-family: Roboto, serif;
     font-size: 36px;
     line-height: 40px;
     color: white;
 }
 
-.Header__navBtn {
+.header__navBtn {
     font-family: Roboto, serif;
     font-size: 24px;
     line-height: 40px;
@@ -28,18 +29,22 @@
     text-decoration: underline;
 }
 
-.Header__ul {
+.header__navBtn_opened {
+    color: #8FB6FF;
+}
+
+.header__ul {
     list-style: none;
     margin-left: 58px;
 }
 
-.Header__ul li {
+.header__ul li {
     display: inline;
     padding: 0 8px;
     position: relative;
 }
 
-.Header__ul li:not(:last-child):after {
+.header__ul li:not(:last-child):after {
     content: url("data:image/svg+xml,%3Csvg width='2' height='28' viewBox='0 0 2 28' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='2' height='28' fill='%23DBE2EF'/%3E%3C/svg%3E%0A");
     display: inline;
     position: absolute;
@@ -47,7 +52,7 @@
     top: -6px;
 }
 
-.Header__addTask {
+.header__addTask {
     font-family: Roboto, serif;
     font-size: 20px;
     line-height: 46px;
@@ -55,6 +60,6 @@
     color: white;
 }
 
-.Header__addTask:hover {
+.header__addTask:hover {
     text-decoration: underline;
 }
